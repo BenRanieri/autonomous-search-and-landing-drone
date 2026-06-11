@@ -19,8 +19,8 @@
 - Decided to postpone webcam setup
 
 ### Next Session
-- How does an arUco marker work?
-- How can an arUco marker be read?
+- How does an ArUco marker work?
+- How can an ArUco marker be read?
 
 
 
