@@ -47,3 +47,37 @@
 
 ### Next Session
 - How do i use the marker corner coordinates to find position errors for the drone?
+
+
+
+
+## Session 3 - June 12, 2026
+### Accomplished
+- Extracted individual marker corner coordinates
+- Calculated marker center coordinates from corner coordinates
+- Calculated image center coordinats
+- Learned how OpenCV stores marker data
+- Visualized detected marker outline
+- Visualized marker center point
+
+### Problems
+- Confusion with understanding nested corner array structure
+- OpenCV drawing functions not accepting floating-point values
+- Marker visualizations difficult to see with default values
+
+### Debugging
+- Printed corner array type and dimensions
+- Examiend individual corner coordinates
+- Investigated OpenCV drawing function documentation
+- Tested different circle/outline sizes and colors
+
+## Solution
+- Extracted coordinates from corner array piecewise
+- Converted center coordinates to integer values using rounding
+- Added visual overlays to verify calculations
+- Increased circle size and color for visibility
+
+## Next Session
+- How can position errors generate guidance commands?
+- How should the UAV respond when a target is offset from the center
+- How does this relate to a proportional controller?

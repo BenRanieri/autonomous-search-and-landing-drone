@@ -16,11 +16,14 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * ArUco marker generation
 * ArUco marker detection
 * Marker corner extraction
+* Marker center estimation
+* Position error calculation
+* Detection visualization
 
 ### In Progress
 
-* Marker center estimation
-* Position error calculation
+* Guidance logic
+*Target centering methods
 
 ### Planned
 
@@ -48,6 +51,8 @@ Guidance System
 Flight Controller
 ↓
 UAV Motion
+
+
 
 Mission States:
 
