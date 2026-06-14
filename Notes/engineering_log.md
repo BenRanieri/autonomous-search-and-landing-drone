@@ -80,4 +80,42 @@
 ## Next Session
 - How can position errors generate guidance commands?
 - How should the UAV respond when a target is offset from the center
+
+
+
+
+
+## Session 4 - June 13, 2026
+### Accomplished
+- Designed guidance logic using errorX and errorY
+- Added movement commands for left, right, forward, backward, and maintain
+- Added a tolerance to ignore small errors
+- Converted guidance logic into a usable function with parameters
+- Created test cases for guidance function
+- Incorporated guidance function to detect_marker.py
+- Replaced image display with saved image output
+
+### Problems
+- Buildup of different types of code in one folder
+- Unsure of use cases for printing values and returning values
+- OpenCV imshow() command produced font warning in terminal
+- Needed to access a function from Guidance folder in the Vision folder
+
+### Debugging
+- Tested positive and negative errorX values
+- Tested positive and negative errorY values
+- Tested small errors inside and outside of tolerance
+- Tested the various test cases on function
+- Confirmed final marker visualization can be saved as an image
+
+### Solution
+- Put decision making code in Guidance folder
+- Used a tolerance of 10 pixels
+- Returned commandX and commandY from guidance function
+- Printed returned commandX and commandY in detect_marker.py
+- Replaced cv2.imshow() with cv2.imwrite()
+
+### Next Session
+- Can my other code be packaged into functions?
+- How can the vision to guidance pipeline be improved?
 - How does this relate to a proportional controller?

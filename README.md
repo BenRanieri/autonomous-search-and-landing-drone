@@ -19,11 +19,15 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Marker center estimation
 * Position error calculation
 * Detection visualization
+* Guidance logic
+* Tolerance logic
+* Vision to guidance connection
 
 ### In Progress
 
-* Guidance logic
-*Target centering methods
+* Code cleanup
+* Modular vision to guidance connection
+* Proportional control setup
 
 ### Planned
 
@@ -32,7 +36,10 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Target acquisition
 * Target tracking
 * Precision landing
+* Hardware selection
 * Hardware integration
+* Simulated drone correction behavior
+* Mission-state logic
 
 
 
