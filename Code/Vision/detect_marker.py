@@ -6,44 +6,67 @@ projectRoot = Path(__file__).resolve().parents[2]
 sys.path.append(str(projectRoot))
 from Code.Guidance.guidance_logic import get_guidance_command
 
-dictionary = aruco.getPredefinedDictionary(aruco.DICT_4X4_50)
+# Detects an ArUco marker then returns its markerID and position error relative to image center
+# Returns None values if image is not loaded or marker is not detected
+# Second input allows saving visualization of the marker
+def detect_marker_position(imagePath, saveVisualization):
 
-markerImage = cv2.imread("Code/Vision/aruco_marker_border.png")
+  dictionary = aruco.getPredefinedDictionary(aruco.DICT_4X4_50)
 
-detector = aruco.ArucoDetector(dictionary)
+  markerImage = cv2.imread(imagePath)
+  if markerImage is None: 
+    print("Image could not be loaded") 
+    return None, None, None
 
-corners, ids, rejectedImgPoints = detector.detectMarkers(markerImage)
+  detector = aruco.ArucoDetector(dictionary)
 
-print("IDs:", ids)
+  corners, ids, rejectedImgPoints = detector.detectMarkers(markerImage)
 
-topLeftX = corners[0][0][0][0]
-topLeftY = corners[0][0][0][1]
-topRightX = corners[0][0][1][0]
-topRightY = corners[0][0][1][1]
-bottomRightX = corners[0][0][2][0]
-bottomRightY = corners[0][0][2][1]
-bottomLeftX = corners[0][0][3][0]
-bottomLeftY = corners[0][0][3][1]
+  if ids is None:
+    print("No Marker Detected")
+    return None, None, None
+  
+  markerID = ids[0][0]
 
-markerCenterX = (topLeftX + topRightX + bottomLeftX + bottomRightX) / 4
-markerCenterY = (topLeftY + topRightY + bottomLeftY + bottomRightY) / 4
-markerCenterCoords = [round(markerCenterX), round(markerCenterY)]
+  markerCorners = corners[0][0]  
+  markerCenterX = markerCorners[:, 0].mean()
+  markerCenterY = markerCorners[:, 1].mean()
 
-imageSize = markerImage.shape
-imageCenterX = imageSize[1] / 2
-imageCenterY = imageSize[0] / 2
+  imageSize = markerImage.shape
+  imageCenterX = imageSize[1] / 2
+  imageCenterY = imageSize[0] / 2
 
-errorX = markerCenterX - imageCenterX
-errorY = markerCenterY - imageCenterY
+  errorX = markerCenterX - imageCenterX
+  errorY = markerCenterY - imageCenterY
 
-commandX, commandY = get_guidance_command(errorX, errorY, 10)
-print("errorX: ", errorX)
-print("errorY: ", errorY)
-print("commandX: ", commandX)
-print("commandY: ", commandY)
+  if saveVisualization:
+    markerImageCopy = markerImage.copy()
+    markerOutline = aruco.drawDetectedMarkers(markerImageCopy, corners)
+    markerCenterCoords = (round(markerCenterX), round(markerCenterY))
+    markerOutline = cv2.circle(markerImageCopy, markerCenterCoords, 10, (0, 255, 0))
 
-markerImageCopy = markerImage.copy()
-markerOutline = aruco.drawDetectedMarkers(markerImageCopy, corners)
-markerOutline = cv2.circle(markerImageCopy, markerCenterCoords, 10, (0, 255, 0))
+    cv2.imwrite("Code/Vision/detected_marker_output.png", markerOutline)
+    print("Visualization saved to Code/Vision/detected_marker_output.png")
 
-cv2.imwrite("Code/Vision/detected_marker_output.png", markerOutline)
+  return errorX, errorY, markerID
+
+
+
+if __name__ == "__main__":
+
+  #imagePath = "FakeImage"
+  imagePath = "Code/Vision/aruco_marker_border.png"
+  errorX, errorY, markerID = detect_marker_position(imagePath, True)
+
+  if errorX is None or errorY is None:
+    print("No guidance command available")
+    
+  else:
+    tolerance = 10
+    commandX, commandY = get_guidance_command(errorX, errorY, tolerance)
+    print("Marker detected")
+    print("MarkerID: ", markerID)
+    print("errorX: ", errorX)
+    print("errorY: ", errorY)
+    print("commandX: ", commandX)
+    print("commandY: ", commandY)

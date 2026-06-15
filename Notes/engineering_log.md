@@ -119,3 +119,43 @@
 - Can my other code be packaged into functions?
 - How can the vision to guidance pipeline be improved?
 - How does this relate to a proportional controller?
+
+
+
+
+
+## Session 5 - June 15, 2026
+### Accomplished
+- Refactored marker detection code into configurable function
+- Added separate function path for saving marker visualization
+- Added markerID as a return
+- Added error handling for image loading errors
+- Added error handling for no marker detection errors
+- Added conditional test cases to separate test cases from function
+- Added NumPy style array indexing for marker center calculation
+- Confirmed function handles all intended cases correctly
+
+### Problems
+- Original marker detection became too long of a script
+- Variables needed for visualization unusable outside of function
+- Code would crash if image path or marker detection errors
+- Marker center calculation manually extracted every corner coordinate
+- Visualization code was disruptive if not optional
+
+### Debugging
+- Tested function with ArUco marker image
+- Tested function with fake image path
+- Tested no marker case
+- Confirmed None values prevented guidance function from running
+- Compared rewritten marker center calculations to old calculations
+- Tested enabling and disabling optional marker visualization
+
+### Solution
+- Wrapped marker detection and error calculation into detect_marker_position()
+- Returned None variables when image path or marker detection error
+- Used .mean() and array indexing to calculate marker center
+- Added saveVisualization as boolean input to decide if image should be visualized
+
+### Next Session
+- How can guidance commands become stronger or weaker based on error values
+- How can errorX and errorY be converetd into movement strength

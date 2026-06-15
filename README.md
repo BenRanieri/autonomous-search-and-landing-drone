@@ -22,6 +22,11 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Guidance logic
 * Tolerance logic
 * Vision to guidance connection
+* Reusable marker detection function
+* Marker ID extraction
+* Image load error handling
+* Marker detection error handling
+* Optional marker visualization output
 
 ### In Progress
 
@@ -31,10 +36,12 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 
 ### Planned
 
+*Proportional controller for smoother target tracking
 * Autonomous takeoff
 * Search behavior
 * Target acquisition
 * Target tracking
+* Controlled descent over marker
 * Precision landing
 * Hardware selection
 * Hardware integration
