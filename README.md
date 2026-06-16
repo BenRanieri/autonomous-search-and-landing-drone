@@ -27,16 +27,23 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Image load error handling
 * Marker detection error handling
 * Optional marker visualization output
+* Proportional guidance command function
+* Proportional gain using kp
+* Maximum command limiting using maxCommand
 
 ### In Progress
 
-* Code cleanup
+* Controller testing
 * Modular vision to guidance connection
-* Proportional control setup
+* Preparing for simulated marker movement
 
 ### Planned
 
-*Proportional controller for smoother target tracking
+* Test proportional control across multiple marker positions
+* Simulate drone correction behavior
+* Visualize controller response
+* Use marker apparent size for distance-aware control
+* Mission-state logic
 * Autonomous takeoff
 * Search behavior
 * Target acquisition
@@ -45,10 +52,6 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Precision landing
 * Hardware selection
 * Hardware integration
-* Simulated drone correction behavior
-* Mission-state logic
-
-
 
 ## System Architecture
 

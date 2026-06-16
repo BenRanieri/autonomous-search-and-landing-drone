@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 projectRoot = Path(__file__).resolve().parents[2]
 sys.path.append(str(projectRoot))
-from Code.Guidance.guidance_logic import get_guidance_command
+from Code.Guidance.guidance_logic import get_guidance_command, get_proportional_command
 
 # Detects an ArUco marker then returns its markerID and position error relative to image center
 # Returns None values if image is not loaded or marker is not detected
@@ -56,7 +56,8 @@ if __name__ == "__main__":
 
   #imagePath = "FakeImage"
   imagePath = "Code/Vision/aruco_marker_border.png"
-  errorX, errorY, markerID = detect_marker_position(imagePath, True)
+  saveVisualization = True
+  errorX, errorY, markerID = detect_marker_position(imagePath, saveVisualization)
 
   if errorX is None or errorY is None:
     print("No guidance command available")
@@ -70,3 +71,8 @@ if __name__ == "__main__":
     print("errorY: ", errorY)
     print("commandX: ", commandX)
     print("commandY: ", commandY)
+    kp = 0.01
+    maxCommand = 1
+    xCommand, yCommand = get_proportional_command(errorX, errorY, tolerance, kp, maxCommand)
+    print("xCommand:", xCommand)
+    print("yCommand:", yCommand)

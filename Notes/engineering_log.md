@@ -79,7 +79,7 @@
 
 ## Next Session
 - How can position errors generate guidance commands?
-- How should the UAV respond when a target is offset from the center
+- How should the UAV respond when a target is offset from the center?
 
 
 
@@ -157,5 +157,45 @@
 - Added saveVisualization as boolean input to decide if image should be visualized
 
 ### Next Session
-- How can guidance commands become stronger or weaker based on error values
-- How can errorX and errorY be converetd into movement strength
+- How can guidance commands become stronger or weaker based on error values?
+- How can errorX and errorY be converetd into movement strength?
+
+
+
+
+
+## Session 6 - June 16, 2026
+### Accomplished
+- Created a new proportional command function for guidance
+- Added a kp input to proportional command function
+- Added a max command input to limit command strength
+- Created test cases to ensure proportional command worked with marker errors
+- Created test cases to ensure proportional command worked with simulated errors
+- Connected the proportional command function to the marker detection pipeline
+
+### Problems
+- Original guidance function outputted only string instructions
+- Error values needed to still respect the set tolerance
+- Proportional command function were unrestricted originally
+- Updating function signature caused old function calls to become invalid
+- Limiting command size needed to preserve original command sign
+
+### Debugging
+- Tested function with original ArUco marker image
+- Tested function with simulated offset errors
+- Tested function with small errors within tolerance
+- Tested functions with errors greater than maxiumum command value
+- Tested function calls before changing to new function signature
+
+### Solution
+- Created a new function with numeric command outputs
+- Added tolerance logic to set small error commands to zero
+- Added proportional gain using kp
+- Added maxCommand logic to cap command size
+- Updated old function calls to match new function signature
+- Preserved sign of command values after limiting their magnitude
+
+### Next Session
+- How can proportional command outputs be tested with multiple marker positions?
+- How can simulated marker errors be used to evaluate controller behavior?
+- How can controller output be logged for debugging?
