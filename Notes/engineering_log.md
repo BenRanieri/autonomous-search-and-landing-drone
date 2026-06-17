@@ -199,3 +199,44 @@
 - How can proportional command outputs be tested with multiple marker positions?
 - How can simulated marker errors be used to evaluate controller behavior?
 - How can controller output be logged for debugging?
+
+
+
+
+
+## Session 7 - June 17, 2026
+### Accomplished
+- Created test_controller.py in guidance folder
+- Imported get_guidance_command and get_proportional_controller
+- Created test cases for different errorX and errorY values
+- Tested deadband and maximum command cases
+- Added controller region labels for deadband, proportional, and capped behavior
+- Confirmed string commands and numeric commands match expected behavior
+
+### Problems
+- Initial test case list was missing commas between tuples
+- Proportional controller and string controller did not agree on tolerance boundary behavior
+- Proportional controller used < tolerance while string controller used <= tolerance
+- Difficulty telling if test cases were in the deadband, proportional, or capped region
+
+### Debugging
+- Ran test cases with zero and small errors
+- Ran test cases with positive and negative errorX and errorY values
+- Tested values exactly at the tolerance boundary
+- Tested values bordering the tolerance boundary
+- Tested values at the command limit
+- Tested values bordering the command limit
+- Compared string outputs to numeric outputs
+- Added printed controller region labels to make test output easier to read
+
+### Solution
+- Fixed test case list formatting
+- Changed proportional deadband logic to match <= tolerance
+- Confirmed deadband error logic in strings and numbers matched
+- Confirmed errors outside tolerance range produced proportional commands
+- Added a helper function to classify controller behavior as deadband, proportional, or capped
+
+### Next Session
+- How can controller behavior be tested with simulated marker movement over time?
+- How can marker error change as the drone corrects its position?
+- How can the controller output be used to update a simple simulated drone position

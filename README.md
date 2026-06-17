@@ -4,8 +4,6 @@ A computer-vision-guided autonomous UAV capable of autonomous takeoff, search, t
 
 This project combines robotics, aerospace engineering, computer vision, guidance and control, simulation, and hardware integration to develop a complete autonomous aerial mission system.
 
-
-
 ## Current Status
 
 ### Completed
@@ -30,18 +28,22 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Proportional guidance command function
 * Proportional gain using kp
 * Maximum command limiting using maxCommand
+* Controller test script
+* Deadband boundary testing
+* Command limit boundary testing
+* Contoller behavior classification
 
 ### In Progress
 
 * Controller testing
-* Modular vision to guidance connection
-* Preparing for simulated marker movement
+* Preparing for drone correction simulation
+* Simulated marker movement
 
 ### Planned
 
-* Test proportional control across multiple marker positions
 * Simulate drone correction behavior
 * Visualize controller response
+* Test proportional controller over time
 * Use marker apparent size for distance-aware control
 * Mission-state logic
 * Autonomous takeoff

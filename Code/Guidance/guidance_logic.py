@@ -33,14 +33,14 @@ def get_guidance_command(errorX, errorY, tolerance):
 
 
 def get_proportional_command(errorX, errorY, tolerance, kp, maxCommand):
-  if abs(errorX) < tolerance:
+  if abs(errorX) <= tolerance:
     commandX = 0
   else:
     commandX = errorX * kp
     if abs(commandX) > maxCommand:
       commandX = (commandX / abs(commandX)) * maxCommand
 
-  if abs(errorY) < tolerance:
+  if abs(errorY) <= tolerance:
     commandY = 0
   else:
     commandY = errorY * kp
