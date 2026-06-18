@@ -32,18 +32,22 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Deadband boundary testing
 * Command limit boundary testing
 * Contoller behavior classification
+* Closed loop controller simulation
+* Simulated error correction over time
+* SImulation success detection with boolean flags
+* Reusable run_simulation function
+* Optional step-by-step simulation output
+* Import friendly simulation test structure
 
 ### In Progress
 
-* Controller testing
-* Preparing for drone correction simulation
-* Simulated marker movement
+* Visualizing controller response
+* Preparing to store simulation history values
+* Preparing for controller performance plots
 
 ### Planned
 
-* Simulate drone correction behavior
 * Visualize controller response
-* Test proportional controller over time
 * Use marker apparent size for distance-aware control
 * Mission-state logic
 * Autonomous takeoff

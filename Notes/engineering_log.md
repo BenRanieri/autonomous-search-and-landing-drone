@@ -240,3 +240,49 @@
 - How can controller behavior be tested with simulated marker movement over time?
 - How can marker error change as the drone corrects its position?
 - How can the controller output be used to update a simple simulated drone position
+
+
+
+
+
+## Session 8 - June 18, 2026
+### Accomplished
+- Created simulate_controller.py in Guidance folder
+- Imported get_proportional_controller from guidance_logic.py
+- Built a simple closed loop controller simulation
+- Started simulation with fake marker error values
+- Ran proportional controller over multiple time steps
+- Updated errorX and errorY values based on controller output
+- Added stop condition for when target enters tolerance zone
+- Added targetCentered flag to track if simulation was success
+- Added multiple test cases
+- Refactored simulation into run_simulation() function
+- Added printSteps boolean input for detailed output
+
+### Problems
+- The first simulation loop repeated the same error value since no updating
+- One test case did not center within original number of steps
+- Running multiple test cases required changing starting error values manually
+- Printing every step for every test case made output hard to read
+
+### Debugging
+- Ran the controller once to confirm proportional commands correct
+- Ran the controller inside a loop to test repeated command generation
+- Added simulated error updates using correctionScale
+- Tested whether simulated marker error decreased over time or not
+- Added a tolerance based stop condition once centered
+- Increased numSteps so larger errors had time to converge
+- Tested several starting error cases with positive, negative, large, and centered errors
+- Verified all test cases ended inside tolerance range
+
+### Solution
+- Added simulated correction updates based on controller output
+- Added a success condition using abs(errorX/Y) <= tolerance
+- Added a targetCentered flag to distinguish success and running out of steps
+- Added printSteps to separate detailed output for summary testing
+- Confirmed proportional controller consistently drives marker error into tolerance
+
+### Next Session
+- How can the simulated controller response be visualized?
+- How can error values be stored during simulation?
+- How can controller behavior be evaluated using visualizations?
