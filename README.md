@@ -43,17 +43,22 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Controller error response plot
 * Controller command response plot
 * Saved controller response visualizations
+* Marker apparent size calculation
+* Desired marker size logic
+* Marker size tolerance logic
+* Closer, maintain, and further distance command testing
+* Distance aware guidance connection to marker detection
 
 ### In Progress
 
-* Evaluating controller behavior using simulation plots
-* Preparing for distance aware control using marker apparent size
+* Combining position guidance with distance aware guidance
+* Preparing numeric approach or descent commands
 * Preparing for mission-state logic
 
 ### Planned
 
-* Visualize controller response
-* Use marker apparent size for distance-aware control
+* Combine position guidance with distance aware guidance
+* Add numeric appraoch and descent commands
 * Mission-state logic
 * Autonomous takeoff
 * Search behavior

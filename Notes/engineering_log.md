@@ -291,7 +291,7 @@
 
 
 
-## Session 9 - June 30, 2026
+## Session 9 - June 20, 2026
 ### Accomplished
 - Added history tracking to the controller simulation
 - Created stepHistory, errorXHistory, errorYHistory, xCommandHistory, and yCommandHistory
@@ -331,3 +331,48 @@
 - How can the marker apparent size estimate distance from target?
 - How can distance aware behavior be added to the controller
 - How can the UAV decide when to approach, descend, or hold position?
+
+
+
+
+
+## Session 10 - June 21, 2026
+### Accomplished
+- Added marker apparent size calulcation to detect_marker.py
+- Extracted four detected marker corners
+- Calculated the top, bottom, left, and right marker side lengths
+- Computed markerSize as average of the side lengths
+- Updated detect_marker_position to return markerSize
+- Updated error detection returns to include four None variables
+- Printed detected marker size in test case
+- Added get_size_command() to guidance_logic.py
+- Added desiredSize and sizeTolerance variables
+- Connected marker size command to detect_marker
+
+### Problems
+- Marker size value was calculated but not printed
+- get_size_command() used two if statements instead of if and elif
+- Old test case comments had outdated command names and calls
+- Maintain case overwrote the closer case when marker was small
+
+### Debugging
+- Printed markerSize from detect_marker.py
+- Confirmed detected marker size was 399 pixels
+- compared detected marker size to known corner positions
+- Tested fake marker size below, inside, and above desired size
+- Found 250 returned maintain instead of closer
+- Identified second if statement caused else statement to ignore first if
+- Replaced second if with elif
+- Re-ran fake marker size tests to confirm correct outputs
+
+### Solution
+- Calculated marker apparent size by averaging detected size lengths
+- Returned markerSize from marker detection function
+- Used desiredSize and sizeTolerance to define acceptable size range
+- Used if/elif/else so only one conditional branch runs
+- Confirmed marker image gave a size of 399 pixels and returns maintain
+
+### Next Session
+- How can marker size commands be turned into numeric appraoch and descent commands?
+- How can position control and size control be combined into one guidance output?
+- How can the UAV decide whether to center or approach first?

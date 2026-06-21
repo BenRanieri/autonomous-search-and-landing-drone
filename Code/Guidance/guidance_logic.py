@@ -59,3 +59,16 @@ def get_proportional_command(errorX, errorY, tolerance, kp, maxCommand):
 #commandX, commandY = get_proportional_command(errorX, errorY, tolerance, kp)
 #print("commandX:", commandX)
 #print("commandY:", commandY)
+
+
+
+
+def get_size_command(markerSize, desiredSize, sizeTolerance):
+  if markerSize < desiredSize - sizeTolerance:
+    sizeCommand = "closer"
+  elif markerSize > desiredSize + sizeTolerance:
+    sizeCommand = "further"
+  else:
+    sizeCommand = "maintain"
+
+  return sizeCommand
