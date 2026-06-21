@@ -38,12 +38,17 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Reusable run_simulation function
 * Optional step-by-step simulation output
 * Import friendly simulation test structure
+* Controller error history recording
+* Controller command history recording
+* Controller error response plot
+* Controller command response plot
+* Saved controller response visualizations
 
 ### In Progress
 
-* Visualizing controller response
-* Preparing to store simulation history values
-* Preparing for controller performance plots
+* Evaluating controller behavior using simulation plots
+* Preparing for distance aware control using marker apparent size
+* Preparing for mission-state logic
 
 ### Planned
 

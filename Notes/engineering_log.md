@@ -286,3 +286,48 @@
 - How can the simulated controller response be visualized?
 - How can error values be stored during simulation?
 - How can controller behavior be evaluated using visualizations?
+
+
+
+
+
+## Session 9 - June 30, 2026
+### Accomplished
+- Added history tracking to the controller simulation
+- Created stepHistory, errorXHistory, errorYHistory, xCommandHistory, and yCommandHistory
+- Stored simulated error values at each controller step
+- Stored proportional command outputs at each controller step
+- Updated run_simulation() to return simulation history values
+- Created an error response plot for errorX and errorY
+- Added positive and negative tolerance lines to the error plot
+- Created a command response plot for xCommand and yCommand
+- Saved the error plot as controller_error_plot.png
+- Saved the command plot as controller_command_plot.png
+- Closed each plot after saving it
+
+### Problems
+- The simulation only returned final result, therefore no way to visualize over time behavior
+- The plotting code required the simulation to return history lists instead of final values
+- Confusion on where the plotting code belonged within the script
+- Multiple plots needed to be saved without interferance
+
+### Debugging
+- Added history lists without changing other simulation behavior
+- Confirmed simulation had same results after changes
+- Returned history lists from run_simulation()
+- Created error plots to verify error lines entered tolerance band
+- Created the command plot to check for decreasing command values over time
+- Added plt.close() to separate the figures
+
+### Solution
+- Stored error and command values during each simulation step
+- Used Matplotlib to plot error over time
+- Used dashed horizontal lines to show tolerance boundaries
+- Saved both plots to Guidance folder
+- Confirmed controller drives simulated marker error into tolerance
+- Confirmed the controller commands decreased as error became smaller
+
+### Next Session
+- How can the marker apparent size estimate distance from target?
+- How can distance aware behavior be added to the controller
+- How can the UAV decide when to approach, descend, or hold position?

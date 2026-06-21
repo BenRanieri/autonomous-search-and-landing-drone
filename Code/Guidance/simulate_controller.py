@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 from guidance_logic import get_proportional_command
 
 def run_simulation(startingErrorX, startingErrorY, numSteps, correctionScale, tolerance, kp, maxCommand, printSteps):
@@ -5,8 +6,21 @@ def run_simulation(startingErrorX, startingErrorY, numSteps, correctionScale, to
   errorX = startingErrorX
   errorY = startingErrorY
   targetCentered = False
+
+  stepHistory = []
+  errorXHistory = []
+  errorYHistory = []
+  xCommandHistory = []
+  yCommandHistory = []
+
   for step in range(numSteps):
     xCommand, yCommand = get_proportional_command(errorX, errorY, tolerance, kp, maxCommand)
+
+    stepHistory.append(step)
+    errorXHistory.append(errorX)
+    errorYHistory.append(errorY)
+    xCommandHistory.append(xCommand)
+    yCommandHistory.append(yCommand)
 
     if printSteps:
       print("step:", step)
@@ -23,7 +37,7 @@ def run_simulation(startingErrorX, startingErrorY, numSteps, correctionScale, to
     errorX = errorX - xCommand * correctionScale
     errorY = errorY - yCommand * correctionScale
 
-  return errorX, errorY, targetCentered
+  return errorX, errorY, targetCentered, stepHistory, errorXHistory, errorYHistory, xCommandHistory, yCommandHistory
 
 
 
@@ -45,7 +59,7 @@ if __name__ == "__main__":
   ]
 
   for startingErrorX, startingErrorY in testCases:
-    finalErrorX, finalErrorY, targetCentered = run_simulation(startingErrorX, startingErrorY, numSteps, correctionScale, tolerance, kp, maxCommand, printSteps)
+    finalErrorX, finalErrorY, targetCentered,  stepHistory, errorXHistory, errorYHistory, xCommandHistory, yCommandHistory = run_simulation(startingErrorX, startingErrorY, numSteps, correctionScale, tolerance, kp, maxCommand, printSteps)
 
     print("Starting errorX:", startingErrorX)
     print("Starting errorY:", startingErrorY)
@@ -53,3 +67,32 @@ if __name__ == "__main__":
     print("Final errorY:", finalErrorY)
     print("Target centered:", targetCentered)
     print()
+
+  plotErrorX = 200
+  plotErrorY = -100
+  finalErrorX, finalErrorY, targetCentered,  stepHistory, errorXHistory, errorYHistory, xCommandHistory, yCommandHistory = run_simulation(startingErrorX, startingErrorY, numSteps, correctionScale, tolerance, kp, maxCommand, printSteps)
+  plt.figure()
+  plt.plot(stepHistory, errorXHistory, label="errorX")
+  plt.plot(stepHistory, errorYHistory, label="errorY")
+  plt.axhline(tolerance, linestyle="--", label="positive tolerance")
+  plt.axhline(-tolerance, linestyle="--", label="negative tolerance")
+  plt.xlabel("Step")
+  plt.ylabel("Error")
+  plt.title("Controller Error Over Time")
+  plt.legend()
+  plt.grid(True)
+  plt.savefig("Code/Guidance/controller_error_plot.png")
+  plt.close()
+  print("Saved controller error plot")
+
+  plt.figure()
+  plt.plot(stepHistory, xCommandHistory, label="xCommand")
+  plt.plot(stepHistory, yCommandHistory, label="yCommand")
+  plt.xlabel("Step")
+  plt.ylabel("Command")
+  plt.title("Controller Commands Over Time")
+  plt.legend()
+  plt.grid(True)
+  plt.savefig("Code/Guidance/controller_command_plot.png")
+  plt.close()
+  print("Saved controller command plot")
