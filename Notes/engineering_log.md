@@ -376,3 +376,44 @@
 - How can marker size commands be turned into numeric appraoch and descent commands?
 - How can position control and size control be combined into one guidance output?
 - How can the UAV decide whether to center or approach first?
+
+
+
+
+
+## Session 11 - June 22, 2026
+### Accomplished
+- Added a combined guidance function to guidance_logic.py
+- Created get_combined_guidance() using commandX, commandY, and sizeCommand
+- Set the combined guidance priority to center the marker before adjusting distance
+- Added logic for centered, closer, further, and maintain cases
+- Tested combined guidance with fake command values
+- Imported get_combined_guidance() into detect_marker.py
+- Printed the combined command in the marker detection output
+- Confirmed the combined command responds correctly to maintain, closer, and further cases
+
+### Problem
+- Combined guidance needed priority order
+- Temporary test print statements would have made guidance_logic.py run tests every time it was imported
+- Fake size settings were needed to test closer and further behavior
+
+### Debugging
+- Tested combined guidance with fake command inputs
+- Confirmed that non-maintain X or Y commands produce a center command
+- Confirmed that centered position with a small marker-size condition produces a closer command
+- Confirmed that centered position with a large marker-size condition produces a further command
+- Confirmed that centered position with acceptable marker size produces maintain
+- Ran detect_marker.py with the real marker image
+
+### Solution
+- Added get_combined_guidance() to combine position and size guidance
+- Used position guidance as the first priority
+- Used size guidance only after X and Y position commands were both maintain
+- Returned one high-level combined command from the separate guidance outputs
+- Connected the combined command to the real marker detection pipeline
+
+### Next Session
+- How can combined guidance commands become numeric movement commands?
+- How can closer and further become approach/descent behavior?
+- How can combined guidance be a foundation for mission state logic?
+ 

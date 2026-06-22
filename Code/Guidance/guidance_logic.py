@@ -72,3 +72,16 @@ def get_size_command(markerSize, desiredSize, sizeTolerance):
     sizeCommand = "maintain"
 
   return sizeCommand
+
+
+def get_combined_guidance(commandX, commandY, sizeCommand):
+  if commandX != "maintain" or commandY != "maintain":
+    combinedCommand = "center"
+  elif sizeCommand == "closer":
+    combinedCommand = "closer"
+  elif sizeCommand == "further":
+    combinedCommand = "further"
+  else:
+    combinedCommand = "maintain"
+
+  return combinedCommand

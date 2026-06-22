@@ -48,17 +48,21 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Marker size tolerance logic
 * Closer, maintain, and further distance command testing
 * Distance aware guidance connection to marker detection
+* Combined guidance command function
+* Position and size guidance integration
+* Center first guidance priority logic
 
 ### In Progress
 
-* Combining position guidance with distance aware guidance
-* Preparing numeric approach or descent commands
+* Converting combined guidance into numeric movement
+* Preparing approach and descent behavior
 * Preparing for mission-state logic
 
 ### Planned
 
-* Combine position guidance with distance aware guidance
-* Add numeric appraoch and descent commands
+* Numeric movement from combined guidance
+* Approach behavior
+* Descent over marker behavior
 * Mission-state logic
 * Autonomous takeoff
 * Search behavior
