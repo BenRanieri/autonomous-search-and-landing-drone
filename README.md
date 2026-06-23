@@ -51,16 +51,21 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Combined guidance command function
 * Position and size guidance integration
 * Center first guidance priority logic
+* Numeric elevation command function
+* Approach command tuning value
+* Final numeric movement command function
+* Final movement output connected to marker detection
 
 ### In Progress
 
-* Converting combined guidance into numeric movement
-* Preparing approach and descent behavior
+* Testing final movement commands in simulation
+* Preparing X, Y, and Z command history tracking
 * Preparing for mission-state logic
 
 ### Planned
 
-* Numeric movement from combined guidance
+* Simulated movement behavior
+* Command history plots
 * Approach behavior
 * Descent over marker behavior
 * Mission-state logic

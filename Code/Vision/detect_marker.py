@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 projectRoot = Path(__file__).resolve().parents[2]
 sys.path.append(str(projectRoot))
-from Code.Guidance.guidance_logic import get_guidance_command, get_proportional_command, get_size_command, get_combined_guidance
+from Code.Guidance.guidance_logic import get_guidance_command, get_proportional_command, get_size_command, get_combined_guidance, get_elevation_command, get_final_movement
 
 # Detects an ArUco marker then returns its markerID and position error relative to image center
 # Returns None values if image is not loaded or marker is not detected
@@ -100,3 +100,11 @@ if __name__ == "__main__":
 
     combinedCommand = get_combined_guidance(commandX, commandY, sizeCommand)
     print("Combined Command:", combinedCommand)
+
+    approachCommand = 0.3
+    zCommand = get_elevation_command(sizeCommand, approachCommand)
+    xFinal, yFinal, zFinal = get_final_movement(combinedCommand, xCommand, yCommand, zCommand)
+
+    print("x:", xFinal)
+    print("y:", yFinal)
+    print("z:", zFinal)

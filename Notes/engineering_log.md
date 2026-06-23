@@ -416,4 +416,49 @@
 - How can combined guidance commands become numeric movement commands?
 - How can closer and further become approach/descent behavior?
 - How can combined guidance be a foundation for mission state logic?
- 
+
+
+
+
+
+## Session 12 - June 23, 2026
+### Accomplished
+- Designed the final numeric movement command structure
+- Added get_elevation_command() to convert size commands into numeric Z commands
+- Used approachCommand as a fixed numeric strength for closer and further movement
+- Tested closer, further, and maintain elevation outputs
+- Added get_final_movement() to combine high-level guidance with numeric movement commands
+- Tested final movement outputs for center, closer, further, and maintain cases
+- Connected the final movement command chain into detect_marker.py
+- Tested forced closer and further cases using temporary desired-size changes
+
+### Problems
+- The Z command needed its own numeric conversion before being used in the final movement function
+- approachCommand needed to be defined as a fixed tuning value rather than an image-derived value
+- A conditional statement using or "further" would have always evaluated as true
+- Temporary test print statements appeared in the output before the real marker detection output
+
+### Debugging
+- Separated size-command interpretation from final movement generation
+- Tested get_elevation_command() with closer, further, and maintain inputs
+- Fixed the final movement conditional by checking whether combinedCommand was closer or further correctly
+- Tested final movement outputs for center, closer, further, and maintain cases
+- Removed temporary test print statements after confirming expected outputs
+- Ran detect_marker.py with the real marker image
+- Temporarily changed desiredSize to force closer and further cases
+- Restored the desired marker size after testing
+
+### Solution
+- Added a numeric elevation command function for distance adjustment
+- Used negative Z for closer or descent behavior
+- Used positive Z for further or increase-distance behavior
+- Added a final movement command function to output numeric X, Y, and Z commands
+- Used proportional X and Y commands only when the combined command is center
+- Used Z movement only when the combined command is closer or further
+- Used zero movement for maintain
+- Confirmed that forced closer and further cases produce the correct final Z commands
+
+### Next Session
+- How can final movement commands be tested in simulation over time?
+- How can X, Y, and Z command histories be stored and plotted
+- How can final movement outputs become the foundation for mission state logic

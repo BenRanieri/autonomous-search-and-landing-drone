@@ -85,3 +85,33 @@ def get_combined_guidance(commandX, commandY, sizeCommand):
     combinedCommand = "maintain"
 
   return combinedCommand
+
+
+
+
+def get_elevation_command(sizeCommand, approachCommand):
+  if sizeCommand == "closer":
+    zCommand = -approachCommand
+  elif sizeCommand == "further":
+    zCommand = approachCommand
+  else:
+    zCommand = 0
+
+  return zCommand
+
+
+def get_final_movement(combinedCommand, xCommand, yCommand, zCommand):
+  if combinedCommand == "center":
+    xFinal = xCommand
+    yFinal = yCommand
+    zFinal = 0
+  elif combinedCommand == "closer" or combinedCommand == "further":
+    xFinal = 0
+    yFinal = 0
+    zFinal = zCommand
+  else:
+    xFinal = 0
+    yFinal = 0
+    zFinal = 0
+  
+  return xFinal, yFinal, zFinal
