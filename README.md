@@ -55,16 +55,18 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Approach command tuning value
 * Final numeric movement command function
 * Final movement output connected to marker detection
+* Final movement simulation
+* Finalized movement command loop
+* Center, distance-adjust, and maintain behavior sequence
 
 ### In Progress
 
-* Testing final movement commands in simulation
-* Preparing X, Y, and Z command history tracking
-* Preparing for mission-state logic
+* Refactoring final movement simulation into reusable function
+* Testing multiple final movement starting cases
+* Preparing final movement history tracking and plots
 
 ### Planned
 
-* Simulated movement behavior
 * Command history plots
 * Approach behavior
 * Descent over marker behavior

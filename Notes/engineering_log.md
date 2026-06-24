@@ -462,3 +462,46 @@
 - How can final movement commands be tested in simulation over time?
 - How can X, Y, and Z command histories be stored and plotted
 - How can final movement outputs become the foundation for mission state logic
+
+
+
+
+
+## Session 13 - June 24, 2026
+### Accomplished
+- Created simulate_final_movement.py in Guidance
+- Imported full guidance function chain
+- Added controller tuning for tolerance, gain, max commands, desired size, tolerance, and approach
+- One step final movement command calculation
+- Built a loop to simulate X, Y, and Z over time
+- updated simulated errorX, errorY, and markerSize in loop
+- Added stopping conditions
+- Confirmed simulation centers, then adjusts distance through test cases
+
+### Problems
+- First one step output had string commands and numeric outputs assigned to wrong variables
+- First loop version had no clear stopping condition
+- Simulation had no way to prevent movement after target was centered and sized
+
+### Debugging
+- Printed all intermediate guidance outputs to see command chain
+- Compared get_guidance_command() outputs to get_proportional_command() outputs
+- Fixed variable assignment order
+- Verified off center targets produced correct output
+- Verified Z movement stayed zero while off centered
+- Added simulated updates for X, Y, and marker size
+- Added loop condition with maxSteps
+- Added a success check when X, Y, and Z reached 0
+- Tested cases with marker being too large and marker being too small
+
+### Solution
+- Created a full simulation of final movement command pipeline
+- Used final X and Y to reduce position error
+- Used final Z to change marker size
+- Demonsrated the full behavior sequence: center then adjust distance then maintain
+- Confirmed simulation stops with both end conditioms
+
+### Next Session
+- How can movement simulation be refactored into a reusable function?
+- How can multiple starting cases be tested automatically?
+- How can final X, Y, Z, error, and size histories be stored and plotted?
