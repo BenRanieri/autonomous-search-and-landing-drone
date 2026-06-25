@@ -505,3 +505,51 @@
 - How can movement simulation be refactored into a reusable function?
 - How can multiple starting cases be tested automatically?
 - How can final X, Y, Z, error, and size histories be stored and plotted?
+
+
+
+
+
+## Session 14 - June 25, 2026
+### Accomplished
+- Refactored simulate_final_movement.py into a reusable simulation function
+- Created run_movement_simulation()
+- Moved the final movement simulation loop inside the function
+- Initialized errorX, errorY, markerSize, and step inside the function
+- Returned final errorX, errorY, markerSize, xFinal, yFinal, and zFinal
+- Added an import-friendly if __name__ == "__main__": test section
+- Added multiple starting test cases
+- Added short final summary output for each test case
+- Confirmed that all test cases ended centered and at the correct simulated distance
+
+### Problems
+- The first refactor was missing markerSize = startingMarkerSize inside the function
+- desiredSize was initially misspelled in the function input list
+- The simulation needed useful return values so final results could be summarized outside the function
+- The test code needed to be placed under if __name__ == "__main__": so importing the function would not automatically run test cases
+- One summary print line accidentally printed startingMarkerSize as the starting X error
+- A leftover step = 0 outside the function was no longer needed
+
+### Debugging
+- Compared the refactored function output against the original script output
+- Added final return values from the simulation function
+- Ran the simulation with detailed step printing to confirm behavior still matched Session 13
+- Switched to printSteps = False for shorter multi-case testing
+- Added several starting cases to test different behavior paths
+- Checked that final X, Y, and Z movement commands ended at zero
+- Checked that final position errors ended inside the tolerance band
+- Checked that final marker sizes ended inside the desired size range
+- Fixed the incorrect starting error print statement
+
+### Solution
+- Converted the final movement simulation into a reusable function
+- Kept the simulation file import-friendly
+- Added automatic testing over multiple starting conditions
+- Returned final simulation values for clean summary output
+- Confirmed that all tested cases end with final movement 0, 0, 0
+- Confirmed that the simulation remains ready for future history tracking and plotting
+
+### Next Session
+- How can final movement histories be stored during simulation?
+- How can X, Y, Z, error, and markerSize values be plotted over time?
+- How can simulation plots evaluate guidance behavior?

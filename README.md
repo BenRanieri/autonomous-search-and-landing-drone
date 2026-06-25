@@ -58,12 +58,15 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Final movement simulation
 * Finalized movement command loop
 * Center, distance-adjust, and maintain behavior sequence
+* Reusable final movement simulation function
+* Final movement simulation summaries
+* Final movement testing for closer, further, maintain, and large error cases
 
 ### In Progress
 
-* Refactoring final movement simulation into reusable function
-* Testing multiple final movement starting cases
-* Preparing final movement history tracking and plots
+* Final movement tracking history
+* Final X, Y, and Z movement behavior plotting
+* Plotting simulated error and markerSize behavior
 
 ### Planned
 
