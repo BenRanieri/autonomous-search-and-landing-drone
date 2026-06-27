@@ -61,16 +61,21 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Reusable final movement simulation function
 * Final movement simulation summaries
 * Final movement testing for closer, further, maintain, and large error cases
+* Final movement simulation history rtacking
+* Final movement position error plot
+* Final movement marker size plot
+* Final movement command plot
 
 ### In Progress
 
-* Final movement tracking history
-* Final X, Y, and Z movement behavior plotting
-* Plotting simulated error and markerSize behavior
+* Cleaning up final movement simulation and plotting code
+* Preparing final movement results for documentation
+* Preparing for mission-state logic
 
 ### Planned
 
-* Command history plots
+* Plot helper functions
+* Explain final movement results
 * Approach behavior
 * Descent over marker behavior
 * Mission-state logic

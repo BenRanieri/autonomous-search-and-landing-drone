@@ -553,3 +553,53 @@
 - How can final movement histories be stored during simulation?
 - How can X, Y, Z, error, and markerSize values be plotted over time?
 - How can simulation plots evaluate guidance behavior?
+
+
+
+
+
+## Session 15 - June 26, 2026
+### Accomplished
+- Added history tracking to run_movement_simulation()
+- Created history lists for simulation step, X error, Y error, marker size, final X command, final Y command, final Z command, and combined command
+- Stored simulation values during each loop iteration
+- Updated the simulation function to return final values and history lists
+- Updated the test-case call to receive the returned history values
+- Confirmed that adding history tracking did not change the simulation results
+- Created a position-error plot for errorX and errorY
+- Created a marker-size plot
+- Created a final movement command plot for xFinal, yFinal, and zFinal
+- Saved all final movement plots to the Guidance folder
+
+### Problems
+- The simulation originally only returned final values, so behavior over time could not be visualized
+- History lists needed to be returned from both the success case and the maximum-step case
+- The function call at the bottom of the file needed to receive many more returned values
+- Plotting needed to be added without changing the existing simulation behavior
+- Plot code needed to stay inside the main test section so importing the function later would not automatically create plots
+
+### Debugging
+- Added history lists without changing the original final summary output
+- Ran the file to confirm the printed outputs stayed the same
+- Updated both return statements to include all history lists
+- Updated the receiving variables in the test loop
+- Ran the simulation again to confirm the summaries still worked
+- Created a dedicated plotting case using a starting position and marker size that required both centering and distance adjustment
+- Checked the position-error plot to confirm that X and Y errors moved into the tolerance band
+- Checked the marker-size plot to confirm that marker size changed after centering
+- Checked the final-command plot to confirm that X/Y commands acted first and Z command acted second
+- Used plt.close() after saving plots to cleanly close each figure
+
+### Solution
+- Stored simulation history values at every step
+- Returned both final values and histories from run_movement_simulation()
+- Used Matplotlib to visualize position error over time
+- Used Matplotlib to visualize marker-size behavior over time
+- Used Matplotlib to visualize final X, Y, and Z commands over time
+- Confirmed visually that the final movement simulation centers first, adjusts distance second, and stops once complete
+- Saved the plots as reusable project artifacts for documentation and future analysis
+
+### Next Session
+- How can the simulation and plotting code be cleaned up for readability?
+- How can repeated plot code be refactored into helper functions?
+- How can the final movement simulation results be explained clearly in the README?
