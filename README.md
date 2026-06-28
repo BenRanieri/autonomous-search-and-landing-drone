@@ -65,11 +65,13 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Final movement position error plot
 * Final movement marker size plot
 * Final movement command plot
+* Reusable final movement plotting helper
+* Refactored final movement plotting code
 
 ### In Progress
 
-* Cleaning up final movement simulation and plotting code
-* Preparing final movement results for documentation
+* Explaining final movement simulation results in the README
+* Preparing controller behavior summary
 * Preparing for mission-state logic
 
 ### Planned

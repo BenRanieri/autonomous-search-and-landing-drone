@@ -603,3 +603,41 @@
 - How can the simulation and plotting code be cleaned up for readability?
 - How can repeated plot code be refactored into helper functions?
 - How can the final movement simulation results be explained clearly in the README?
+
+## Session 16 - June 28, 2026
+### Accomplished
+- Cleaned up repeated plotting code in simulate_final_movement.py
+- Created a reusable save_plot() helper function
+- Made save_plot() handle one or more plotted histories
+- Added support for optional horizontal reference lines
+- Used default values of None for plots that do not need horizontal lines
+- Replaced the final movement command plot block with a save_plot() call
+- Replaced the position-error plot block with a save_plot() call
+- Replaced the marker-size plot block with a save_plot() call
+- Kept all plotting code inside if __name__ == "__main__":
+- Added a short comment explaining the purpose of save_plot()
+- Confirmed all three plots still save correctly after refactoring
+### Problems
+- The plotting section had three repeated blocks of similar Matplotlib code
+- The command plot did not need horizontal lines, but the error and marker-size plots did
+- The helper function needed to work for both cases
+- The function needed to handle multiple plotted histories, not just one
+- The code needed to stay import-friendly
+### Debugging
+- First tested the helper function on the command plot because it did not need tolerance lines
+- Confirmed the command plot still saved correctly
+- Added optional horizontalLines and horizontalLabels inputs
+- Used default values so plots without horizontal lines could skip those arguments
+- Replaced the error plot with a helper call using positive and negative tolerance lines
+- Replaced the marker-size plot with a helper call using upper and lower size tolerance lines
+- Ran the simulation again and confirmed all three plots saved correctly
+### Solution
+- Refactored repeated plotting code into one reusable helper function
+- Used a loop with zip(plottedHistories, labels) to plot multiple histories
+- Used optional horizontal reference lines for tolerance bands
+- Simplified the bottom of the simulation file to three short save_plot() calls
+- Improved code readability and reusability without changing the simulation behavior
+### Next Session
+- How can the final movement simulation results be explained clearly in the README?
+- How can controller behavior be summarized using the saved plots?
+- How can this simulation connect to mission-state logic?

@@ -62,6 +62,27 @@ def run_movement_simulation(startingErrorX, startingErrorY, startingMarkerSize, 
     markerSize = markerSize - zFinal * zCorrectionScale
     step = step + 1
 
+
+def save_plot(stepHistory, plottedHistories, labels, xLabel, yLabel, title, savePath, horizontalLines=None, horizontalLabels=None):
+
+  plt.figure()
+
+  for plottedHistory, label in zip(plottedHistories, labels):
+    plt.plot(stepHistory, plottedHistory, label=label)
+
+  if horizontalLines is not None:
+    for horizontalLine, horizontalLabel in zip(horizontalLines, horizontalLabels):
+      plt.axhline(horizontalLine, linestyle="--", label=horizontalLabel)
+
+  plt.xlabel(xLabel)
+  plt.ylabel(yLabel)
+  plt.title(title)
+  plt.legend()
+  plt.grid(True)
+  plt.savefig(savePath)
+  plt.close()
+
+  print("Saved plot:", savePath)
  
 
 if __name__ == "__main__":
@@ -102,6 +123,7 @@ if __name__ == "__main__":
 
 
 
+
   plotStartingErrorX = 200
   plotStartingErrorY = -100
   plotStartingMarkerSize = 250
@@ -121,27 +143,6 @@ if __name__ == "__main__":
   plt.close()
   print("Saved final movement error plot")
 
-  plt.figure()
-  plt.plot(stepHistory, markerSizeHistory, label="markerSize")
-  plt.axhline(desiredSize + sizeTolerance, linestyle="--", label="upper size tolerance")
-  plt.axhline(desiredSize - sizeTolerance, linestyle="--", label="lower size tolerance")
-  plt.xlabel("Step")
-  plt.ylabel("Marker Size")
-  plt.title("Final Movement Marker Size Over Time")
-  plt.legend()
-  plt.grid(True)
-  plt.savefig("Code/Guidance/final_movement_marker_size_plot.png")
-  plt.close()
-  print("Saved final movement marker size plot")
-
-  plt.plot(stepHistory, xFinalHistory, label="xFinal")
-  plt.plot(stepHistory, yFinalHistory, label="yFinal")
-  plt.plot(stepHistory, zFinalHistory, label="zFinal")
-  plt.xlabel("Step")
-  plt.ylabel("Final Command")
-  plt.title("Final Movement Commands Over Time")
-  plt.legend()
-  plt.grid(True)
-  plt.savefig("Code/Guidance/final_movement_command_plot.png")
-  plt.close()
-  print("Saved final movement command plot")
+save_plot(stepHistory, [errorXHistory, errorYHistory], ["errorX", "errorY"], "Step", "Position Error", "Final Movement Position Error Over Time", "Code/Guidance/final_movement_error_plot.png", [tolerance, -tolerance], ["positive tolerance", "negative tolerance"])
+save_plot(stepHistory, [xFinalHistory, yFinalHistory, zFinalHistory], ["xFinal", "yFinal", "zFinal"], "Step", "Final Command", "Final Movement Commands Over Time","Code/Guidance/final_movement_command_plot.png")
+save_plot(stepHistory, [markerSizeHistory], ["markerSize"], "Step", "Marker Size", "Final Movement Marker Size Over Time", "Code/Guidance/final_movement_marker_size_plot.png", [desiredSize + sizeTolerance, desiredSize - sizeTolerance], ["upper size tolerance", "lower size tolerance"])
