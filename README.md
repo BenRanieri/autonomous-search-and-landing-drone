@@ -31,10 +31,10 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Controller test script
 * Deadband boundary testing
 * Command limit boundary testing
-* Contoller behavior classification
+* Controller behavior classification
 * Closed loop controller simulation
 * Simulated error correction over time
-* SImulation success detection with boolean flags
+* Simulation success detection with boolean flags
 * Reusable run_simulation function
 * Optional step-by-step simulation output
 * Import friendly simulation test structure
@@ -61,25 +61,25 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Reusable final movement simulation function
 * Final movement simulation summaries
 * Final movement testing for closer, further, maintain, and large error cases
-* Final movement simulation history rtacking
+* Final movement simulation history tracking
 * Final movement position error plot
 * Final movement marker size plot
 * Final movement command plot
 * Reusable final movement plotting helper
 * Refactored final movement plotting code
+* Final movement simulation README documentation
+* Final movement plot explanations
 
 ### In Progress
 
-* Explaining final movement simulation results in the README
 * Preparing controller behavior summary
-* Preparing for mission-state logic
+* Preparing for mission state logic
 
 ### Planned
 
-* Plot helper functions
-* Explain final movement results
-* Approach behavior
-* Descent over marker behavior
+* Summarize command history
+* Test final movement simulation
+* Tune controller parameters
 * Mission-state logic
 * Autonomous takeoff
 * Search behavior
@@ -89,6 +89,8 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Precision landing
 * Hardware selection
 * Hardware integration
+
+
 
 ## System Architecture
 
@@ -108,7 +110,7 @@ UAV Motion
 
 
 
-Mission States:
+## Mission States
 
 TAKEOFF
 ↓
@@ -124,3 +126,16 @@ LAND
 ↓
 DISARM
 
+
+
+## Final Movement Simulation
+
+The final movement simulation tests how the UAV responds when the landing marker is visible but not yet centered or at the desired apparent size. The simulation uses X and Y position errors to determine how the UAV should move laterally, and it uses marker size to estimate whether the UAV should move closer to or farther from the target. The guidance system prioritizes centering the marker in the camera view before adjusting distance from the marker. Once the marker is centered within the position tolerance, the system uses the marker-size command to adjust the UAV's distance from the target. The simulation stops once the marker is centered and the marker size is within the desired range.
+
+### Simulation Plots
+The final movement simulation saves three plots:
+
+* final_movement_error_plot.png shows how the X and Y position errors change over time.
+* final_movement_marker_size_plot.png shows how the apparent marker size changes as the UAV adjusts distance from the target.
+* final_movement_command_plot.png shows the final X, Y, and Z movement commands produced by the guidance system.
+* Together, these plots show that the UAV centers the marker first, adjusts distance second, and stops once the final movement condition is reached.

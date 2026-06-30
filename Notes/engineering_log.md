@@ -641,3 +641,55 @@
 - How can the final movement simulation results be explained clearly in the README?
 - How can controller behavior be summarized using the saved plots?
 - How can this simulation connect to mission-state logic?
+
+
+
+
+
+## Session 17 - June 30, 2026
+
+### Accomplished
+
+- Added a Final Movement Simulation section to the README
+- Explained what the final movement simulation tests
+- Described how X and Y position errors are used for lateral guidance
+- Described how marker size is used to estimate distance from the target
+- Explained the center-first guidance behavior
+- Explained how the system adjusts distance after the marker is centered
+- Added a Simulation Plots subsection
+- Documented the purpose of the final movement error plot
+- Documented the purpose of the final movement marker-size plot
+- Documented the purpose of the final movement command plot
+- Updated the README Completed section
+- Cleaned up the README In Progress section
+- Removed completed items from the Planned section
+
+### Problems
+
+- No new code was written during this session
+- The main challenge was explaining the simulation clearly without making the README too long
+- The README needed to describe what the plots prove, not just list that they exist
+- The Planned and In Progress sections needed to be updated so they matched the current project status
+
+### Debugging
+
+- Reviewed the README structure to decide where the new section should go
+- Placed the Final Movement Simulation section after the system architecture and mission state overview
+- Revised the paragraph to make the wording more engineering-focused
+- Changed the Simulation Plots heading into a subsection
+- Changed the final plot summary from a bullet point into a normal explanatory sentence
+- Fixed README status sections so completed documentation was no longer listed as in progress
+
+### Solution
+
+- Added a clear README explanation for the final movement simulation
+- Connected the simulation behavior to UAV landing logic
+- Explained that the system centers the marker first, adjusts distance second, and stops when the final condition is reached
+- Documented the saved plots so someone viewing the GitHub repository can understand what they show
+- Improved the README as a project presentation artifact
+
+### Next Session
+
+- How can combined command history be summarized?
+- How can the controller behavior be explained using command modes?
+- How can command summaries prepare the project for mission-state logic?
