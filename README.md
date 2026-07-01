@@ -69,16 +69,20 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Refactored final movement plotting code
 * Final movement simulation README documentation
 * Final movement plot explanations
+* Final movement command history summary
+* Command mode counting for final movement simulation
+* Readable command summary output
 
 ### In Progress
 
+* Preparing harder final movement simulation test cases
 * Preparing controller behavior summary
 * Preparing for mission state logic
 
 ### Planned
 
-* Summarize command history
-* Test final movement simulation
+* Test harder final movement simulation cases
+* Compare command summaries across starting conditions
 * Tune controller parameters
 * Mission-state logic
 * Autonomous takeoff
@@ -87,6 +91,7 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Target tracking
 * Controlled descent over marker
 * Precision landing
+* Physical command interface
 * Hardware selection
 * Hardware integration
 

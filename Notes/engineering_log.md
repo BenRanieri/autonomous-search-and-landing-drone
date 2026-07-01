@@ -693,3 +693,55 @@
 - How can combined command history be summarized?
 - How can the controller behavior be explained using command modes?
 - How can command summaries prepare the project for mission-state logic?
+
+
+
+
+
+## Session 18 - July 1, 2026
+
+### Accomplished
+
+- Added command history summarization to `simulate_final_movement.py`
+- Created `summarize_command_history()`
+- Used `combinedCommandHistory` to count how many steps were spent in each command mode
+- Created a command summary dictionary
+- Fixed the dictionary-checking logic in the command summary function
+- Printed the command summary for the dedicated plotting simulation case
+- Confirmed the command summary matched the expected behavior sequence
+- Added singular and plural formatting for `step` and `steps`
+- Created `print_command_summary()` to clean up the main section of the file
+- Refactored command summary printing into a helper function
+- Confirmed the output stayed the same after refactoring
+
+### Problems
+
+- The first version of the command summary checked `commandHistory` instead of `commandSummary`
+- This caused the dictionary count logic to fail because new commands were not being added correctly
+- The command summary output initially printed raw dictionary-style output
+- The main section of the file became cluttered when the print loop was written directly at the bottom
+- The output needed to distinguish between `1 step` and multiple `steps`
+
+### Debugging
+
+- Reviewed how the command history list stores command modes like `center`, `closer`, `further`, and `maintain`
+- Fixed the condition so the function checks whether each command is already in the summary dictionary
+- Ran the simulation and confirmed the summary output showed `center`, `closer`, and `maintain`
+- Verified that the command summary was based on the dedicated plotting simulation case
+- Added a cleaner print loop for readable output
+- Refactored the print loop into `print_command_summary()`
+- Re-ran the simulation and confirmed the same command summary was printed
+
+### Solution
+
+- Added a reusable command-history summary function
+- Counted how many simulation steps were spent in each command mode
+- Added readable terminal output for command summaries
+- Improved the simulation’s ability to explain controller behavior numerically
+- Confirmed that the final movement behavior follows the expected sequence: center first, adjust distance second, then maintain
+
+### Next Session
+
+- How can harder final movement simulation test cases be added?
+- How can command summaries be compared across multiple starting conditions?
+- How can these summaries help tune the controller?

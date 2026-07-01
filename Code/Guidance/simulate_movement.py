@@ -83,7 +83,27 @@ def save_plot(stepHistory, plottedHistories, labels, xLabel, yLabel, title, save
   plt.close()
 
   print("Saved plot:", savePath)
+
+
+def summarize_command_history(commandHistory):
+  commandSummary = {}
+  for command in commandHistory:
+    if command not in commandSummary:
+      commandSummary[command] = 1
+    else:
+      commandSummary[command] = commandSummary[command] + 1
+    
+  return commandSummary
+
  
+def print_command_summary(commandSummary):
+  print("Command summary:")
+  for command, count in commandSummary.items():
+    if count == 1:
+      print(command + ":", count, "step")
+    else:
+      print(command + ":", count, "steps")
+
 
 if __name__ == "__main__":
 
@@ -121,28 +141,14 @@ if __name__ == "__main__":
     print()
 
 
-
-
-
   plotStartingErrorX = 200
   plotStartingErrorY = -100
-  plotStartingMarkerSize = 250
-  errorX, errorY, markerSize, xFinal, yFinal, zFinal, stepHistory, errorXHistory, errorYHistory, markerSizeHistory, xFinalHistory, yFinalHistory, zFinalHistory, combinedCommandHistory = run_movement_simulation(plotStartingErrorX, plotStartingErrorY, startingMarkerSize, tolerance, kp, maxCommand, desiredSize, sizeTolerance, approachCommand, xyCorrectionScale, zCorrectionScale, maxSteps, printSteps)
+  plotStartingMarkerSize = 250  
+  errorX, errorY, markerSize, xFinal, yFinal, zFinal, stepHistory, errorXHistory, errorYHistory, markerSizeHistory, xFinalHistory, yFinalHistory, zFinalHistory, combinedCommandHistory = run_movement_simulation(plotStartingErrorX, plotStartingErrorY, plotStartingMarkerSize, tolerance, kp, maxCommand, desiredSize, sizeTolerance, approachCommand, xyCorrectionScale, zCorrectionScale, maxSteps, printSteps)
 
-  plt.figure()
-  plt.plot(stepHistory, errorXHistory, label="errorX")
-  plt.plot(stepHistory, errorYHistory, label="errorY")
-  plt.axhline(tolerance, linestyle="--", label="positive tolerance")
-  plt.axhline(-tolerance, linestyle="--", label="negative tolerance")
-  plt.xlabel("Step")
-  plt.ylabel("Position Error")
-  plt.title("Final Movement Position Error Over Time")
-  plt.legend()
-  plt.grid(True)
-  plt.savefig("Code/Guidance/final_movement_error_plot.png")
-  plt.close()
-  print("Saved final movement error plot")
+  save_plot(stepHistory, [errorXHistory, errorYHistory], ["errorX", "errorY"], "Step", "Position Error", "Final Movement Position Error Over Time", "Code/Guidance/final_movement_error_plot.png", [tolerance, -tolerance], ["positive tolerance", "negative tolerance"])
+  save_plot(stepHistory, [xFinalHistory, yFinalHistory, zFinalHistory], ["xFinal", "yFinal", "zFinal"], "Step", "Final Command", "Final Movement Commands Over Time","Code/Guidance/final_movement_command_plot.png")
+  save_plot(stepHistory, [markerSizeHistory], ["markerSize"], "Step", "Marker Size", "Final Movement Marker Size Over Time", "Code/Guidance/final_movement_marker_size_plot.png", [desiredSize + sizeTolerance, desiredSize - sizeTolerance], ["upper size tolerance", "lower size tolerance"])
 
-save_plot(stepHistory, [errorXHistory, errorYHistory], ["errorX", "errorY"], "Step", "Position Error", "Final Movement Position Error Over Time", "Code/Guidance/final_movement_error_plot.png", [tolerance, -tolerance], ["positive tolerance", "negative tolerance"])
-save_plot(stepHistory, [xFinalHistory, yFinalHistory, zFinalHistory], ["xFinal", "yFinal", "zFinal"], "Step", "Final Command", "Final Movement Commands Over Time","Code/Guidance/final_movement_command_plot.png")
-save_plot(stepHistory, [markerSizeHistory], ["markerSize"], "Step", "Marker Size", "Final Movement Marker Size Over Time", "Code/Guidance/final_movement_marker_size_plot.png", [desiredSize + sizeTolerance, desiredSize - sizeTolerance], ["upper size tolerance", "lower size tolerance"])
+  commandSummary = summarize_command_history(combinedCommandHistory)
+  print_command_summary(commandSummary)
