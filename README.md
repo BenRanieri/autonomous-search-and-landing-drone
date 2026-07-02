@@ -72,27 +72,33 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Final movement command history summary
 * Command mode counting for final movement simulation
 * Readable command summary output
+* Harder final movement simulation test cases
+* Labeled final movement test cases
+* Step-count output for final movement tests
+* Final movement stress-test evaluation
 
 ### In Progress
 
-* Preparing harder final movement simulation test cases
-* Preparing controller behavior summary
+* Comparing command summaries across test cases
+* Preparing controller parameter tuning
 * Preparing for mission state logic
 
 ### Planned
 
-* Test harder final movement simulation cases
+* Separate normal and stress test cases
 * Compare command summaries across starting conditions
 * Tune controller parameters
+* Physical command interface
 * Mission-state logic
-* Autonomous takeoff
-* Search behavior
+* Simulated autonomous takeoff
+* Autonomous search behavior
 * Target acquisition
 * Target tracking
+* Approach behavior
 * Controlled descent over marker
 * Precision landing
-* Physical command interface
-* Hardware selection
+* Hardware path comparison
+* Early parts shortlist
 * Hardware integration
 
 

@@ -51,11 +51,11 @@ def run_movement_simulation(startingErrorX, startingErrorY, startingMarkerSize, 
   
     if xFinal == 0 and yFinal == 0 and zFinal == 0:
       print("Target centered and correct distance")
-      return errorX, errorY, markerSize, xFinal, yFinal, zFinal, stepHistory, errorXHistory, errorYHistory, markerSizeHistory, xFinalHistory, yFinalHistory, zFinalHistory, combinedCommandHistory
+      return errorX, errorY, markerSize, xFinal, yFinal, zFinal, stepHistory, errorXHistory, errorYHistory, markerSizeHistory, xFinalHistory, yFinalHistory, zFinalHistory, combinedCommandHistory, step
   
     if step == maxSteps - 1:
       print("Simulation ended before reaching final position")
-      return errorX, errorY, markerSize, xFinal, yFinal, zFinal, stepHistory, errorXHistory, errorYHistory, markerSizeHistory, xFinalHistory, yFinalHistory, zFinalHistory, combinedCommandHistory
+      return errorX, errorY, markerSize, xFinal, yFinal, zFinal, stepHistory, errorXHistory, errorYHistory, markerSizeHistory, xFinalHistory, yFinalHistory, zFinalHistory, combinedCommandHistory, step
 
     errorX = errorX - xFinal * xyCorrectionScale
     errorY = errorY - yFinal * xyCorrectionScale
@@ -108,13 +108,17 @@ def print_command_summary(commandSummary):
 if __name__ == "__main__":
 
   testCases = [
-    (200, -100, 250),
-    (-150, 120, 500),
-    (0, 0, 250),
-    (0, 0, 500),
-    (5, -5, 400),
-    (300, 300, 400),
-    (-300, -300, 250)
+    (400, -300, 200),
+    (-400, 300, 650),
+    (30, 30, 200),
+    (30, 30, 650),
+    (500, -500, 400),
+    (0, 0, 200),
+    (0, 0, 650),
+    (20000, -100, 50),      # Stress test cases
+    (-15000, 120, 900),
+    (0, 0, 40000),
+    (-30000, 20000, 400)
   ]
 
   tolerance = 10
@@ -125,11 +129,11 @@ if __name__ == "__main__":
   approachCommand = 0.3
   xyCorrectionScale = 20
   zCorrectionScale = 50
-  maxSteps = 50
+  maxSteps = 5000
   printSteps = False
 
   for startingErrorX, startingErrorY, startingMarkerSize in testCases:
-    errorX, errorY, markerSize, xFinal, yFinal, zFinal, stepHistory, errorXHistory, errorYHistory, markerSizeHistory, xFinalHistory, yFinalHistory, zFinalHistory, combinedCommandHistory = run_movement_simulation(startingErrorX, startingErrorY, startingMarkerSize, tolerance, kp, maxCommand, desiredSize, sizeTolerance, approachCommand, xyCorrectionScale, zCorrectionScale, maxSteps, printSteps)
+    errorX, errorY, markerSize, xFinal, yFinal, zFinal, stepHistory, errorXHistory, errorYHistory, markerSizeHistory, xFinalHistory, yFinalHistory, zFinalHistory, combinedCommandHistory, step = run_movement_simulation(startingErrorX, startingErrorY, startingMarkerSize, tolerance, kp, maxCommand, desiredSize, sizeTolerance, approachCommand, xyCorrectionScale, zCorrectionScale, maxSteps, printSteps)
 
     print("Starting errorX:", startingErrorX)
     print("Starting errorY:", startingErrorY)
@@ -138,13 +142,14 @@ if __name__ == "__main__":
     print("Final errorY:", errorY)
     print("Final markerSize:", markerSize)
     print("Final movement:", xFinal, yFinal, zFinal)
+    print("Steps needed:", step)
     print()
 
 
   plotStartingErrorX = 200
   plotStartingErrorY = -100
   plotStartingMarkerSize = 250  
-  errorX, errorY, markerSize, xFinal, yFinal, zFinal, stepHistory, errorXHistory, errorYHistory, markerSizeHistory, xFinalHistory, yFinalHistory, zFinalHistory, combinedCommandHistory = run_movement_simulation(plotStartingErrorX, plotStartingErrorY, plotStartingMarkerSize, tolerance, kp, maxCommand, desiredSize, sizeTolerance, approachCommand, xyCorrectionScale, zCorrectionScale, maxSteps, printSteps)
+  errorX, errorY, markerSize, xFinal, yFinal, zFinal, stepHistory, errorXHistory, errorYHistory, markerSizeHistory, xFinalHistory, yFinalHistory, zFinalHistory, combinedCommandHistory, step = run_movement_simulation(plotStartingErrorX, plotStartingErrorY, plotStartingMarkerSize, tolerance, kp, maxCommand, desiredSize, sizeTolerance, approachCommand, xyCorrectionScale, zCorrectionScale, maxSteps, printSteps)
 
   save_plot(stepHistory, [errorXHistory, errorYHistory], ["errorX", "errorY"], "Step", "Position Error", "Final Movement Position Error Over Time", "Code/Guidance/final_movement_error_plot.png", [tolerance, -tolerance], ["positive tolerance", "negative tolerance"])
   save_plot(stepHistory, [xFinalHistory, yFinalHistory, zFinalHistory], ["xFinal", "yFinal", "zFinal"], "Step", "Final Command", "Final Movement Commands Over Time","Code/Guidance/final_movement_command_plot.png")
