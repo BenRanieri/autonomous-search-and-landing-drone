@@ -108,17 +108,18 @@ def print_command_summary(commandSummary):
 if __name__ == "__main__":
 
   testCases = [
-    (400, -300, 200),
-    (-400, 300, 650),
-    (30, 30, 200),
-    (30, 30, 650),
-    (500, -500, 400),
-    (0, 0, 200),
-    (0, 0, 650),
-    (20000, -100, 50),      # Stress test cases
-    (-15000, 120, 900),
-    (0, 0, 40000),
-    (-30000, 20000, 400)
+    ("normal", "Very far right and too far away", 400, -300, 200),
+    ("normal", "Very far left and too close", -400, 300, 650),
+    ("normal", "Almost centered but too far away", 30, 30, 200),
+    ("normal", "Almost centered but too close", 30, 30, 650),
+    ("normal", "Large X/Y error but correct distance", 500, -500, 400),
+    ("normal", "Perfect position but too far away", 0, 0, 200),
+    ("normal", "Perfect position but too close", 0, 0, 650),
+
+    ("stress", "Extreme right error and very far away", 20000, -100, 50),
+    ("stress", "Extreme left error and too close", -15000, 120, 900),
+    ("stress", "Centered but extreme marker size", 0, 0, 40000),
+    ("stress", "Extreme X/Y error and correct distance", -30000, 20000, 400)
   ]
 
   tolerance = 10
@@ -132,9 +133,11 @@ if __name__ == "__main__":
   maxSteps = 5000
   printSteps = False
 
-  for startingErrorX, startingErrorY, startingMarkerSize in testCases:
+  for testType, testName, startingErrorX, startingErrorY, startingMarkerSize in testCases:
     errorX, errorY, markerSize, xFinal, yFinal, zFinal, stepHistory, errorXHistory, errorYHistory, markerSizeHistory, xFinalHistory, yFinalHistory, zFinalHistory, combinedCommandHistory, step = run_movement_simulation(startingErrorX, startingErrorY, startingMarkerSize, tolerance, kp, maxCommand, desiredSize, sizeTolerance, approachCommand, xyCorrectionScale, zCorrectionScale, maxSteps, printSteps)
-
+    
+    print("Test type:", testType)
+    print("Test case:", testName)
     print("Starting errorX:", startingErrorX)
     print("Starting errorY:", startingErrorY)
     print("Starting markerSize:", startingMarkerSize)
@@ -142,7 +145,9 @@ if __name__ == "__main__":
     print("Final errorY:", errorY)
     print("Final markerSize:", markerSize)
     print("Final movement:", xFinal, yFinal, zFinal)
-    print("Steps needed:", step)
+    print("Steps needed:", step + 1)
+    commandSummary = summarize_command_history(combinedCommandHistory)
+    print_command_summary(commandSummary)
     print()
 
 

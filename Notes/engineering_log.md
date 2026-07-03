@@ -795,3 +795,59 @@
 - How can command summaries be compared across multiple test cases?
 - How can normal and stress test cases be separated cleanly?
 - How can controller parameters be tuned using step-count results?
+
+
+
+
+
+## Session 20 - July 3, 2026
+
+### Accomplished
+
+- Added command summaries for every final movement test case
+- Used `summarize_command_history()` inside the main test-case loop
+- Used `print_command_summary()` to print readable command-mode counts
+- Confirmed each test case shows how many steps were spent in each command mode
+- Added test type labels to each test case
+- Labeled test cases as either `normal` or `stress`
+- Kept all test cases in one list to reduce repeated code
+- Updated the test-case loop to read test type, test name, starting X error, starting Y error, and starting marker size
+- Increased `maxSteps` so stress tests could finish
+- Added clearer output labels for the final movement test cases
+- Added a clearer output label for the plotting simulation
+- Added a label for the plotting simulation command summary
+- Confirmed normal and stress test cases reached final movement of `0 0 0`
+- Confirmed plot files still save correctly
+
+### Problems
+
+- The output originally showed command summaries only for the dedicated plotting simulation
+- The command summary needed to be printed for each test case to compare behavior across starting conditions
+- Normal and stress tests were mixed together without a clear label
+- Some stress cases required thousands of steps, so the previous maximum step limit could be too low
+- The plotting simulation command summary could be confused with the full test suite summary
+
+### Debugging
+
+- Added command summary output inside the test-case loop
+- Fixed duplicate `Command summary:` headings by relying on `print_command_summary()`
+- Checked that command summary counts added up to the printed steps needed
+- Added `normal` and `stress` labels inside the test-case tuples
+- Updated the loop to unpack the test type and test name
+- Increased the maximum step count to allow stress tests to finish
+- Added terminal headings to separate final movement test cases from the plotting simulation
+- Re-ran the file and confirmed all expected outputs printed correctly
+
+### Solution
+
+- Improved the final movement simulation test output so each case now shows both final results and command-mode behavior
+- Kept the test structure compact with one labeled test-case list
+- Made the output easier to interpret by separating normal tests from stress tests
+- Confirmed the controller can center, adjust distance, and maintain across multiple test conditions
+- Confirmed the simulation output now explains how the controller reached the final condition, not just that it reached it
+
+### Next Session
+
+- How do different controller parameter values affect step counts?
+- Which controller settings are too slow or too aggressive?
+- What default values should be used before moving into mission-state logic?
