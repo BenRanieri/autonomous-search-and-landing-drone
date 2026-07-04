@@ -647,7 +647,6 @@
 
 
 ## Session 17 - June 30, 2026
-
 ### Accomplished
 
 - Added a Final Movement Simulation section to the README
@@ -699,7 +698,6 @@
 
 
 ## Session 18 - July 1, 2026
-
 ### Accomplished
 
 - Added command history summarization to `simulate_final_movement.py`
@@ -751,7 +749,6 @@
 
 
 ## Session 19 - July 2, 2026
-
 ### Accomplished
 
 - Added harder final movement simulation test cases
@@ -801,7 +798,6 @@
 
 
 ## Session 20 - July 3, 2026
-
 ### Accomplished
 
 - Added command summaries for every final movement test case
@@ -851,3 +847,56 @@
 - How do different controller parameter values affect step counts?
 - Which controller settings are too slow or too aggressive?
 - What default values should be used before moving into mission-state logic?
+
+
+
+
+
+## Session 21 - July 4, 2026
+### Accomplished
+
+- Added controller parameter tuning to `simulate_final_movement.py`
+- Created a `parameterSets` list for comparing different controller settings
+- Tested the current default controller settings
+- Tested a slower response parameter set
+- Tested a faster response parameter set
+- Tested an aggressive response parameter set
+- Used the same starting condition for each tuning test
+- Compared how many steps each parameter set needed to reach the final condition
+- Added a `tuningResults` list to store parameter names and step counts
+- Printed a compact tuning step comparison after the tuning loop
+- Confirmed that every parameter set reached final movement of `0 0 0`
+- Kept the current default values as the conservative baseline for now
+
+### Problems
+
+- The faster and aggressive parameter sets performed better in simulation, but simulation does not include real drone dynamics
+- The aggressive response reached the final condition fastest, but it may be unsafe as a first hardware setting
+- The tuning output needed to stay numeric and consistent with the rest of the simulation output
+- A written tuning conclusion did not fit well inside the terminal output style
+
+### Debugging
+
+- Added multiple parameter sets and ran the same test case with each one
+- Checked the final X error, Y error, marker size, final movement, and steps needed for each parameter set
+- Confirmed the slower response took the most steps
+- Confirmed the current default acted as a middle-ground baseline
+- Confirmed the faster response reduced the step count
+- Confirmed the aggressive response was fastest in simulation
+- Added a compact tuning comparison to make the output easier to read
+- Kept the interpretation in the session log instead of printing it directly in the program
+
+### Solution
+
+- Created a controller tuning comparison system
+- Stored each parameter set’s step count in `tuningResults`
+- Printed a compact step comparison for all tested parameter sets
+- Used the results to compare conservative, slower, faster, and aggressive controller behavior
+- Decided to keep the current default parameters for now because they are a safer baseline before hardware testing
+- Identified the faster response as a possible future tuning option after more testing
+
+### Next Session
+
+- How can guidance outputs be connected to a physical command interface?
+- How can `xFinal`, `yFinal`, and `zFinal` be sent to a future drone control layer?
+- How can dry-run command sending prepare the project for hardware integration?

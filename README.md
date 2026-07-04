@@ -80,17 +80,20 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Normal and stress labels for final movement tests
 * Command-mode comparison across starting conditions
 * Cleaner final movement test output
+* Controller parameter tuning comparison
+* Multiple final movement parameter sets
+* Tuning step-count comparison
+* Conservative default controller baseline
 
 ### In Progress
 
-* Controller parameter tuning
 * Preparing physical command interface
-* Preparing for mission state logic 
+* Preparing for mission state logic
+* Preparing simulated autonomous takeoff
 
 ### Planned
 
-* Tune controller parameters
-* Choose default controller values
+
 * Physical command interface
 * Mission-state logic
 * Simulated autonomous takeoff
@@ -102,7 +105,7 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Precision landing
 * Early hardware path comparison
 * Early parts shortlist
-* Hardware integration  
+* Hardware integration
 
 
 

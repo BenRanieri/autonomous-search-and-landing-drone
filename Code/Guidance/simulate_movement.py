@@ -133,6 +133,13 @@ if __name__ == "__main__":
   maxSteps = 5000
   printSteps = False
 
+  parameterSets = [
+    ("Current default", 0.01, 1.0, 10, 0.3, 20, 50),
+    ("Slower response", 0.005, 1.0, 10, 0.2, 15, 40),
+    ("Faster response", 0.02, 1.0, 10, 0.4, 25, 60),
+    ("Aggressive response", 0.04, 1.5, 10, 0.6, 35, 80)
+  ]
+
   for testType, testName, startingErrorX, startingErrorY, startingMarkerSize in testCases:
     errorX, errorY, markerSize, xFinal, yFinal, zFinal, stepHistory, errorXHistory, errorYHistory, markerSizeHistory, xFinalHistory, yFinalHistory, zFinalHistory, combinedCommandHistory, step = run_movement_simulation(startingErrorX, startingErrorY, startingMarkerSize, tolerance, kp, maxCommand, desiredSize, sizeTolerance, approachCommand, xyCorrectionScale, zCorrectionScale, maxSteps, printSteps)
     
@@ -149,6 +156,40 @@ if __name__ == "__main__":
     commandSummary = summarize_command_history(combinedCommandHistory)
     print_command_summary(commandSummary)
     print()
+
+
+  print("Controller Parameter Tuning")
+  print()
+
+  tuningStartingErrorX = 400
+  tuningStartingErrorY = -300
+  tuningStartingMarkerSize = 200
+  tuningResults = []
+
+  for parameterName, testKp, testMaxCommand, testTolerance, testApproachCommand, testXyCorrectionScale, testZCorrectionScale in parameterSets:
+    errorX, errorY, markerSize, xFinal, yFinal, zFinal, stepHistory, errorXHistory, errorYHistory, markerSizeHistory, xFinalHistory, yFinalHistory, zFinalHistory, combinedCommandHistory, step = run_movement_simulation(tuningStartingErrorX, tuningStartingErrorY, tuningStartingMarkerSize, testTolerance, testKp, testMaxCommand, desiredSize, sizeTolerance, testApproachCommand, testXyCorrectionScale, testZCorrectionScale, maxSteps, printSteps)
+    
+    print("Parameter set:", parameterName)
+    print("kp:", testKp)
+    print("maxCommand:", testMaxCommand)
+    print("tolerance:", testTolerance)
+    print("approachCommand:", testApproachCommand)
+    print("xyCorrectionScale:", testXyCorrectionScale)
+    print("zCorrectionScale:", testZCorrectionScale)
+    print("Final errorX:", errorX)
+    print("Final errorY:", errorY)
+    print("Final markerSize:", markerSize)
+    print("Final movement:", xFinal, yFinal, zFinal)
+    print("Steps needed:", step + 1)
+    tuningResults.append((parameterName, step + 1))
+
+    commandSummary = summarize_command_history(combinedCommandHistory)
+    print_command_summary(commandSummary)
+    print()
+    print("Tuning step comparison:")
+  for parameterName, stepsNeeded in tuningResults:
+    print(parameterName + ":", stepsNeeded, "steps")
+  print()
 
 
   plotStartingErrorX = 200
