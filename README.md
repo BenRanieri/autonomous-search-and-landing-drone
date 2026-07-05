@@ -84,17 +84,20 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Multiple final movement parameter sets
 * Tuning step-count comparison
 * Conservative default controller baseline
+* Physical command interface folder
+* Dry-run velocity command function
+* Stop command helper
+* Command limiting for safe dry-run outputs
+* Connection from final movement simulation to command interface
 
 ### In Progress
 
-* Preparing physical command interface
-* Preparing for mission state logic
+* Preparing mission-state logic
 * Preparing simulated autonomous takeoff
+* Preparing early hardware path comparison
 
 ### Planned
 
-
-* Physical command interface
 * Mission-state logic
 * Simulated autonomous takeoff
 * Autonomous search behavior
@@ -106,7 +109,6 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Early hardware path comparison
 * Early parts shortlist
 * Hardware integration
-
 
 
 ## System Architecture

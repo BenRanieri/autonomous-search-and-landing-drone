@@ -1,5 +1,10 @@
 from guidance_logic import get_elevation_command, get_combined_guidance, get_final_movement, get_guidance_command, get_proportional_command, get_size_command
 import matplotlib.pyplot as plt
+import sys
+from pathlib import Path
+projectRoot = Path(__file__).resolve().parents[2]
+sys.path.append(str(projectRoot))
+from Code.Control.command_interface import send_velocity_command
 
 def run_movement_simulation(startingErrorX, startingErrorY, startingMarkerSize, tolerance, kp, maxCommand, desiredSize, sizeTolerance, approachCommand, xyCorrectionScale, zCorrectionScale, maxSteps, printSteps):
  
@@ -203,3 +208,6 @@ if __name__ == "__main__":
 
   commandSummary = summarize_command_history(combinedCommandHistory)
   print_command_summary(commandSummary)
+
+  print("Dry-run command interface test:")
+  send_velocity_command(xFinal, yFinal, zFinal)

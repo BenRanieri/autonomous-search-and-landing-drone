@@ -900,3 +900,35 @@
 - How can guidance outputs be connected to a physical command interface?
 - How can `xFinal`, `yFinal`, and `zFinal` be sent to a future drone control layer?
 - How can dry-run command sending prepare the project for hardware integration?
+
+
+
+
+
+## Session 22 - July 5, 2026
+### Accomplished
+- Created the Control folder for future physical command logic.
+- Built a dry-run velocity command interface.
+- Added a stop command helper.
+- Added command limiting so unsafe command values are capped before being sent.
+- Connected the final movement simulation output to the command interface.
+- Verified that xFinal, yFinal, and zFinal can flow into a dry-run physical command output.
+
+### Problems
+- Importing the command interface from the guidance simulation was not immediately straightforward.
+- The command interface needed to work regardless of where the project is run from.
+
+### Debugging
+- Used pathlib and sys.path to add the project root to the Python path.
+- Tested the command interface by sending normal, stop, and oversized commands.
+- Confirmed oversized commands were limited to the safe command range.
+
+### Solution
+- Kept the command interface in Code/Control/command_interface.py.
+- Used send_velocity_command() as the bridge between simulated guidance outputs and future physical UAV commands.
+- Verified the simulation can call send_velocity_command(xFinal, yFinal, zFinal).
+
+### Next Session
+- How can the UAV organize behavior using mission states?
+- How should TAKEOFF, SEARCH, TRACK, LAND, and DISARM be represented in code?
+- How can mission-state logic decide which guidance behavior should run?
