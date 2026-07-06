@@ -932,3 +932,40 @@
 - How can the UAV organize behavior using mission states?
 - How should TAKEOFF, SEARCH, TRACK, LAND, and DISARM be represented in code?
 - How can mission-state logic decide which guidance behavior should run?
+
+
+
+
+
+## Session 23 - July 6, 2026
+### Accomplished
+- Created the Mission folder for mission-level UAV behavior.
+- Built the first mission-state update function.
+- Added TAKEOFF logic that keeps the UAV in TAKEOFF until the target altitude is reached.
+- Added transition logic from TAKEOFF to SEARCH.
+- Added state-based command generation.
+- Connected mission-state commands to the dry-run command interface.
+- Verified that TAKEOFF sends an upward command and SEARCH sends a stop command for now.
+
+### Problems
+- The first version of the state update logic depended only on altitude.
+- That would have allowed non-TAKEOFF states to accidentally switch back to TAKEOFF.
+- String comparison needed to use == instead of is.
+
+### Debugging
+- Tested TAKEOFF below target altitude.
+- Tested TAKEOFF at target altitude.
+- Tested SEARCH and LAND to make sure they stayed unchanged.
+- Tested mission commands for TAKEOFF, SEARCH, and LAND.
+- Tested the full transition from TAKEOFF to SEARCH through the command interface.
+
+### Solution
+- Updated mission logic so altitude only affects the TAKEOFF state.
+- Kept all other states unchanged for now.
+- Added get_state_command() so each mission state can produce a movement command.
+- Verified TAKEOFF produces a dry-run upward command through send_velocity_command().
+
+### Next Session
+- How can simulated altitude change over time during TAKEOFF?
+- How should the UAV decide when takeoff is complete?
+- How can TAKEOFF become a reusable mission behavior instead of a single test case?

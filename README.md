@@ -89,16 +89,19 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Stop command helper
 * Command limiting for safe dry-run outputs
 * Connection from final movement simulation to command interface
+* Mission-state update function
+* TAKEOFF to SEARCH transition logic
+* State-based command generation
+* Mission command connection to dry-run command interface
 
 ### In Progress
 
-* Preparing mission-state logic
-* Preparing simulated autonomous takeoff
+* Simulated autonomous takeoff
 * Preparing early hardware path comparison
+* Preparing autonomous search behavior
 
 ### Planned
 
-* Mission-state logic
 * Simulated autonomous takeoff
 * Autonomous search behavior
 * Target acquisition
