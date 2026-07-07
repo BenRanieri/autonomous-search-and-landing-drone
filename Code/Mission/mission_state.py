@@ -16,6 +16,11 @@ def update_mission_state(currentState, currentAltitude, targetAltitude):
   return newState
 
 
+def update_altitude(currentAlt, zCommand, altScale):
+  newAlt = currentAlt + zCommand * altScale
+  return newAlt
+
+
 def get_state_command(currentState):
 
   if currentState == "TAKEOFF":
@@ -30,26 +35,45 @@ def get_state_command(currentState):
   return xCommand, yCommand, zCommand
 
 
+def run_takeoff_simulation(startingAltitude, targetAltitude, altitudeScale, maxsteps):
+
+  currentState = "TAKEOFF"
+  currentAltitude = startingAltitude
+  step = 0
+
+  while currentState == "TAKEOFF" and step < maxsteps:
+
+    xCommand, yCommand, zCommand = get_state_command(currentState)
+    send_velocity_command(xCommand, yCommand, zCommand)
+
+    currentAltitude = update_altitude(currentAltitude, zCommand, altitudeScale)
+    currentState = update_mission_state(currentState, currentAltitude, targetAltitude)
+
+    print("Step:", step)
+    print("Altitude:", round(currentAltitude,2))
+    print("State:", currentState)
+    print()
+
+    step = step + 1
+
+  if currentState == "TAKEOFF":
+    print("Takeoff simulation stopped before reaching target altitude")
+    xCommand = 0
+    yCommand = 0
+    zCommand = 0
+  else:
+    xCommand, yCommand, zCommand = get_state_command(currentState)
+
+  send_velocity_command(xCommand, yCommand, zCommand)
+  takeoffComplete = currentState != "TAKEOFF"
+  return currentState, currentAltitude, takeoffComplete
+  
+
+
 if __name__ == "__main__":
 
-  print(update_mission_state("TAKEOFF", 0, 2))
-  print(update_mission_state("TAKEOFF", 1.5, 2))
-  print(update_mission_state("TAKEOFF", 2, 2))
-  print(update_mission_state("SEARCH", 0, 2))
-  print(update_mission_state("LAND", 0, 2))
-  print(get_state_command("TAKEOFF"))
-  print(get_state_command("SEARCH"))
-  print(get_state_command("LAND"))
-
-  print("Dry-run mission command:")
-  xCommand, yCommand, zCommand = get_state_command("TAKEOFF")
-  send_velocity_command(xCommand, yCommand, zCommand)
-
-  print("Mission transition command test:")
-  currentState = "TAKEOFF"
-  currentAltitude = 2
-  targetAltitude = 2
-  newState = update_mission_state(currentState, currentAltitude, targetAltitude)
-  print("New state:", newState)
-  xCommand, yCommand, zCommand = get_state_command(newState)
-  send_velocity_command(xCommand, yCommand, zCommand)
+  print("Takeoff simulation:")
+  finalState, finalAltitude, takeoffComplete = run_takeoff_simulation(0, 2, 0.2, 50)
+  print("Final state:", finalState)
+  print("Final altitude:", round(finalAltitude,2))
+  print("Takeoff complete:", takeoffComplete)

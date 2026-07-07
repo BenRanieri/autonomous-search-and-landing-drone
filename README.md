@@ -93,16 +93,21 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * TAKEOFF to SEARCH transition logic
 * State-based command generation
 * Mission command connection to dry-run command interface
+* Simulated altitude update logic
+* Autonomous takeoff simulation loop
+* TAKEOFF to SEARCH simulated transition
+* maxSteps takeoff safety limit
+* Safe stop behavior for failed takeoff
 
 ### In Progress
 
-* Simulated autonomous takeoff
+* Preparing full mission simulation
 * Preparing early hardware path comparison
 * Preparing autonomous search behavior
 
 ### Planned
 
-* Simulated autonomous takeoff
+* Full mission simulation
 * Autonomous search behavior
 * Target acquisition
 * Target tracking
