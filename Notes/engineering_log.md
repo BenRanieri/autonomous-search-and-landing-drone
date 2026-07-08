@@ -1005,3 +1005,40 @@
 - How can TAKEOFF connect into a larger full mission simulation?
 - How should the mission move from SEARCH toward target acquisition?
 - How can mission-state logic decide what behavior runs next?
+
+
+
+
+
+## Session 25 - July 8, 2026
+### Accomplished
+- Expanded mission-state logic from TAKEOFF and SEARCH to include ACQUIRE.
+- Added marker-detection awareness to the mission-state update function.
+- Added SEARCH to ACQUIRE transition logic.
+- Updated SEARCH to produce a placeholder search command.
+- Built a basic full mission simulation.
+- Verified the mission can progress from TAKEOFF to SEARCH to ACQUIRE.
+- Added a failure warning when the mission stops before reaching ACQUIRE.
+
+### Problems
+- The mission-state update function needed a new markerDetected input.
+- Existing calls to update_mission_state() had to be updated to include the new argument.
+- The mission needed a way to simulate marker detection before real camera integration.
+
+### Debugging
+- Tested TAKEOFF below and at target altitude.
+- Tested SEARCH with markerDetected set to False and True.
+- Tested the full mission with marker detection occurring at step 25.
+- Tested a failure case where maxSteps ended before marker detection.
+- Confirmed the success case ends in ACQUIRE and the failure case ends in SEARCH.
+
+### Solution
+- Added markerDetected to update_mission_state().
+- Added SEARCH logic that switches to ACQUIRE when a marker is detected.
+- Added run_basic_mission_simulation() to simulate TAKEOFF, SEARCH, and ACQUIRE together.
+- Used markerDetectionStep as a simulated marker-detection trigger.
+
+### Next Session
+- How can mission logic connect to real or simulated guidance outputs?
+- How should ACQUIRE begin using marker position errors?
+- How can the mission move from ACQUIRE into TRACK?

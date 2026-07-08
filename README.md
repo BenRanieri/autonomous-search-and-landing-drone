@@ -98,16 +98,20 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * TAKEOFF to SEARCH simulated transition
 * maxSteps takeoff safety limit
 * Safe stop behavior for failed takeoff
+* Basic full mission simulation
+* TAKEOFF to SEARCH to ACQUIRE mission sequence
+* Marker-detection-aware mission-state logic
+* SEARCH to ACQUIRE transition
 
 ### In Progress
 
-* Preparing full mission simulation
+* Connecting mission logic to guidance outputs
 * Preparing early hardware path comparison
 * Preparing autonomous search behavior
 
 ### Planned
 
-* Full mission simulation
+* Mission-guidance integration
 * Autonomous search behavior
 * Target acquisition
 * Target tracking
