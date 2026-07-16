@@ -3,6 +3,7 @@ from pathlib import Path
 projectRoot = Path(__file__).resolve().parents[2]
 sys.path.append(str(projectRoot))
 from Code.Control.command_interface import send_velocity_command
+from Code.Guidance.guidance_logic import (get_guidance_command, get_proportional_command, get_size_command, get_combined_guidance, get_elevation_command, get_final_movement)
 
 
 def update_mission_state(currentState, currentAltitude, targetAltitude, markerDetected):
@@ -43,6 +44,17 @@ def get_state_command(currentState):
     zCommand = 0
 
   return xCommand, yCommand, zCommand
+
+
+def get_acquire_command(errorX, errorY, markerSize, tolerance, kp, maxCommand, desiredSize, sizeTolerance, approachCommand):
+  commandX, commandY = get_guidance_command(errorX, errorY, tolerance)
+  xCommand, yCommand = get_proportional_command(errorX, errorY, tolerance, kp, maxCommand)
+  sizeCommand = get_size_command(markerSize, desiredSize, sizeTolerance)
+  combinedCommand = get_combined_guidance(commandX, commandY, sizeCommand)
+  zCommand = get_elevation_command(sizeCommand, approachCommand)
+  xFinal, yFinal, zFinal = get_final_movement(combinedCommand, xCommand, yCommand, zCommand)
+
+  return xFinal, yFinal, zFinal, combinedCommand
 
 
 def run_takeoff_simulation(startingAltitude, targetAltitude, altitudeScale, maxsteps):
@@ -119,9 +131,24 @@ def run_basic_mission_simulation(startingAltitude, targetAltitude, altitudeScale
 
 if __name__ == "__main__":
 
-  print("Basic mission simulation:")
-  finalState, finalAltitude, missionReachedAcquire = run_basic_mission_simulation(0, 2, 0.2, 50, 25)
+  print("Acquire command tests:")
 
-  print("Final state:", finalState)
-  print("Final altitude:", round(finalAltitude, 2))
-  print("Mission reached acquire:", missionReachedAcquire)
+  testCases = [
+    ("Off-center and too far away", 200, -100, 250),
+    ("Centered but too far away", 0, 0, 250),
+    ("Centered and correct size", 0, 0, 400),
+    ("Centered but too close", 0, 0, 500)
+  ]
+
+  for testName, errorX, errorY, markerSize in testCases:
+
+    xFinal, yFinal, zFinal, combinedCommand = get_acquire_command(
+      errorX, errorY, markerSize,
+      10, 0.01, 1.0,
+      400, 20, 0.3
+    )
+
+    print("Test case:", testName)
+    print("Combined command:", combinedCommand)
+    print("Final command:", xFinal, yFinal, zFinal)
+    send_velocity_command(xFinal, yFinal, zFinal)

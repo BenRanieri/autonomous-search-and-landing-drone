@@ -102,18 +102,21 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * TAKEOFF to SEARCH to ACQUIRE mission sequence
 * Marker-detection-aware mission-state logic
 * SEARCH to ACQUIRE transition
+* Mission-guidance integration for ACQUIRE
+* get_acquire_command() guidance bridge
+* ACQUIRE command tests with simulated marker errors
+* Dry-run ACQUIRE movement commands through command interface
 
 ### In Progress
 
-* Connecting mission logic to guidance outputs
+* Preparing ACQUIRE to TRACK transition
 * Preparing early hardware path comparison
 * Preparing autonomous search behavior
 
 ### Planned
 
-* Mission-guidance integration
+* ACQUIRE to TRACK transition
 * Autonomous search behavior
-* Target acquisition
 * Target tracking
 * Approach behavior
 * Controlled descent over marker

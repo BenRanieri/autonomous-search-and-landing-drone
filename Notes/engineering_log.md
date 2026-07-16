@@ -1042,3 +1042,38 @@
 - How can mission logic connect to real or simulated guidance outputs?
 - How should ACQUIRE begin using marker position errors?
 - How can the mission move from ACQUIRE into TRACK?
+
+
+
+
+
+## Session 26 - July 16, 2026
+### Accomplished
+- Connected mission logic to the existing guidance system.
+- Added guidance imports to the mission-state file.
+- Built get_acquire_command() for ACQUIRE-state movement.
+- Used simulated marker error and marker size values to generate guidance commands.
+- Connected ACQUIRE guidance output to the dry-run command interface.
+- Tested off-center, too-far, too-close, and correct-size marker cases.
+
+### Problems
+- get_proportional_command() needed the maxCommand argument.
+- ACQUIRE needed to return both final movement commands and the combined guidance command.
+- The first tests had to be changed manually before being converted into a reusable test-case list.
+
+### Debugging
+- Tested an off-center marker to confirm ACQUIRE prioritizes centering.
+- Tested a centered but too-far marker to confirm the system commands closer movement.
+- Tested a centered but too-close marker to confirm the system commands further movement.
+- Tested a centered and correct-size marker to confirm the system maintains position.
+- Verified all final commands pass through send_velocity_command().
+
+### Solution
+- Added get_acquire_command() as the bridge between mission state and guidance logic.
+- Used the existing guidance chain to compute xFinal, yFinal, zFinal, and combinedCommand.
+- Added reusable ACQUIRE command tests for the main marker-alignment cases.
+
+### Next Session
+- How can ACQUIRE transition into TRACK?
+- How should the mission respond when marker alignment improves over time?
+- How can simulated marker error updates be connected to mission-state transitions?
