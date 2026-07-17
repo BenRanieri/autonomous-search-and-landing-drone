@@ -106,40 +106,53 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * get_acquire_command() guidance bridge
 * ACQUIRE command tests with simulated marker errors
 * Dry-run ACQUIRE movement commands through command interface
+* Early hardware path comparison
+* Hardware plan document
+* Preliminary hardware parts list
 
 ### In Progress
 
+* Preparing exact parts shortlist
+* Preparing MAVLink command-interface planning
 * Preparing ACQUIRE to TRACK transition
-* Preparing early hardware path comparison
-* Preparing autonomous search behavior
 
 ### Planned
 
+* Exact parts shortlist
+* MAVLink command-interface planning
 * ACQUIRE to TRACK transition
 * Autonomous search behavior
 * Target tracking
 * Approach behavior
 * Controlled descent over marker
 * Precision landing
-* Early hardware path comparison
-* Early parts shortlist
 * Hardware integration
+* Physical drone assembly
+* Flight-controller bench testing
+* Props-off motor testing
+* Manual override and safety testing
+* Limited autonomous physical flight testing
+* Future LiDAR-based obstacle avoidance
 
 
 ## System Architecture
 
-Camera
-↓
-Computer Vision
-↓
-Target Detection
-↓
-Position Estimation
-↓
-Guidance System
-↓
-Flight Controller
-↓
+Laptop / Python Autonomy Code  
+↓  
+Computer Vision  
+↓  
+Target Detection  
+↓  
+Position Estimation  
+↓  
+Mission and Guidance Logic  
+↓  
+MAVLink Command Interface  
+↓  
+Pixhawk-Style Flight Controller  
+↓  
+ESCs and Motors  
+↓  
 UAV Motion
 
 
@@ -159,6 +172,20 @@ APPROACH
 LAND
 ↓
 DISARM
+
+
+
+## Hardware Direction
+
+The project will use a Pixhawk-style flight-controller architecture with the laptop acting as the first companion computer.
+
+The Python autonomy code will run on the laptop and send high-level movement commands through a MAVLink command interface. The flight controller will handle stabilization, low-level flight control, motor outputs, and safety-critical flight behavior.
+
+The first hardware goal is to support the main autonomous mission chain:
+
+TAKEOFF → SEARCH → ACQUIRE → TRACK → APPROACH → LAND → DISARM
+
+LiDAR-based obstacle avoidance has been moved to future work. It may be added after the core autonomous flight system is working.
 
 
 

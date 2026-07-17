@@ -1,6 +1,7 @@
 # Engineering Log
 
 ## Session 1 - June 9, 2026
+
 ### Accomplished
 - Created GitHub repository
 - Installed Python
@@ -13,7 +14,12 @@
 - OpenCV couldn't find the image because of the file path
 - Webcam not accessible through WSL
 
-### Solutions
+### Debugging
+- Checked which Python interpreter VS Code was using
+- Tested the image file path
+- Confirmed the webcam was not accessible through WSL
+
+### Solution
 - Selected correct Python interpreter
 - Fixed image path
 - Decided to postpone webcam setup
@@ -27,35 +33,38 @@
 
 
 ## Session 2 - June 11, 2026
+
 ### Accomplished
 - Learned how ArUco detection works
 - Generated a marker with ID 0
 - Successfully detected marker ID 0
 - Retrieved marker corner coordinates
 
-### Problems:
+### Problems
 - Marker without border could not be detected
 
-### Debugging:
+### Debugging
 - Verified image loaded correctly.
 - Verified detector object creation.
 - Printed rejected candidate count.
 - Determined marker required surrounding white border.
 
-### Solution:
+### Solution
 - Added white border around marker image
 
 ### Next Session
-- How do i use the marker corner coordinates to find position errors for the drone?
+- How do I use the marker corner coordinates to find position errors for the drone?
+
 
 
 
 
 ## Session 3 - June 12, 2026
+
 ### Accomplished
 - Extracted individual marker corner coordinates
 - Calculated marker center coordinates from corner coordinates
-- Calculated image center coordinats
+- Calculated image center coordinates
 - Learned how OpenCV stores marker data
 - Visualized detected marker outline
 - Visualized marker center point
@@ -67,17 +76,17 @@
 
 ### Debugging
 - Printed corner array type and dimensions
-- Examiend individual corner coordinates
+- Examined individual corner coordinates
 - Investigated OpenCV drawing function documentation
 - Tested different circle/outline sizes and colors
 
-## Solution
+### Solution
 - Extracted coordinates from corner array piecewise
 - Converted center coordinates to integer values using rounding
 - Added visual overlays to verify calculations
 - Increased circle size and color for visibility
 
-## Next Session
+### Next Session
 - How can position errors generate guidance commands?
 - How should the UAV respond when a target is offset from the center?
 
@@ -86,6 +95,7 @@
 
 
 ## Session 4 - June 13, 2026
+
 ### Accomplished
 - Designed guidance logic using errorX and errorY
 - Added movement commands for left, right, forward, backward, and maintain
@@ -125,6 +135,7 @@
 
 
 ## Session 5 - June 15, 2026
+
 ### Accomplished
 - Refactored marker detection code into configurable function
 - Added separate function path for saving marker visualization
@@ -158,13 +169,14 @@
 
 ### Next Session
 - How can guidance commands become stronger or weaker based on error values?
-- How can errorX and errorY be converetd into movement strength?
+- How can errorX and errorY be converted into movement strength?
 
 
 
 
 
 ## Session 6 - June 16, 2026
+
 ### Accomplished
 - Created a new proportional command function for guidance
 - Added a kp input to proportional command function
@@ -176,7 +188,7 @@
 ### Problems
 - Original guidance function outputted only string instructions
 - Error values needed to still respect the set tolerance
-- Proportional command function were unrestricted originally
+- Proportional command functions were unrestricted originally
 - Updating function signature caused old function calls to become invalid
 - Limiting command size needed to preserve original command sign
 
@@ -184,7 +196,7 @@
 - Tested function with original ArUco marker image
 - Tested function with simulated offset errors
 - Tested function with small errors within tolerance
-- Tested functions with errors greater than maxiumum command value
+- Tested functions with errors greater than maximum command value
 - Tested function calls before changing to new function signature
 
 ### Solution
@@ -205,9 +217,10 @@
 
 
 ## Session 7 - June 17, 2026
+
 ### Accomplished
 - Created test_controller.py in guidance folder
-- Imported get_guidance_command and get_proportional_controller
+- Imported get_guidance_command and get_proportional_command
 - Created test cases for different errorX and errorY values
 - Tested deadband and maximum command cases
 - Added controller region labels for deadband, proportional, and capped behavior
@@ -246,9 +259,10 @@
 
 
 ## Session 8 - June 18, 2026
+
 ### Accomplished
 - Created simulate_controller.py in Guidance folder
-- Imported get_proportional_controller from guidance_logic.py
+- Imported get_proportional_command from guidance_logic.py
 - Built a simple closed loop controller simulation
 - Started simulation with fake marker error values
 - Ran proportional controller over multiple time steps
@@ -292,6 +306,7 @@
 
 
 ## Session 9 - June 20, 2026
+
 ### Accomplished
 - Added history tracking to the controller simulation
 - Created stepHistory, errorXHistory, errorYHistory, xCommandHistory, and yCommandHistory
@@ -309,7 +324,7 @@
 - The simulation only returned final result, therefore no way to visualize over time behavior
 - The plotting code required the simulation to return history lists instead of final values
 - Confusion on where the plotting code belonged within the script
-- Multiple plots needed to be saved without interferance
+- Multiple plots needed to be saved without interference
 
 ### Debugging
 - Added history lists without changing other simulation behavior
@@ -329,7 +344,7 @@
 
 ### Next Session
 - How can the marker apparent size estimate distance from target?
-- How can distance aware behavior be added to the controller
+- How can distance-aware behavior be added to the controller
 - How can the UAV decide when to approach, descend, or hold position?
 
 
@@ -337,8 +352,9 @@
 
 
 ## Session 10 - June 21, 2026
+
 ### Accomplished
-- Added marker apparent size calulcation to detect_marker.py
+- Added marker apparent size calculation to detect_marker.py
 - Extracted four detected marker corners
 - Calculated the top, bottom, left, and right marker side lengths
 - Computed markerSize as average of the side lengths
@@ -358,7 +374,7 @@
 ### Debugging
 - Printed markerSize from detect_marker.py
 - Confirmed detected marker size was 399 pixels
-- compared detected marker size to known corner positions
+- Compared detected marker size to known corner positions
 - Tested fake marker size below, inside, and above desired size
 - Found 250 returned maintain instead of closer
 - Identified second if statement caused else statement to ignore first if
@@ -373,7 +389,7 @@
 - Confirmed marker image gave a size of 399 pixels and returns maintain
 
 ### Next Session
-- How can marker size commands be turned into numeric appraoch and descent commands?
+- How can marker size commands be turned into numeric approach and descent commands?
 - How can position control and size control be combined into one guidance output?
 - How can the UAV decide whether to center or approach first?
 
@@ -382,6 +398,7 @@
 
 
 ## Session 11 - June 22, 2026
+
 ### Accomplished
 - Added a combined guidance function to guidance_logic.py
 - Created get_combined_guidance() using commandX, commandY, and sizeCommand
@@ -392,7 +409,7 @@
 - Printed the combined command in the marker detection output
 - Confirmed the combined command responds correctly to maintain, closer, and further cases
 
-### Problem
+### Problems
 - Combined guidance needed priority order
 - Temporary test print statements would have made guidance_logic.py run tests every time it was imported
 - Fake size settings were needed to test closer and further behavior
@@ -422,6 +439,7 @@
 
 
 ## Session 12 - June 23, 2026
+
 ### Accomplished
 - Designed the final numeric movement command structure
 - Added get_elevation_command() to convert size commands into numeric Z commands
@@ -460,21 +478,22 @@
 
 ### Next Session
 - How can final movement commands be tested in simulation over time?
-- How can X, Y, and Z command histories be stored and plotted
-- How can final movement outputs become the foundation for mission state logic
+- How can X, Y, and Z command histories be stored and plotted?
+- How can final movement outputs become the foundation for mission state logic?
 
 
 
 
 
 ## Session 13 - June 24, 2026
+
 ### Accomplished
 - Created simulate_final_movement.py in Guidance
 - Imported full guidance function chain
 - Added controller tuning for tolerance, gain, max commands, desired size, tolerance, and approach
-- One step final movement command calculation
+- Added one-step final movement command calculation
 - Built a loop to simulate X, Y, and Z over time
-- updated simulated errorX, errorY, and markerSize in loop
+- Updated simulated errorX, errorY, and markerSize in loop
 - Added stopping conditions
 - Confirmed simulation centers, then adjusts distance through test cases
 
@@ -498,8 +517,8 @@
 - Created a full simulation of final movement command pipeline
 - Used final X and Y to reduce position error
 - Used final Z to change marker size
-- Demonsrated the full behavior sequence: center then adjust distance then maintain
-- Confirmed simulation stops with both end conditioms
+- Demonstrated the full behavior sequence: center then adjust distance then maintain
+- Confirmed simulation stops with both end conditions
 
 ### Next Session
 - How can movement simulation be refactored into a reusable function?
@@ -511,6 +530,7 @@
 
 
 ## Session 14 - June 25, 2026
+
 ### Accomplished
 - Refactored simulate_final_movement.py into a reusable simulation function
 - Created run_movement_simulation()
@@ -559,6 +579,7 @@
 
 
 ## Session 15 - June 26, 2026
+
 ### Accomplished
 - Added history tracking to run_movement_simulation()
 - Created history lists for simulation step, X error, Y error, marker size, final X command, final Y command, final Z command, and combined command
@@ -604,7 +625,12 @@
 - How can repeated plot code be refactored into helper functions?
 - How can the final movement simulation results be explained clearly in the README?
 
+
+
+
+
 ## Session 16 - June 28, 2026
+
 ### Accomplished
 - Cleaned up repeated plotting code in simulate_final_movement.py
 - Created a reusable save_plot() helper function
@@ -617,12 +643,14 @@
 - Kept all plotting code inside if __name__ == "__main__":
 - Added a short comment explaining the purpose of save_plot()
 - Confirmed all three plots still save correctly after refactoring
+
 ### Problems
 - The plotting section had three repeated blocks of similar Matplotlib code
 - The command plot did not need horizontal lines, but the error and marker-size plots did
 - The helper function needed to work for both cases
 - The function needed to handle multiple plotted histories, not just one
 - The code needed to stay import-friendly
+
 ### Debugging
 - First tested the helper function on the command plot because it did not need tolerance lines
 - Confirmed the command plot still saved correctly
@@ -631,12 +659,14 @@
 - Replaced the error plot with a helper call using positive and negative tolerance lines
 - Replaced the marker-size plot with a helper call using upper and lower size tolerance lines
 - Ran the simulation again and confirmed all three plots saved correctly
+
 ### Solution
 - Refactored repeated plotting code into one reusable helper function
 - Used a loop with zip(plottedHistories, labels) to plot multiple histories
 - Used optional horizontal reference lines for tolerance bands
 - Simplified the bottom of the simulation file to three short save_plot() calls
 - Improved code readability and reusability without changing the simulation behavior
+
 ### Next Session
 - How can the final movement simulation results be explained clearly in the README?
 - How can controller behavior be summarized using the saved plots?
@@ -647,8 +677,8 @@
 
 
 ## Session 17 - June 30, 2026
-### Accomplished
 
+### Accomplished
 - Added a Final Movement Simulation section to the README
 - Explained what the final movement simulation tests
 - Described how X and Y position errors are used for lateral guidance
@@ -664,14 +694,12 @@
 - Removed completed items from the Planned section
 
 ### Problems
-
 - No new code was written during this session
 - The main challenge was explaining the simulation clearly without making the README too long
 - The README needed to describe what the plots prove, not just list that they exist
 - The Planned and In Progress sections needed to be updated so they matched the current project status
 
 ### Debugging
-
 - Reviewed the README structure to decide where the new section should go
 - Placed the Final Movement Simulation section after the system architecture and mission state overview
 - Revised the paragraph to make the wording more engineering-focused
@@ -680,7 +708,6 @@
 - Fixed README status sections so completed documentation was no longer listed as in progress
 
 ### Solution
-
 - Added a clear README explanation for the final movement simulation
 - Connected the simulation behavior to UAV landing logic
 - Explained that the system centers the marker first, adjusts distance second, and stops when the final condition is reached
@@ -688,7 +715,6 @@
 - Improved the README as a project presentation artifact
 
 ### Next Session
-
 - How can combined command history be summarized?
 - How can the controller behavior be explained using command modes?
 - How can command summaries prepare the project for mission-state logic?
@@ -698,8 +724,8 @@
 
 
 ## Session 18 - July 1, 2026
-### Accomplished
 
+### Accomplished
 - Added command history summarization to `simulate_final_movement.py`
 - Created `summarize_command_history()`
 - Used `combinedCommandHistory` to count how many steps were spent in each command mode
@@ -713,7 +739,6 @@
 - Confirmed the output stayed the same after refactoring
 
 ### Problems
-
 - The first version of the command summary checked `commandHistory` instead of `commandSummary`
 - This caused the dictionary count logic to fail because new commands were not being added correctly
 - The command summary output initially printed raw dictionary-style output
@@ -721,7 +746,6 @@
 - The output needed to distinguish between `1 step` and multiple `steps`
 
 ### Debugging
-
 - Reviewed how the command history list stores command modes like `center`, `closer`, `further`, and `maintain`
 - Fixed the condition so the function checks whether each command is already in the summary dictionary
 - Ran the simulation and confirmed the summary output showed `center`, `closer`, and `maintain`
@@ -731,7 +755,6 @@
 - Re-ran the simulation and confirmed the same command summary was printed
 
 ### Solution
-
 - Added a reusable command-history summary function
 - Counted how many simulation steps were spent in each command mode
 - Added readable terminal output for command summaries
@@ -739,7 +762,6 @@
 - Confirmed that the final movement behavior follows the expected sequence: center first, adjust distance second, then maintain
 
 ### Next Session
-
 - How can harder final movement simulation test cases be added?
 - How can command summaries be compared across multiple starting conditions?
 - How can these summaries help tune the controller?
@@ -749,8 +771,8 @@
 
 
 ## Session 19 - July 2, 2026
-### Accomplished
 
+### Accomplished
 - Added harder final movement simulation test cases
 - Replaced basic tuple-only test cases with labeled test cases
 - Added readable test-case names to the simulation output
@@ -764,14 +786,12 @@
 - Identified that extremely large starting values work as stress tests but are less realistic than normal camera-based values
 
 ### Problems
-
 - Some initial test values were extremely large compared to realistic image pixel errors
 - Very large X/Y errors and marker-size values caused the simulation to take hundreds or thousands of steps
 - The original test-case output was harder to understand because each case did not have a label
 - Normal test cases and stress test cases needed to be treated differently
 
 ### Debugging
-
 - Ran the harder simulation cases and checked final errors, final marker size, final movement, and steps needed
 - Confirmed that each case eventually reached the final stop condition
 - Compared step counts to see which starting conditions were more difficult
@@ -780,7 +800,6 @@
 - Confirmed the labeled test output printed correctly
 
 ### Solution
-
 - Improved the final movement simulation test suite with harder and more descriptive test cases
 - Used labeled cases to make the output easier to understand
 - Kept realistic cases focused on normal camera-like error ranges
@@ -788,7 +807,6 @@
 - Confirmed that the final movement controller can center the marker, adjust distance, and stop across multiple starting conditions
 
 ### Next Session
-
 - How can command summaries be compared across multiple test cases?
 - How can normal and stress test cases be separated cleanly?
 - How can controller parameters be tuned using step-count results?
@@ -798,8 +816,8 @@
 
 
 ## Session 20 - July 3, 2026
-### Accomplished
 
+### Accomplished
 - Added command summaries for every final movement test case
 - Used `summarize_command_history()` inside the main test-case loop
 - Used `print_command_summary()` to print readable command-mode counts
@@ -816,7 +834,6 @@
 - Confirmed plot files still save correctly
 
 ### Problems
-
 - The output originally showed command summaries only for the dedicated plotting simulation
 - The command summary needed to be printed for each test case to compare behavior across starting conditions
 - Normal and stress tests were mixed together without a clear label
@@ -824,7 +841,6 @@
 - The plotting simulation command summary could be confused with the full test suite summary
 
 ### Debugging
-
 - Added command summary output inside the test-case loop
 - Fixed duplicate `Command summary:` headings by relying on `print_command_summary()`
 - Checked that command summary counts added up to the printed steps needed
@@ -835,7 +851,6 @@
 - Re-ran the file and confirmed all expected outputs printed correctly
 
 ### Solution
-
 - Improved the final movement simulation test output so each case now shows both final results and command-mode behavior
 - Kept the test structure compact with one labeled test-case list
 - Made the output easier to interpret by separating normal tests from stress tests
@@ -843,7 +858,6 @@
 - Confirmed the simulation output now explains how the controller reached the final condition, not just that it reached it
 
 ### Next Session
-
 - How do different controller parameter values affect step counts?
 - Which controller settings are too slow or too aggressive?
 - What default values should be used before moving into mission-state logic?
@@ -853,8 +867,8 @@
 
 
 ## Session 21 - July 4, 2026
-### Accomplished
 
+### Accomplished
 - Added controller parameter tuning to `simulate_final_movement.py`
 - Created a `parameterSets` list for comparing different controller settings
 - Tested the current default controller settings
@@ -869,14 +883,12 @@
 - Kept the current default values as the conservative baseline for now
 
 ### Problems
-
 - The faster and aggressive parameter sets performed better in simulation, but simulation does not include real drone dynamics
 - The aggressive response reached the final condition fastest, but it may be unsafe as a first hardware setting
 - The tuning output needed to stay numeric and consistent with the rest of the simulation output
 - A written tuning conclusion did not fit well inside the terminal output style
 
 ### Debugging
-
 - Added multiple parameter sets and ran the same test case with each one
 - Checked the final X error, Y error, marker size, final movement, and steps needed for each parameter set
 - Confirmed the slower response took the most steps
@@ -887,7 +899,6 @@
 - Kept the interpretation in the session log instead of printing it directly in the program
 
 ### Solution
-
 - Created a controller tuning comparison system
 - Stored each parameter set’s step count in `tuningResults`
 - Printed a compact step comparison for all tested parameter sets
@@ -896,7 +907,6 @@
 - Identified the faster response as a possible future tuning option after more testing
 
 ### Next Session
-
 - How can guidance outputs be connected to a physical command interface?
 - How can `xFinal`, `yFinal`, and `zFinal` be sent to a future drone control layer?
 - How can dry-run command sending prepare the project for hardware integration?
@@ -906,27 +916,28 @@
 
 
 ## Session 22 - July 5, 2026
+
 ### Accomplished
-- Created the Control folder for future physical command logic.
-- Built a dry-run velocity command interface.
-- Added a stop command helper.
-- Added command limiting so unsafe command values are capped before being sent.
-- Connected the final movement simulation output to the command interface.
-- Verified that xFinal, yFinal, and zFinal can flow into a dry-run physical command output.
+- Created the Control folder for future physical command logic
+- Built a dry-run velocity command interface
+- Added a stop command helper
+- Added command limiting so unsafe command values are capped before being sent
+- Connected the final movement simulation output to the command interface
+- Verified that xFinal, yFinal, and zFinal can flow into a dry-run physical command output
 
 ### Problems
-- Importing the command interface from the guidance simulation was not immediately straightforward.
-- The command interface needed to work regardless of where the project is run from.
+- Importing the command interface from the guidance simulation was not immediately straightforward
+- The command interface needed to work regardless of where the project is run from
 
 ### Debugging
-- Used pathlib and sys.path to add the project root to the Python path.
-- Tested the command interface by sending normal, stop, and oversized commands.
-- Confirmed oversized commands were limited to the safe command range.
+- Used pathlib and sys.path to add the project root to the Python path
+- Tested the command interface by sending normal, stop, and oversized commands
+- Confirmed oversized commands were limited to the safe command range
 
 ### Solution
-- Kept the command interface in Code/Control/command_interface.py.
-- Used send_velocity_command() as the bridge between simulated guidance outputs and future physical UAV commands.
-- Verified the simulation can call send_velocity_command(xFinal, yFinal, zFinal).
+- Kept the command interface in Code/Control/command_interface.py
+- Used send_velocity_command() as the bridge between simulated guidance outputs and future physical UAV commands
+- Verified the simulation can call send_velocity_command(xFinal, yFinal, zFinal)
 
 ### Next Session
 - How can the UAV organize behavior using mission states?
@@ -938,32 +949,33 @@
 
 
 ## Session 23 - July 6, 2026
+
 ### Accomplished
-- Created the Mission folder for mission-level UAV behavior.
-- Built the first mission-state update function.
-- Added TAKEOFF logic that keeps the UAV in TAKEOFF until the target altitude is reached.
-- Added transition logic from TAKEOFF to SEARCH.
-- Added state-based command generation.
-- Connected mission-state commands to the dry-run command interface.
-- Verified that TAKEOFF sends an upward command and SEARCH sends a stop command for now.
+- Created the Mission folder for mission-level UAV behavior
+- Built the first mission-state update function
+- Added TAKEOFF logic that keeps the UAV in TAKEOFF until the target altitude is reached
+- Added transition logic from TAKEOFF to SEARCH
+- Added state-based command generation
+- Connected mission-state commands to the dry-run command interface
+- Verified that TAKEOFF sends an upward command and SEARCH sends a stop command for now
 
 ### Problems
-- The first version of the state update logic depended only on altitude.
-- That would have allowed non-TAKEOFF states to accidentally switch back to TAKEOFF.
-- String comparison needed to use == instead of is.
+- The first version of the state update logic depended only on altitude
+- That would have allowed non-TAKEOFF states to accidentally switch back to TAKEOFF
+- String comparison needed to use == instead of is
 
 ### Debugging
-- Tested TAKEOFF below target altitude.
-- Tested TAKEOFF at target altitude.
-- Tested SEARCH and LAND to make sure they stayed unchanged.
-- Tested mission commands for TAKEOFF, SEARCH, and LAND.
-- Tested the full transition from TAKEOFF to SEARCH through the command interface.
+- Tested TAKEOFF below target altitude
+- Tested TAKEOFF at target altitude
+- Tested SEARCH and LAND to make sure they stayed unchanged
+- Tested mission commands for TAKEOFF, SEARCH, and LAND
+- Tested the full transition from TAKEOFF to SEARCH through the command interface
 
 ### Solution
-- Updated mission logic so altitude only affects the TAKEOFF state.
-- Kept all other states unchanged for now.
-- Added get_state_command() so each mission state can produce a movement command.
-- Verified TAKEOFF produces a dry-run upward command through send_velocity_command().
+- Updated mission logic so altitude only affects the TAKEOFF state
+- Kept all other states unchanged for now
+- Added get_state_command() so each mission state can produce a movement command
+- Verified TAKEOFF produces a dry-run upward command through send_velocity_command()
 
 ### Next Session
 - How can simulated altitude change over time during TAKEOFF?
@@ -975,31 +987,32 @@
 
 
 ## Session 24 - July 7, 2026
+
 ### Accomplished
-- Added simulated altitude update logic.
-- Built a takeoff simulation loop.
-- Connected TAKEOFF commands to simulated altitude changes.
-- Verified the UAV stays in TAKEOFF while below target altitude.
-- Verified the UAV switches to SEARCH when target altitude is reached.
-- Added a maxSteps safety limit to prevent infinite takeoff loops.
-- Added a safe stop command if takeoff fails before reaching the target altitude.
-- Added a takeoffComplete return flag.
+- Added simulated altitude update logic
+- Built a takeoff simulation loop
+- Connected TAKEOFF commands to simulated altitude changes
+- Verified the UAV stays in TAKEOFF while below target altitude
+- Verified the UAV switches to SEARCH when target altitude is reached
+- Added a maxSteps safety limit to prevent infinite takeoff loops
+- Added a safe stop command if takeoff fails before reaching the target altitude
+- Added a takeoffComplete return flag
 
 ### Problems
-- Printed altitude values initially showed floating-point rounding artifacts.
-- The first maxSteps safety version still sent an upward TAKEOFF command after failing to reach target altitude.
+- Printed altitude values initially showed floating-point rounding artifacts
+- The first maxSteps safety version still sent an upward TAKEOFF command after failing to reach target altitude
 
 ### Debugging
-- Rounded printed altitude values for readability without changing stored altitude.
-- Tested normal takeoff with enough steps to reach SEARCH.
-- Tested failed takeoff with too few maxSteps.
-- Confirmed the failed case now sends a stop command instead of another upward command.
+- Rounded printed altitude values for readability without changing stored altitude
+- Tested normal takeoff with enough steps to reach SEARCH
+- Tested failed takeoff with too few maxSteps
+- Confirmed the failed case now sends a stop command instead of another upward command
 
 ### Solution
-- Added update_altitude() to simulate vertical motion from zCommand.
-- Added run_takeoff_simulation() to simulate autonomous takeoff behavior.
-- Used maxSteps to prevent runaway loops.
-- Returned currentState, currentAltitude, and takeoffComplete for later mission integration.
+- Added update_altitude() to simulate vertical motion from zCommand
+- Added run_takeoff_simulation() to simulate autonomous takeoff behavior
+- Used maxSteps to prevent runaway loops
+- Returned currentState, currentAltitude, and takeoffComplete for later mission integration
 
 ### Next Session
 - How can TAKEOFF connect into a larger full mission simulation?
@@ -1011,32 +1024,33 @@
 
 
 ## Session 25 - July 8, 2026
+
 ### Accomplished
-- Expanded mission-state logic from TAKEOFF and SEARCH to include ACQUIRE.
-- Added marker-detection awareness to the mission-state update function.
-- Added SEARCH to ACQUIRE transition logic.
-- Updated SEARCH to produce a placeholder search command.
-- Built a basic full mission simulation.
-- Verified the mission can progress from TAKEOFF to SEARCH to ACQUIRE.
-- Added a failure warning when the mission stops before reaching ACQUIRE.
+- Expanded mission-state logic from TAKEOFF and SEARCH to include ACQUIRE
+- Added marker-detection awareness to the mission-state update function
+- Added SEARCH to ACQUIRE transition logic
+- Updated SEARCH to produce a placeholder search command
+- Built a basic full mission simulation
+- Verified the mission can progress from TAKEOFF to SEARCH to ACQUIRE
+- Added a failure warning when the mission stops before reaching ACQUIRE
 
 ### Problems
-- The mission-state update function needed a new markerDetected input.
-- Existing calls to update_mission_state() had to be updated to include the new argument.
-- The mission needed a way to simulate marker detection before real camera integration.
+- The mission-state update function needed a new markerDetected input
+- Existing calls to update_mission_state() had to be updated to include the new argument
+- The mission needed a way to simulate marker detection before real camera integration
 
 ### Debugging
 - Tested TAKEOFF below and at target altitude.
 - Tested SEARCH with markerDetected set to False and True.
-- Tested the full mission with marker detection occurring at step 25.
-- Tested a failure case where maxSteps ended before marker detection.
-- Confirmed the success case ends in ACQUIRE and the failure case ends in SEARCH.
+- Tested the full mission with marker detection occurring at step 25
+- Tested a failure case where maxSteps ended before marker detection
+- Confirmed the success case ends in ACQUIRE and the failure case ends in SEARCH
 
 ### Solution
 - Added markerDetected to update_mission_state().
-- Added SEARCH logic that switches to ACQUIRE when a marker is detected.
-- Added run_basic_mission_simulation() to simulate TAKEOFF, SEARCH, and ACQUIRE together.
-- Used markerDetectionStep as a simulated marker-detection trigger.
+- Added SEARCH logic that switches to ACQUIRE when a marker is detected
+- Added run_basic_mission_simulation() to simulate TAKEOFF, SEARCH, and ACQUIRE together
+- Used markerDetectionStep as a simulated marker-detection trigger
 
 ### Next Session
 - How can mission logic connect to real or simulated guidance outputs?
@@ -1048,32 +1062,76 @@
 
 
 ## Session 26 - July 16, 2026
+
 ### Accomplished
-- Connected mission logic to the existing guidance system.
-- Added guidance imports to the mission-state file.
-- Built get_acquire_command() for ACQUIRE-state movement.
-- Used simulated marker error and marker size values to generate guidance commands.
-- Connected ACQUIRE guidance output to the dry-run command interface.
-- Tested off-center, too-far, too-close, and correct-size marker cases.
+- Connected mission logic to the existing guidance system
+- Added guidance imports to the mission-state file
+- Built get_acquire_command() for ACQUIRE-state movement
+- Used simulated marker error and marker size values to generate guidance commands
+- Connected ACQUIRE guidance output to the dry-run command interface
+- Tested off-center, too-far, too-close, and correct-size marker cases
 
 ### Problems
-- get_proportional_command() needed the maxCommand argument.
-- ACQUIRE needed to return both final movement commands and the combined guidance command.
-- The first tests had to be changed manually before being converted into a reusable test-case list.
+- get_proportional_command() needed the maxCommand argument
+- ACQUIRE needed to return both final movement commands and the combined guidance command
+- The first tests had to be changed manually before being converted into a reusable test-case list
 
 ### Debugging
-- Tested an off-center marker to confirm ACQUIRE prioritizes centering.
-- Tested a centered but too-far marker to confirm the system commands closer movement.
-- Tested a centered but too-close marker to confirm the system commands further movement.
-- Tested a centered and correct-size marker to confirm the system maintains position.
-- Verified all final commands pass through send_velocity_command().
+- Tested an off-center marker to confirm ACQUIRE prioritizes centering
+- Tested a centered but too-far marker to confirm the system commands closer movement
+- Tested a centered but too-close marker to confirm the system commands further movement
+- Tested a centered and correct-size marker to confirm the system maintains position
+- Verified all final commands pass through send_velocity_command()
 
 ### Solution
-- Added get_acquire_command() as the bridge between mission state and guidance logic.
-- Used the existing guidance chain to compute xFinal, yFinal, zFinal, and combinedCommand.
-- Added reusable ACQUIRE command tests for the main marker-alignment cases.
+- Added get_acquire_command() as the bridge between mission state and guidance logic
+- Used the existing guidance chain to compute xFinal, yFinal, zFinal, and combinedCommand
+- Added reusable ACQUIRE command tests for the main marker-alignment cases
 
 ### Next Session
 - How can ACQUIRE transition into TRACK?
 - How should the mission respond when marker alignment improves over time?
 - How can simulated marker error updates be connected to mission-state transitions?
+
+
+
+
+
+## Session 27 - July 17, 2026
+
+### Accomplished
+- Added LiDAR obstacle avoidance as a future add-on if extra time is available
+- Updated the hardware plan to focus on a Pixhawk-style flight controller and laptop companion-computer architecture
+- Updated the requirements document to match the new hardware and autonomy scope
+- Updated the README to include the Pixhawk-style hardware direction, MAVLink command-interface planning, and future LiDAR add-on
+- Cleaned and reformatted the engineering log for consistency
+
+### Problems
+- The original hardware scope was becoming too large for the remaining project timeline
+- Adding LiDAR would have increased hardware complexity, wiring, code, and debugging time
+- The project needed a clearer distinction between required goals and future add-ons
+- The engineering log had inconsistent heading levels, spacing, and small typos
+- The README, requirements file, and hardware plan needed to match the updated project direction
+
+### Debugging
+- Compared the difficulty of completing full autonomous physical flight with and without LiDAR
+- Identified LiDAR as useful but not necessary for the first full autonomous flight goal
+- Reworked the project scope so the main priority is TAKEOFF to LAND autonomous flight
+- Reviewed the requirements file and moved LiDAR from project scope to future work
+- Reviewed the README status sections and updated Completed, In Progress, and Planned items
+- Reviewed the engineering log for heading consistency, typo fixes, and spacing
+- Checked that every log entry uses the same section structure
+
+### Solution
+- Set the required project goal as autonomous ArUco-guided flight from takeoff toward landing
+- Kept LiDAR-based obstacle avoidance as an optional future upgrade only
+- Updated the hardware plan so LiDAR is not included in the first hardware order
+- Updated the requirements file to include hardware safety, MAVLink communication, and physical drone testing goals
+- Updated the README to show the current hardware direction and future LiDAR status
+- Cleaned the engineering log and standardized all future entries to the same format
+- Prepared the project to move next into exact parts selection and MAVLink planning
+
+### Next Session
+- What exact hardware parts should be ordered for the first physical drone build?
+- Which Pixhawk-style flight controller or kit should be selected?
+- How should the MAVLink command interface be planned before hardware arrives?
