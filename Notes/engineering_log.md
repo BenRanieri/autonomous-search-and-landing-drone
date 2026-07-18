@@ -1135,3 +1135,52 @@
 - What exact hardware parts should be ordered for the first physical drone build?
 - Which Pixhawk-style flight controller or kit should be selected?
 - How should the MAVLink command interface be planned before hardware arrives?
+
+
+
+
+
+## Session 28 - July 18, 2026
+
+### Accomplished
+- Finalized the initial hardware order for the physical drone phase.
+- Selected the Holybro S500 V2 Development Kit with Pixhawk 6C as the main drone platform.
+- Selected Zeee 4S 3000mAh XT60 LiPo batteries for flight power.
+- Selected the ISDT 608AC charger for the drone batteries.
+- Selected the RadioMaster Pocket ELRS transmitter for manual control and safety override.
+- Selected the RadioMaster RP1 ELRS receiver for the flight controller.
+- Selected RadioMaster 18650 transmitter batteries from Lumenier.
+- Selected spare 1045 propellers for testing and replacement.
+- Selected a LiPo voltage checker and low-voltage alarm.
+- Selected a metric hex driver set for assembly and maintenance.
+- Selected reusable Velcro cable ties for cable management.
+- Selected heat shrink tubing for wiring protection.
+- Selected a LiPo safe charging and storage bag.
+- Clarified that the drone batteries charge with the ISDT charger.
+- Clarified that the transmitter batteries charge inside the RadioMaster Pocket through USB-C.
+
+### Problems
+- Physical drone parts will not arrive before the next session.
+- Hardware costs are near the planned budget, so extra parts had to be limited.
+- Some recommended online items were not useful for this project.
+
+### Debugging
+- Checked each hardware item against the project requirements.
+- Confirmed the battery, charger, transmitter, receiver, propeller, and safety-item choices.
+- Separated required first-order hardware from optional future tools.
+- Confirmed that a separate 18650 charger is not needed for the transmitter batteries.
+- Confirmed that LiDAR obstacle avoidance should remain future work.
+
+### Solution
+- Completed the initial hardware order list.
+- Stopped adding nonessential parts.
+- Decided to continue software development while waiting for the hardware to arrive.
+- Set the next task as the ACQUIRE to TRACK transition.
+- Kept the early hardware safety rule that propellers will stay off during bench testing.
+
+### Next Session
+- How can ACQUIRE transition into TRACK?
+- How long should the marker stay centered before switching to TRACK?
+- What tolerance should be used for the ACQUIRE to TRACK transition?
+- How can the system avoid switching states because of one noisy detection?
+- What software work can continue while waiting for hardware delivery?

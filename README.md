@@ -109,28 +109,31 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Early hardware path comparison
 * Hardware plan document
 * Preliminary hardware parts list
+* Final initial hardware order selected
 
 ### In Progress
 
-* Preparing exact parts shortlist
-* Preparing MAVLink command-interface planning
-* Preparing ACQUIRE to TRACK transition
+* ACQUIRE to TRACK transition
+* MAVLink command-interface planning
+* Hardware arrival preparation
 
 ### Planned
 
-* Exact parts shortlist
-* MAVLink command-interface planning
-* ACQUIRE to TRACK transition
+* TRACK state behavior
+* APPROACH state behavior
+* LAND state behavior
+* Full autonomous mission simulation
 * Autonomous search behavior
 * Target tracking
-* Approach behavior
 * Controlled descent over marker
 * Precision landing
-* Hardware integration
-* Physical drone assembly
+* Hardware inventory after delivery
+* Pixhawk port identification
+* Receiver wiring setup
 * Flight-controller bench testing
 * Props-off motor testing
 * Manual override and safety testing
+* Physical drone assembly
 * Limited autonomous physical flight testing
 * Future LiDAR-based obstacle avoidance
 

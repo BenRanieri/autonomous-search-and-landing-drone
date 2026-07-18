@@ -242,3 +242,35 @@ This future add-on should only be attempted after the main autonomous flight har
 - Soldering should be practiced on spare wires/connectors before soldering drone power components.
 - All motor and ESC tests should begin with propellers removed.
 - Manual control and failsafe behavior must be verified before autonomous flight testing.
+
+## Final Initial Hardware Order - Session 28
+
+The initial physical drone hardware path has been selected.
+
+### Main Drone Platform
+- Holybro S500 V2 Development Kit with Pixhawk 6C
+- Includes frame, motors, ESCs, Pixhawk flight controller, GPS, power module, telemetry radio, and propellers
+
+### Flight Power
+- Zeee 4S 3000mAh 14.8V 50C LiPo batteries with XT60 connector, 2-pack
+- ISDT 608AC 1-6S AC/DC LiPo balance charger
+- OVONIC LiPo-safe charging and storage bag
+
+### Manual Control and Safety Override
+- RadioMaster Pocket ELRS 2.4GHz Mode 2 transmitter
+- RadioMaster RP1 ELRS 2.4GHz receiver
+- RadioMaster 18650 3200mAh 3.7V Li-ion transmitter batteries
+
+### Tools, Spares, and Support Items
+- SoloGood 1045 10x4.5 spare propellers, 16 pieces
+- yueton 1-8S LiPo voltage checker / low-voltage alarm
+- Fraizoe RC metric hex driver set
+- VELCRO reusable cable ties
+- Ginsco 2:1 heat shrink tubing assortment
+
+### Notes
+- The drone batteries will be charged using the ISDT 608AC charger.
+- The RadioMaster transmitter batteries will be charged inside the RadioMaster Pocket through its USB-C charging port.
+- Propellers will not be installed during early bench setup or motor testing.
+- Flight battery power will not be connected until the power path and wiring are verified.
+- LiDAR obstacle avoidance remains a future add-on and is not part of the initial hardware order.
