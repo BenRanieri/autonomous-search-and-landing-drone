@@ -6,21 +6,27 @@ from Code.Control.command_interface import send_velocity_command
 from Code.Guidance.guidance_logic import (get_guidance_command, get_proportional_command, get_size_command, get_combined_guidance, get_elevation_command, get_final_movement)
 
 
-def update_mission_state(currentState, currentAltitude, targetAltitude, markerDetected):
-  newState = currentState
-  if currentState == "TAKEOFF":
-    if currentAltitude < targetAltitude:
-      newState = "TAKEOFF"
-    else:
-      newState = "SEARCH"
+def update_mission_state(currentState, currentAltitude, targetAltitude, markerDetected, readyToTrack=False):
+    if currentState == "TAKEOFF":
+        if currentAltitude >= targetAltitude:
+            return "SEARCH"
+        else:
+            return "TAKEOFF"
 
-  elif currentState == "SEARCH":
-    if markerDetected:
-      newState = "ACQUIRE"
-    else:
-      newState = "SEARCH"
+    elif currentState == "SEARCH":
+        if markerDetected:
+            return "ACQUIRE"
+        else:
+            return "SEARCH"
 
-  return newState
+    elif currentState == "ACQUIRE":
+        if readyToTrack:
+            return "TRACK"
+        else:
+            return "ACQUIRE"
+
+    else:
+        return currentState
 
 
 def update_altitude(currentAlt, zCommand, altScale):
@@ -55,6 +61,31 @@ def get_acquire_command(errorX, errorY, markerSize, tolerance, kp, maxCommand, d
   xFinal, yFinal, zFinal = get_final_movement(combinedCommand, xCommand, yCommand, zCommand)
 
   return xFinal, yFinal, zFinal, combinedCommand
+
+
+def is_marker_acquired(errorX, errorY, markerSize, tolerance, desiredSize, sizeTolerance):
+    xCentered = abs(errorX) <= tolerance
+    yCentered = abs(errorY) <= tolerance
+    sizeCorrect = abs(markerSize - desiredSize) <= sizeTolerance
+
+    if xCentered and yCentered and sizeCorrect:
+        return True
+    else:
+        return False
+    
+
+def update_acquire_stability(acquired, stableCount, requiredStableCount):
+    if acquired:
+        stableCount = stableCount + 1
+    else:
+        stableCount = 0
+
+    if stableCount >= requiredStableCount:
+        readyToTrack = True
+    else:
+        readyToTrack = False
+
+    return stableCount, readyToTrack
 
 
 def run_takeoff_simulation(startingAltitude, targetAltitude, altitudeScale, maxsteps):
@@ -131,24 +162,53 @@ def run_basic_mission_simulation(startingAltitude, targetAltitude, altitudeScale
 
 if __name__ == "__main__":
 
-  print("Acquire command tests:")
+  print("Combined ACQUIRE to TRACK simulation")
 
-  testCases = [
-    ("Off-center and too far away", 200, -100, 250),
-    ("Centered but too far away", 0, 0, 250),
-    ("Centered and correct size", 0, 0, 400),
-    ("Centered but too close", 0, 0, 500)
+  currentState = "ACQUIRE"
+  stableCount = 0
+  requiredStableCount = 3
+
+  simulatedMarkerData = [
+      ("off center", 50, -20, 300),
+      ("almost centered", 15, -8, 300),
+      ("centered once", 5, 4, 300),
+      ("centered twice", 3, -2, 305),
+      ("bad frame", 40, 0, 300),
+      ("centered again 1", 2, 1, 300),
+      ("centered again 2", 0, 0, 295),
+      ("centered again 3", -4, 3, 302),
   ]
 
-  for testName, errorX, errorY, markerSize in testCases:
+  for step, markerData in enumerate(simulatedMarkerData):
+      markerCase, errorX, errorY, markerSize = markerData
 
-    xFinal, yFinal, zFinal, combinedCommand = get_acquire_command(
-      errorX, errorY, markerSize,
-      10, 0.01, 1.0,
-      400, 20, 0.3
-    )
+      acquired = is_marker_acquired(
+          errorX,
+          errorY,
+          markerSize,
+          tolerance=10,
+          desiredSize=300,
+          sizeTolerance=20
+      )
 
-    print("Test case:", testName)
-    print("Combined command:", combinedCommand)
-    print("Final command:", xFinal, yFinal, zFinal)
-    send_velocity_command(xFinal, yFinal, zFinal)
+      stableCount, readyToTrack = update_acquire_stability(
+          acquired,
+          stableCount,
+          requiredStableCount
+      )
+
+      currentState = update_mission_state(
+          currentState,
+          currentAltitude=1.0,
+          targetAltitude=1.0,
+          markerDetected=True,
+          readyToTrack=readyToTrack
+      )
+
+      print("step:", step)
+      print("case:", markerCase)
+      print("acquired:", acquired)
+      print("stableCount:", stableCount)
+      print("readyToTrack:", readyToTrack)
+      print("currentState:", currentState)
+      print()

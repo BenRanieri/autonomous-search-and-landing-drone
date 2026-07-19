@@ -110,16 +110,18 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Hardware plan document
 * Preliminary hardware parts list
 * Final initial hardware order selected
+* ACQUIRE completion check
+* Marker acquisition stability counter
+* ACQUIRE to TRACK transition logic
 
 ### In Progress
 
-* ACQUIRE to TRACK transition
+* TRACK state behavior
 * MAVLink command-interface planning
 * Hardware arrival preparation
 
 ### Planned
 
-* TRACK state behavior
 * APPROACH state behavior
 * LAND state behavior
 * Full autonomous mission simulation

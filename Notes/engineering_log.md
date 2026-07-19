@@ -1184,3 +1184,57 @@
 - What tolerance should be used for the ACQUIRE to TRACK transition?
 - How can the system avoid switching states because of one noisy detection?
 - What software work can continue while waiting for hardware delivery?
+
+
+
+
+
+## Session 29 - July 19, 2026
+
+### Accomplished
+- Added an ACQUIRE completion check to the mission-state logic.
+- Created is_marker_acquired() to check whether the marker is centered and at the correct apparent size.
+- Checked X error against the position tolerance.
+- Checked Y error against the position tolerance.
+- Checked marker size against the desired marker size and size tolerance.
+- Created update_acquire_stability() to track how long the marker has stayed acquired.
+- Added stableCount to count consecutive acquired frames.
+- Added requiredStableCount to define how many stable frames are needed before switching states.
+- Added readyToTrack as the condition for leaving ACQUIRE.
+- Updated update_mission_state() so ACQUIRE can transition into TRACK.
+- Tested the ACQUIRE completion logic with centered, off-center, too-far, and too-close marker cases.
+- Tested the stability counter with a sequence of acquired and not-acquired values.
+- Built a combined ACQUIRE to TRACK simulation using simulated marker errors and marker sizes.
+- Confirmed that a bad frame resets stableCount to zero.
+- Confirmed that the mission only switches to TRACK after three stable acquired frames.
+
+### Problems
+- The first combined simulation loop tried to unpack five values from marker data that only contained four values.
+- The loop needed enumerate() to create the step number separately.
+- Several variables used in the combined simulation were not defined before the loop.
+- The mission needed to avoid switching from ACQUIRE to TRACK after only one good frame.
+
+### Debugging
+- Checked the ACQUIRE completion test output for each marker case.
+- Verified that only the centered and correct-size marker case returned acquired as True.
+- Checked the stability test output step by step.
+- Verified that stableCount increased during acquired frames.
+- Verified that stableCount reset to zero after a bad frame.
+- Replaced the incorrect loop unpacking with enumerate().
+- Added currentState, stableCount, requiredStableCount, and simulatedMarkerData before the combined simulation loop.
+- Ran the combined simulation and checked that currentState stayed ACQUIRE until readyToTrack became True.
+- Confirmed that currentState changed to TRACK only after stableCount reached three.
+
+### Solution
+- Added a reliable ACQUIRE completion condition using position error and marker size.
+- Added a stability counter so one noisy detection cannot trigger the TRACK state.
+- Connected readyToTrack into update_mission_state().
+- Confirmed the full ACQUIRE to TRACK transition using simulated marker data.
+- Kept the mission-state logic ready for TRACK behavior in the next session.
+
+### Next Session
+- How should TRACK state behavior keep the marker centered over time?
+- What commands should TRACK produce when the marker is slightly off center?
+- How should TRACK respond if the marker is temporarily lost?
+- How should TRACK decide when the drone is ready to move into APPROACH?
+- How can TRACK behavior build on the ACQUIRE stability logic?
