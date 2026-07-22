@@ -1293,3 +1293,60 @@
 - Should TRACK stop, hold position, or return to SEARCH after marker loss?
 - How can lost-marker handling be tested with simulated detection sequences?
 - How can future coding sessions allow more independent implementation before debugging?
+
+
+
+
+
+## Session 31 - July 22, 2026
+
+### Accomplished
+- Added TRACK lost-marker handling
+- Created update_track_marker_loss() to count missed marker detections during TRACK
+- Added lostMarkerCount to track consecutive frames without marker detection
+- Added maxLostMarkerCount to define how many missed detections are allowed
+- Added markerLost as the condition for leaving TRACK
+- Tested marker loss counting with detected and not-detected marker sequences
+- Confirmed detected frames reset lostMarkerCount to zero
+- Confirmed missed frames increase lostMarkerCount
+- Confirmed markerLost becomes True after three missed detections in a row
+- Updated update_mission_state() so TRACK can transition back to SEARCH
+- Added markerLost as an optional mission-state input
+- Tested TRACK marker-loss transition behavior
+- Confirmed TRACK stays TRACK when markerLost is False
+- Confirmed TRACK returns to SEARCH when markerLost is True
+- Built a combined marker-loss simulation
+- Confirmed temporary marker loss does not immediately leave TRACK
+- Confirmed TRACK returns to SEARCH after too many missed detections
+
+### Problems
+- TRACK needed a way to handle temporary marker loss without immediately leaving the state
+- TRACK also needed a safety limit so the drone does not continue tracking when the marker is gone
+- The first update_mission_state() edit made markerLost a required input
+- The mission needed markerLost to be optional so older mission-state calls would still work
+
+### Debugging
+- Tested update_track_marker_loss() with a sequence of marker detections
+- Checked that lostMarkerCount reset when markerDetected was True
+- Checked that lostMarkerCount increased when markerDetected was False
+- Checked that markerLost became True only after lostMarkerCount reached maxLostMarkerCount
+- Changed the mission-state function signature so markerLost defaults to False
+- Tested TRACK with markerLost False and markerLost True
+- Ran the combined marker-loss test sequence
+- Verified that currentState stayed TRACK during temporary missed detections
+- Verified that currentState changed to SEARCH after three missed detections in a row
+
+### Solution
+- Added a consecutive missed-detection counter for TRACK
+- Allowed short marker dropouts without immediately leaving TRACK
+- Added a safety transition from TRACK back to SEARCH when the marker is lost for too long
+- Connected markerLost into update_mission_state()
+- Confirmed the full TRACK lost-marker behavior with a combined simulation
+- Continued the more independent coding approach for this session
+
+### Next Session
+- How should TRACK decide when the marker is stable enough to move into APPROACH?
+- What conditions should allow TRACK to transition into APPROACH?
+- Should TRACK to APPROACH require multiple stable frames?
+- How should marker size affect the decision to begin APPROACH?
+- How can the transition into APPROACH be tested with simulated marker data?
