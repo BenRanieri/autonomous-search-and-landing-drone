@@ -44,10 +44,10 @@
 - Marker without border could not be detected
 
 ### Debugging
-- Verified image loaded correctly.
-- Verified detector object creation.
-- Printed rejected candidate count.
-- Determined marker required surrounding white border.
+- Verified image loaded correctly
+- Verified detector object creation
+- Printed rejected candidate count
+- Determined marker required surrounding white border
 
 ### Solution
 - Added white border around marker image
@@ -1143,40 +1143,40 @@
 ## Session 28 - July 18, 2026
 
 ### Accomplished
-- Finalized the initial hardware order for the physical drone phase.
-- Selected the Holybro S500 V2 Development Kit with Pixhawk 6C as the main drone platform.
-- Selected Zeee 4S 3000mAh XT60 LiPo batteries for flight power.
-- Selected the ISDT 608AC charger for the drone batteries.
-- Selected the RadioMaster Pocket ELRS transmitter for manual control and safety override.
-- Selected the RadioMaster RP1 ELRS receiver for the flight controller.
-- Selected RadioMaster 18650 transmitter batteries from Lumenier.
-- Selected spare 1045 propellers for testing and replacement.
-- Selected a LiPo voltage checker and low-voltage alarm.
-- Selected a metric hex driver set for assembly and maintenance.
-- Selected reusable Velcro cable ties for cable management.
-- Selected heat shrink tubing for wiring protection.
-- Selected a LiPo safe charging and storage bag.
-- Clarified that the drone batteries charge with the ISDT charger.
-- Clarified that the transmitter batteries charge inside the RadioMaster Pocket through USB-C.
+- Finalized the initial hardware order for the physical drone phase
+- Selected the Holybro S500 V2 Development Kit with Pixhawk 6C as the main drone platform
+- Selected Zeee 4S 3000mAh XT60 LiPo batteries for flight power
+- Selected the ISDT 608AC charger for the drone batteries
+- Selected the RadioMaster Pocket ELRS transmitter for manual control and safety override
+- Selected the RadioMaster RP1 ELRS receiver for the flight controller
+- Selected RadioMaster 18650 transmitter batteries from Lumenier
+- Selected spare 1045 propellers for testing and replacement
+- Selected a LiPo voltage checker and low-voltage alarm
+- Selected a metric hex driver set for assembly and maintenance
+- Selected reusable Velcro cable ties for cable management
+- Selected heat shrink tubing for wiring protection
+- Selected a LiPo safe charging and storage bag
+- Clarified that the drone batteries charge with the ISDT charger
+- Clarified that the transmitter batteries charge inside the RadioMaster Pocket through USB-C
 
 ### Problems
-- Physical drone parts will not arrive before the next session.
-- Hardware costs are near the planned budget, so extra parts had to be limited.
-- Some recommended online items were not useful for this project.
+- Physical drone parts will not arrive before the next session
+- Hardware costs are near the planned budget, so extra parts had to be limited
+- Some recommended online items were not useful for this project
 
 ### Debugging
-- Checked each hardware item against the project requirements.
-- Confirmed the battery, charger, transmitter, receiver, propeller, and safety-item choices.
-- Separated required first-order hardware from optional future tools.
-- Confirmed that a separate 18650 charger is not needed for the transmitter batteries.
-- Confirmed that LiDAR obstacle avoidance should remain future work.
+- Checked each hardware item against the project requirements
+- Confirmed the battery, charger, transmitter, receiver, propeller, and safety-item choices
+- Separated required first-order hardware from optional future tools
+- Confirmed that a separate 18650 charger is not needed for the transmitter batteries
+- Confirmed that LiDAR obstacle avoidance should remain future work
 
 ### Solution
-- Completed the initial hardware order list.
-- Stopped adding nonessential parts.
-- Decided to continue software development while waiting for the hardware to arrive.
-- Set the next task as the ACQUIRE to TRACK transition.
-- Kept the early hardware safety rule that propellers will stay off during bench testing.
+- Completed the initial hardware order list
+- Stopped adding nonessential parts
+- Decided to continue software development while waiting for the hardware to arrive
+- Set the next task as the ACQUIRE to TRACK transition
+- Kept the early hardware safety rule that propellers will stay off during bench testing
 
 ### Next Session
 - How can ACQUIRE transition into TRACK?
@@ -1192,45 +1192,45 @@
 ## Session 29 - July 19, 2026
 
 ### Accomplished
-- Added an ACQUIRE completion check to the mission-state logic.
-- Created is_marker_acquired() to check whether the marker is centered and at the correct apparent size.
-- Checked X error against the position tolerance.
-- Checked Y error against the position tolerance.
-- Checked marker size against the desired marker size and size tolerance.
-- Created update_acquire_stability() to track how long the marker has stayed acquired.
-- Added stableCount to count consecutive acquired frames.
-- Added requiredStableCount to define how many stable frames are needed before switching states.
-- Added readyToTrack as the condition for leaving ACQUIRE.
-- Updated update_mission_state() so ACQUIRE can transition into TRACK.
-- Tested the ACQUIRE completion logic with centered, off-center, too-far, and too-close marker cases.
-- Tested the stability counter with a sequence of acquired and not-acquired values.
-- Built a combined ACQUIRE to TRACK simulation using simulated marker errors and marker sizes.
-- Confirmed that a bad frame resets stableCount to zero.
-- Confirmed that the mission only switches to TRACK after three stable acquired frames.
+- Added an ACQUIRE completion check to the mission-state logic
+- Created is_marker_acquired() to check whether the marker is centered and at the correct apparent size
+- Checked X error against the position tolerance
+- Checked Y error against the position tolerance
+- Checked marker size against the desired marker size and size tolerance
+- Created update_acquire_stability() to track how long the marker has stayed acquired
+- Added stableCount to count consecutive acquired frames
+- Added requiredStableCount to define how many stable frames are needed before switching states
+- Added readyToTrack as the condition for leaving ACQUIRE
+- Updated update_mission_state() so ACQUIRE can transition into TRACK
+- Tested the ACQUIRE completion logic with centered, off-center, too-far, and too-close marker cases
+- Tested the stability counter with a sequence of acquired and not-acquired values
+- Built a combined ACQUIRE to TRACK simulation using simulated marker errors and marker sizes
+- Confirmed that a bad frame resets stableCount to zero
+- Confirmed that the mission only switches to TRACK after three stable acquired frames
 
 ### Problems
-- The first combined simulation loop tried to unpack five values from marker data that only contained four values.
-- The loop needed enumerate() to create the step number separately.
-- Several variables used in the combined simulation were not defined before the loop.
-- The mission needed to avoid switching from ACQUIRE to TRACK after only one good frame.
+- The first combined simulation loop tried to unpack five values from marker data that only contained four values
+- The loop needed enumerate() to create the step number separately
+- Several variables used in the combined simulation were not defined before the loop
+- The mission needed to avoid switching from ACQUIRE to TRACK after only one good frame
 
 ### Debugging
-- Checked the ACQUIRE completion test output for each marker case.
-- Verified that only the centered and correct-size marker case returned acquired as True.
-- Checked the stability test output step by step.
-- Verified that stableCount increased during acquired frames.
-- Verified that stableCount reset to zero after a bad frame.
-- Replaced the incorrect loop unpacking with enumerate().
-- Added currentState, stableCount, requiredStableCount, and simulatedMarkerData before the combined simulation loop.
-- Ran the combined simulation and checked that currentState stayed ACQUIRE until readyToTrack became True.
-- Confirmed that currentState changed to TRACK only after stableCount reached three.
+- Checked the ACQUIRE completion test output for each marker case
+- Verified that only the centered and correct-size marker case returned acquired as True
+- Checked the stability test output step by step
+- Verified that stableCount increased during acquired frames
+- Verified that stableCount reset to zero after a bad frame
+- Replaced the incorrect loop unpacking with enumerate()
+- Added currentState, stableCount, requiredStableCount, and simulatedMarkerData before the combined simulation loop
+- Ran the combined simulation and checked that currentState stayed ACQUIRE until readyToTrack became True
+- Confirmed that currentState changed to TRACK only after stableCount reached three
 
 ### Solution
-- Added a reliable ACQUIRE completion condition using position error and marker size.
-- Added a stability counter so one noisy detection cannot trigger the TRACK state.
-- Connected readyToTrack into update_mission_state().
-- Confirmed the full ACQUIRE to TRACK transition using simulated marker data.
-- Kept the mission-state logic ready for TRACK behavior in the next session.
+- Added a reliable ACQUIRE completion condition using position error and marker size
+- Added a stability counter so one noisy detection cannot trigger the TRACK state
+- Connected readyToTrack into update_mission_state()
+- Confirmed the full ACQUIRE to TRACK transition using simulated marker data
+- Kept the mission-state logic ready for TRACK behavior in the next session
 
 ### Next Session
 - How should TRACK state behavior keep the marker centered over time?
@@ -1238,3 +1238,58 @@
 - How should TRACK respond if the marker is temporarily lost?
 - How should TRACK decide when the drone is ready to move into APPROACH?
 - How can TRACK behavior build on the ACQUIRE stability logic?
+
+
+
+
+
+## Session 30 - July 21, 2026
+
+### Accomplished
+- Added TRACK state command behavior
+- Created get_track_command() to keep the marker centered during TRACK
+- Used errorX and errorY as inputs for TRACK correction
+- Reused get_proportional_command() for TRACK X and Y movement
+- Set zCommand to zero during TRACK so the drone does not approach or descend
+- Tested TRACK commands with centered, right, left, low, high, and small-error marker cases
+- Confirmed centered marker cases produce zero movement
+- Confirmed large X and Y errors produce correction commands
+- Confirmed small errors inside tolerance produce zero movement
+- Connected TRACK commands to the dry-run command interface
+- Added dry-run TRACK command tests using send_velocity_command()
+- Built run_track_simulation() to simulate TRACK correction over time
+- Simulated marker error updates using correctionScale
+- Confirmed TRACK reduces X and Y errors toward zero
+- Confirmed TRACK reaches the centered condition when both errors are inside tolerance
+
+### Problems
+- TRACK needed to be clearly separated from APPROACH and LAND
+- TRACK needed to correct marker position without changing altitude
+- The mission needed a safe default command for TRACK when marker error inputs are not available
+- Floating-point command values appeared in the TRACK simulation output
+
+### Debugging
+- Tested get_track_command() with several simulated marker positions
+- Verified zCommand stayed zero for every TRACK test case
+- Sent TRACK command outputs through the dry-run command interface
+- Checked the TRACK simulation step by step
+- Verified errorX and errorY moved closer to zero after each correction
+- Confirmed yCommand stopped once Y error entered the tolerance range
+- Confirmed xCommand stopped once X error entered the tolerance range
+- Checked the final error values against the tolerance
+
+### Solution
+- Defined TRACK as a hold-altitude marker-centering state
+- Used proportional X and Y correction during TRACK
+- Kept Z movement disabled during TRACK
+- Added a simulation to verify TRACK can center the marker over time
+- Confirmed TRACK reaches a centered condition without approach or descent
+- Decided to handle lost-marker behavior in the next session
+- Decided that future sessions should include more independent coding before reviewing full solutions
+
+### Next Session
+- How should TRACK respond when the marker is temporarily lost?
+- How many missed detections should be allowed before leaving TRACK?
+- Should TRACK stop, hold position, or return to SEARCH after marker loss?
+- How can lost-marker handling be tested with simulated detection sequences?
+- How can future coding sessions allow more independent implementation before debugging?

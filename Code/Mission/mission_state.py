@@ -44,6 +44,10 @@ def get_state_command(currentState):
     xCommand = 0
     yCommand = 0.2
     zCommand = 0
+  elif currentState == "TRACK":
+    xCommand = 0
+    yCommand = 0
+    zCommand = 0
   else:
     xCommand = 0
     yCommand = 0
@@ -61,6 +65,13 @@ def get_acquire_command(errorX, errorY, markerSize, tolerance, kp, maxCommand, d
   xFinal, yFinal, zFinal = get_final_movement(combinedCommand, xCommand, yCommand, zCommand)
 
   return xFinal, yFinal, zFinal, combinedCommand
+
+
+def get_track_command(errorX, errorY, tolerance, kp, maxCommand):
+  xCommand, yCommand = get_proportional_command(errorX, errorY, tolerance, kp, maxCommand)
+  zCommand = 0
+
+  return xCommand, yCommand, zCommand
 
 
 def is_marker_acquired(errorX, errorY, markerSize, tolerance, desiredSize, sizeTolerance):
@@ -160,55 +171,95 @@ def run_basic_mission_simulation(startingAltitude, targetAltitude, altitudeScale
   return currentState, currentAltitude, missionReachedAcquire
 
 
+def run_track_simulation(startingErrorX, startingErrorY, tolerance, kp, maxCommand, correctionScale, maxSteps):
+
+  errorX = startingErrorX
+  errorY = startingErrorY
+  step = 0
+
+  while step < maxSteps:
+
+    xCommand, yCommand, zCommand = get_track_command(errorX, errorY, tolerance, kp, maxCommand)
+    send_velocity_command(xCommand, yCommand, zCommand)
+
+    print("Step:", step)
+    print("errorX:", round(errorX, 2))
+    print("errorY:", round(errorY, 2))
+    print("xCommand:", xCommand)
+    print("yCommand:", yCommand)
+    print("zCommand:", zCommand)
+    print()
+
+    if xCommand == 0 and yCommand == 0:
+      print("TRACK centered")
+      return errorX, errorY, True
+
+    errorX = errorX - xCommand * correctionScale
+    errorY = errorY - yCommand * correctionScale
+
+    step = step + 1
+
+  print("TRACK simulation stopped before centering")
+  return errorX, errorY, False
+
+
 if __name__ == "__main__":
 
-  print("Combined ACQUIRE to TRACK simulation")
+  print("TRACK command tests")
+  print()
 
-  currentState = "ACQUIRE"
-  stableCount = 0
-  requiredStableCount = 3
-
-  simulatedMarkerData = [
-      ("off center", 50, -20, 300),
-      ("almost centered", 15, -8, 300),
-      ("centered once", 5, 4, 300),
-      ("centered twice", 3, -2, 305),
-      ("bad frame", 40, 0, 300),
-      ("centered again 1", 2, 1, 300),
-      ("centered again 2", 0, 0, 295),
-      ("centered again 3", -4, 3, 302),
+  trackTestCases = [
+    ("centered marker", 0, 0),
+    ("marker right", 50, 0),
+    ("marker left", -50, 0),
+    ("marker low", 0, 50),
+    ("marker high", 0, -50),
+    ("small error inside tolerance", 5, -5),
   ]
 
-  for step, markerData in enumerate(simulatedMarkerData):
-      markerCase, errorX, errorY, markerSize = markerData
+  for testName, errorX, errorY in trackTestCases:
+    xCommand, yCommand, zCommand = get_track_command(
+      errorX,
+      errorY,
+      tolerance=10,
+      kp=0.02,
+      maxCommand=1
+    )
 
-      acquired = is_marker_acquired(
-          errorX,
-          errorY,
-          markerSize,
-          tolerance=10,
-          desiredSize=300,
-          sizeTolerance=20
-      )
+    print(testName)
+    print("xCommand:", xCommand)
+    print("yCommand:", yCommand)
+    print("zCommand:", zCommand)
+    print()
 
-      stableCount, readyToTrack = update_acquire_stability(
-          acquired,
-          stableCount,
-          requiredStableCount
-      )
+  print("TRACK dry-run command tests")
+  print()
 
-      currentState = update_mission_state(
-          currentState,
-          currentAltitude=1.0,
-          targetAltitude=1.0,
-          markerDetected=True,
-          readyToTrack=readyToTrack
-      )
+  for testName, errorX, errorY in trackTestCases:
+    xCommand, yCommand, zCommand = get_track_command(
+      errorX,
+      errorY,
+      tolerance=10,
+      kp=0.02,
+      maxCommand=1
+    )
 
-      print("step:", step)
-      print("case:", markerCase)
-      print("acquired:", acquired)
-      print("stableCount:", stableCount)
-      print("readyToTrack:", readyToTrack)
-      print("currentState:", currentState)
-      print()
+    print(testName)
+    send_velocity_command(xCommand, yCommand, zCommand)
+
+  print("TRACK simulation test")
+  print()
+
+  finalErrorX, finalErrorY, trackCentered = run_track_simulation(
+    startingErrorX=80,
+    startingErrorY=-40,
+    tolerance=10,
+    kp=0.02,
+    maxCommand=1,
+    correctionScale=20,
+    maxSteps=20
+  )
+
+  print("Final errorX:", round(finalErrorX, 2))
+  print("Final errorY:", round(finalErrorY, 2))
+  print("trackCentered:", trackCentered)

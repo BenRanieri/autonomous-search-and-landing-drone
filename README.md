@@ -113,20 +113,23 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * ACQUIRE completion check
 * Marker acquisition stability counter
 * ACQUIRE to TRACK transition logic
+* TRACK command function
+* TRACK position correction behavior
 
 ### In Progress
 
-* TRACK state behavior
+* TRACK lost-marker handling
 * MAVLink command-interface planning
 * Hardware arrival preparation
 
 ### Planned
 
+* TRACK to APPROACH transition
 * APPROACH state behavior
+* APPROACH to LAND transition
 * LAND state behavior
 * Full autonomous mission simulation
 * Autonomous search behavior
-* Target tracking
 * Controlled descent over marker
 * Precision landing
 * Hardware inventory after delivery
