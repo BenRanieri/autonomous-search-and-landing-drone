@@ -1350,3 +1350,60 @@
 - Should TRACK to APPROACH require multiple stable frames?
 - How should marker size affect the decision to begin APPROACH?
 - How can the transition into APPROACH be tested with simulated marker data?
+
+
+
+
+
+## Session 32 - July 23, 2026
+
+### Accomplished
+- Added TRACK to APPROACH transition logic
+- Created is_track_ready_for_approach() to check whether TRACK is centered enough to continue
+- Used errorX and errorY to decide whether TRACK is ready for APPROACH
+- Created update_track_stability() to count stable TRACK frames
+- Added trackStableCount to track consecutive centered frames during TRACK
+- Added requiredTrackStableCount to define how many stable frames are needed before APPROACH
+- Added readyToApproach as the condition for leaving TRACK
+- Updated update_mission_state() so TRACK can transition into APPROACH
+- Kept markerLost as the highest-priority TRACK condition
+- Tested TRACK readiness with off-center, almost-centered, centered, and bad-frame cases
+- Confirmed off-center frames do not increase trackStableCount
+- Confirmed centered frames increase trackStableCount
+- Confirmed a bad frame resets trackStableCount to zero
+- Confirmed readyToApproach becomes True after three stable centered frames
+- Tested update_mission_state() with markerLost, readyToApproach, and normal TRACK cases
+- Built a combined TRACK to APPROACH simulation
+- Confirmed the mission stays in TRACK until readyToApproach becomes True
+- Confirmed the mission changes from TRACK to APPROACH after three stable centered frames
+
+### Problems
+- TRACK needed a separate condition for deciding when to begin APPROACH
+- The transition into APPROACH needed to avoid triggering after one good frame
+- markerLost needed to remain higher priority than readyToApproach
+- The mission needed to stay in TRACK during off-center and unstable marker frames
+
+### Debugging
+- Tested track readiness with simulated X and Y marker errors
+- Checked that trackReady returned False when either error was outside tolerance
+- Checked that trackReady returned True when both errors were inside tolerance
+- Verified that trackStableCount increased only during centered frames
+- Verified that trackStableCount reset after a bad frame
+- Tested update_mission_state() for TRACK to SEARCH, TRACK to APPROACH, and TRACK staying TRACK
+- Ran the final combined simulation step by step
+- Confirmed the final state became APPROACH only after the required stable count was reached
+
+### Solution
+- Added a TRACK readiness check based on marker centering
+- Added a stability counter for TRACK before APPROACH
+- Connected readyToApproach into update_mission_state()
+- Preserved the safety priority where marker loss sends TRACK back to SEARCH before APPROACH can happen
+- Confirmed the full TRACK to APPROACH transition using simulated marker data
+- Continued the independent coding approach for this session
+
+### Next Session
+- How should APPROACH move the drone into final landing position?
+- How should APPROACH use marker size to estimate distance or closeness?
+- How should APPROACH keep correcting X and Y error while moving closer?
+- What command should APPROACH produce when the marker is centered but still far away?
+- How can APPROACH behavior be tested with simulated marker data?

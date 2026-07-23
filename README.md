@@ -119,16 +119,19 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * TRACK marker-loss detection logic
 * TRACK to SEARCH lost-marker transition
 * Temporary marker-loss recovery behavior
+* TRACK ready for approach check
+* TRACK stability counter
+* TRACK to APPROACH transition logic
+* readyToApproach mission-state input
 
 ### In Progress
 
-* TRACK to APPROACH transition
+* APPROACH state behavior
 * MAVLink command-interface planning
 * Hardware arrival preparation
 
 ### Planned
 
-* APPROACH state behavior
 * APPROACH to LAND transition
 * LAND state behavior
 * Full autonomous mission simulation

@@ -6,7 +6,7 @@ from Code.Control.command_interface import send_velocity_command
 from Code.Guidance.guidance_logic import (get_guidance_command, get_proportional_command, get_size_command, get_combined_guidance, get_elevation_command, get_final_movement)
 
 
-def update_mission_state(currentState, currentAltitude, targetAltitude, markerDetected, readyToTrack=False, markerLost=False):
+def update_mission_state(currentState, currentAltitude, targetAltitude, markerDetected, readyToTrack=False, markerLost=False, readyForApproach=False):
     if currentState == "TAKEOFF":
         if currentAltitude >= targetAltitude:
             return "SEARCH"
@@ -28,6 +28,8 @@ def update_mission_state(currentState, currentAltitude, targetAltitude, markerDe
     elif currentState == "TRACK":
        if markerLost:
           return "SEARCH"
+       elif readyForApproach:
+          return "APPROACH"
        else:
           return "TRACK"
 
@@ -117,6 +119,25 @@ def update_track_marker_loss(markerDetected, lostMarkerCount, maxLostMarkerCount
       markerLost = False
 
   return lostMarkerCount, markerLost
+
+
+def is_track_ready_for_approach(errorX, errorY, tolerance):
+  if errorX < tolerance or -errorX > tolerance:
+    if errorY < tolerance or -errorY > tolerance:
+      return True
+  return False
+
+
+def update_track_stability(trackReady, trackStableCount, requiredStableCount):
+  if trackReady:
+    trackStableCount = trackStableCount + 1
+  else:
+    trackStableCount = 0
+  if trackStableCount >= requiredStableCount:
+    readyToApproach = True
+  else:
+     readyToApproach = False
+  return trackStableCount, readyToApproach 
 
          
 def run_takeoff_simulation(startingAltitude, targetAltitude, altitudeScale, maxsteps):
@@ -225,82 +246,75 @@ def run_track_simulation(startingErrorX, startingErrorY, tolerance, kp, maxComma
 
 if __name__ == "__main__":
 
-  print("Update Track Marker Loss Tests")
+  print("Track Stability Tests")
   print()
 
-  lostMarkerCount = 0
-  maxLostMarkerCount = 3
-  markerSequence = [
-     True,
-     True,
-     False,
-     False,
-     True,
-     False,
-     False,
-     False
+  tolerance = 10
+  requiredTrackStableCount = 3
+  trackStableCount = 0
+  trackErrorSequence = [
+    ("off center", 40, -20),
+    ("almost centered", 12, -8),
+    ("centered once", 5, 4),
+    ("centered twice", 3, -2),
+    ("bad frame", 30, 0),
+    ("centered again 1", 2, 1),
+    ("centered again 2", 0, 0),
+    ("centered again 3", -4, 3),
   ]
 
-  for markerDetected in markerSequence:
-    lostMarkerCount, markerLost = update_track_marker_loss(markerDetected, lostMarkerCount, maxLostMarkerCount)
-    print("Marker Detected:", markerDetected)
-    print("Lost Marker Count:", lostMarkerCount)
-    print("Marker Lost:", markerLost)
+  for frame, errorX, errorY in trackErrorSequence:
+    trackReady = is_track_ready_for_approach(errorX, errorY, tolerance)
+    trackStableCount, readyForApproach = update_track_stability(trackReady, trackStableCount, requiredTrackStableCount)
+    print("Frame:", frame)
+    print("ErrorX:", errorX)
+    print("ErrorY:", errorY)
+    print("Track Ready:", trackReady)
+    print("Track Stable Count:", trackStableCount)
+    print("Ready For Approach:", readyForApproach)
     print()
 
 
-  print("TRACK marker loss transition tests")
+  print("Update Mission State tests")
   print()
-
-  nextState = update_mission_state(
-      currentState="TRACK",
-      currentAltitude=1.0,
-      targetAltitude=1.0,
-      markerDetected=False,
-      markerLost=False
-  )
-
-  print("markerLost False")
-  print("nextState:", nextState)
+  missionState = update_mission_state("TRACK", 10, 10, True, False, True, False)
+  print(missionState)
   print()
-
-  nextState = update_mission_state(
-      currentState="TRACK",
-      currentAltitude=1.0,
-      targetAltitude=1.0,
-      markerDetected=False,
-      markerLost=True
-  )
-
-  print("markerLost True")
-  print("nextState:", nextState)
+  missionState = update_mission_state("TRACK", 10, 10, True, False, False, True)
+  print(missionState)
+  print()
+  missionState = update_mission_state("TRACK", 10, 10, True, False, False, False)
+  print(missionState)
   print()
 
 
-  print("Combined marker loss tests")
+  print("Final Combined Test")
   print()
-
+  
+  tolerance = 10
+  requiredTrackStableCount = 3
+  trackStableCount = 0
   currentState = "TRACK"
-  lostMarkerCount = 0
-  maxLostMarkerCount = 3
-  altitude = 10
-  targetAltitude = 10
-  markerSequence = [
-    True,
-    True,
-    False,
-    False,
-    True,
-    False,
-    False,
-    False
+  trackErrorSequence = [
+    ("off center", 40, -20),
+    ("almost centered", 12, -8),
+    ("centered once", 5, 4),
+    ("centered twice", 3, -2),
+    ("bad frame", 30, 0),
+    ("centered again 1", 2, 1),
+    ("centered again 2", 0, 0),
+    ("centered again 3", -4, 3),
   ]
 
-  for markerDetected in markerSequence:
-    lostMarkerCount, markerLost = update_track_marker_loss(markerDetected, lostMarkerCount, maxLostMarkerCount)
-    currentState = update_mission_state(currentState, altitude, targetAltitude, markerDetected, False, markerLost)
-    print("Marker Detected:", markerDetected)
-    print("Lost Marker Count:", lostMarkerCount)
-    print("Marker Lost:", markerLost)
+  for frame, errorX, errorY in trackErrorSequence:
+    trackReady = is_track_ready_for_approach(errorX, errorY, tolerance)
+    trackStableCount, readyForApproach = update_track_stability(trackReady, trackStableCount, requiredTrackStableCount)
+    currentState = update_mission_state(currentState, 10, 10, True, False, False, readyForApproach)
+    print("Frame:", frame)
+    print("ErrorX:", errorX)
+    print("ErrorY:", errorY)
+    print("Track Ready:", trackReady)
+    print("Track Stable Count:", trackStableCount)
+    print("Ready For Approach:", readyForApproach)
     print("Current State:", currentState)
     print()
