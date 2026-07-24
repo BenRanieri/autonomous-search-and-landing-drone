@@ -123,16 +123,19 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * TRACK stability counter
 * TRACK to APPROACH transition logic
 * readyToApproach mission-state input
+* APPROACH command function
+* APPROACH position correction behavior
+* APPROACH marker-size distance behavior
+* approachComplete output
 
 ### In Progress
 
-* APPROACH state behavior
+* APPROACH to LAND transition
 * MAVLink command-interface planning
 * Hardware arrival preparation
 
 ### Planned
 
-* APPROACH to LAND transition
 * LAND state behavior
 * Full autonomous mission simulation
 * Autonomous search behavior

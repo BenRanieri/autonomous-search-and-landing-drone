@@ -139,6 +139,13 @@ def update_track_stability(trackReady, trackStableCount, requiredStableCount):
      readyToApproach = False
   return trackStableCount, readyToApproach 
 
+
+def get_approach_command(errorX, errorY, markerSize, tolerance, kp, maxCommand, desiredSize, sizeTolerance, approachCommand):
+  xFinal, yFinal, zFinal, combinedCommand = get_acquire_command(errorX, errorY, markerSize, tolerance, kp, maxCommand, desiredSize, sizeTolerance, approachCommand)
+  approachComplete = is_marker_acquired(errorX, errorY, markerSize, tolerance, desiredSize, sizeTolerance)
+
+  return xFinal, yFinal, zFinal, approachComplete
+
          
 def run_takeoff_simulation(startingAltitude, targetAltitude, altitudeScale, maxsteps):
 
@@ -246,75 +253,31 @@ def run_track_simulation(startingErrorX, startingErrorY, tolerance, kp, maxComma
 
 if __name__ == "__main__":
 
-  print("Track Stability Tests")
+  print("Get Approach Command Tests")
   print()
 
   tolerance = 10
-  requiredTrackStableCount = 3
-  trackStableCount = 0
-  trackErrorSequence = [
-    ("off center", 40, -20),
-    ("almost centered", 12, -8),
-    ("centered once", 5, 4),
-    ("centered twice", 3, -2),
-    ("bad frame", 30, 0),
-    ("centered again 1", 2, 1),
-    ("centered again 2", 0, 0),
-    ("centered again 3", -4, 3),
+  kp = 0.02
+  maxCommand = 1
+  desiredSize = 300
+  sizeTolerance = 20
+  approachCommand = 0.3
+  approachTestCases = [
+    ("off center", 50, -20, 300),
+    ("centered but too far", 0, 0, 200),
+    ("centered but too close", 0, 0, 400),
+    ("centered and correct size", 0, 0, 300),
+    ("small error inside tolerance and correct size", 5, -5, 305),
+    ("x inside tolerance but y outside", 5, 30, 300),
+    ("centered at lower size boundary", 0, 0, 280),
+    ("centered at upper size boundary", 0, 0, 320),
   ]
 
-  for frame, errorX, errorY in trackErrorSequence:
-    trackReady = is_track_ready_for_approach(errorX, errorY, tolerance)
-    trackStableCount, readyForApproach = update_track_stability(trackReady, trackStableCount, requiredTrackStableCount)
-    print("Frame:", frame)
-    print("ErrorX:", errorX)
-    print("ErrorY:", errorY)
-    print("Track Ready:", trackReady)
-    print("Track Stable Count:", trackStableCount)
-    print("Ready For Approach:", readyForApproach)
-    print()
-
-
-  print("Update Mission State tests")
-  print()
-  missionState = update_mission_state("TRACK", 10, 10, True, False, True, False)
-  print(missionState)
-  print()
-  missionState = update_mission_state("TRACK", 10, 10, True, False, False, True)
-  print(missionState)
-  print()
-  missionState = update_mission_state("TRACK", 10, 10, True, False, False, False)
-  print(missionState)
-  print()
-
-
-  print("Final Combined Test")
-  print()
-  
-  tolerance = 10
-  requiredTrackStableCount = 3
-  trackStableCount = 0
-  currentState = "TRACK"
-  trackErrorSequence = [
-    ("off center", 40, -20),
-    ("almost centered", 12, -8),
-    ("centered once", 5, 4),
-    ("centered twice", 3, -2),
-    ("bad frame", 30, 0),
-    ("centered again 1", 2, 1),
-    ("centered again 2", 0, 0),
-    ("centered again 3", -4, 3),
-  ]
-
-  for frame, errorX, errorY in trackErrorSequence:
-    trackReady = is_track_ready_for_approach(errorX, errorY, tolerance)
-    trackStableCount, readyForApproach = update_track_stability(trackReady, trackStableCount, requiredTrackStableCount)
-    currentState = update_mission_state(currentState, 10, 10, True, False, False, readyForApproach)
-    print("Frame:", frame)
-    print("ErrorX:", errorX)
-    print("ErrorY:", errorY)
-    print("Track Ready:", trackReady)
-    print("Track Stable Count:", trackStableCount)
-    print("Ready For Approach:", readyForApproach)
-    print("Current State:", currentState)
+  for testCase, errorX, errorY, markerSize in approachTestCases:
+    xFinal, yFinal, zFinal, approachComplete = get_approach_command(errorX, errorY, markerSize, tolerance, kp, maxCommand, desiredSize, sizeTolerance, approachCommand)
+    print("Test Case:", testCase)
+    print("xCommand:", xFinal)
+    print("yCommand:", yFinal)
+    print("ZCommand:", zFinal)
+    print("Approach Complete:", approachComplete)
     print()

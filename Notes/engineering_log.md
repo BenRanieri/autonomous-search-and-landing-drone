@@ -1407,3 +1407,58 @@
 - How should APPROACH keep correcting X and Y error while moving closer?
 - What command should APPROACH produce when the marker is centered but still far away?
 - How can APPROACH behavior be tested with simulated marker data?
+
+
+
+
+
+## Session 33 - July 24, 2026
+
+### Accomplished
+- Added APPROACH state command behavior
+- Created get_approach_command() for APPROACH movement logic
+- Reused get_acquire_command() to generate X, Y, and Z movement commands
+- Added approachComplete as the output condition for finishing APPROACH
+- Used is_marker_acquired() to decide when APPROACH is complete
+- Tested APPROACH with an off-center marker
+- Tested APPROACH with a centered marker that was too far away
+- Tested APPROACH with a centered marker that was too close
+- Tested APPROACH with a centered marker at the correct size
+- Tested APPROACH with small position error inside tolerance
+- Tested APPROACH with X error inside tolerance and Y error outside tolerance
+- Tested lower and upper marker-size boundary cases
+- Confirmed APPROACH corrects X and Y before changing distance
+- Confirmed APPROACH moves closer when the marker is centered but too small
+- Confirmed APPROACH moves further when the marker is centered but too large
+- Confirmed approachComplete becomes True only when the marker is centered and at the correct size
+
+### Problems
+- APPROACH seemed very similar to ACQUIRE at first
+- get_acquire_command() returned four values, but the first APPROACH version tried to unpack only three
+- The difference between ACQUIRE and APPROACH needed to be clarified
+- APPROACH needed a boolean output so the mission can later transition into LAND
+
+### Debugging
+- Compared get_approach_command() to get_acquire_command()
+- Identified that get_acquire_command() returns xFinal, yFinal, zFinal, and combinedCommand
+- Fixed get_approach_command() so it receives all four returned values
+- Added approachComplete separately using is_marker_acquired()
+- Ran APPROACH test cases with different marker positions and marker sizes
+- Checked that off-center marker cases produced X and Y correction with zero Z movement
+- Checked that centered too-far and too-close cases produced Z movement
+- Checked that centered and correct-size cases produced zero movement and approachComplete True
+- Verified the lower and upper size boundaries counted as complete
+
+### Solution
+- Defined APPROACH as the state that moves into final landing position while keeping the marker centered
+- Reused the existing guidance chain for APPROACH movement
+- Added approachComplete so APPROACH can later transition into LAND
+- Confirmed APPROACH behavior with simulated marker data
+- Kept APPROACH movement separate from the actual LAND descent state
+
+### Next Session
+- How should APPROACH decide when it is ready to transition into LAND?
+- How should update_mission_state() use approachComplete?
+- Should APPROACH to LAND happen immediately or require stable approachComplete frames?
+- How can APPROACH to LAND be tested with simulated marker data?
+- How should LAND behavior use slow descent while keeping marker alignment safe?
