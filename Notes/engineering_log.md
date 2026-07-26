@@ -1462,3 +1462,66 @@
 - Should APPROACH to LAND happen immediately or require stable approachComplete frames?
 - How can APPROACH to LAND be tested with simulated marker data?
 - How should LAND behavior use slow descent while keeping marker alignment safe?
+
+
+
+
+
+## Session 34 - July 26, 2026
+
+### Accomplished
+- Started hardware inventory after the physical parts arrived
+- Confirmed the main Holybro S500 kit was present
+- Identified the frame with pre-attached wiring
+- Identified the landing rods and likely landing gear support pieces
+- Identified the motor mount or arm-end plastic pieces
+- Confirmed the included propellers were present
+- Confirmed the hardware bags, screws, plastic pieces, and included zip ties were present
+- Confirmed the four motors were present
+- Confirmed four ESCs were mounted on the frame
+- Confirmed the GPS standard box was present
+- Confirmed the power module was present
+- Confirmed the telemetry radio box was present
+- Confirmed two telemetry radios, antennas, and wiring were present
+- Confirmed the Pixhawk 6C flight controller was present
+- Confirmed the PWM In adapter, PWM Out adapter, CAN/I2C splitter, and Pixhawk wiring bundle were present
+- Confirmed the Amazon support parts were present
+- Confirmed the RadioMaster Pocket controller was present
+- Confirmed the RadioMaster RP1 ELRS receiver was present
+- Confirmed the ISDT LiPo charger, two Zeee 4S LiPo batteries, LiPo safe bag, voltage checker, spare propellers, hex drivers, Velcro ties, and heat shrink tubing were present
+- Confirmed the RadioMaster 18650 transmitter batteries from Lumenier were the only item not currently available
+- Decided to keep the sealed hardware bags closed for now
+- Decided not to begin frame assembly during the inventory session
+
+### Problems
+- The RadioMaster transmitter batteries were not available during the session
+- Some frame rods and plastic pieces were not immediately identifiable
+- The Pixhawk box included several adapters and wires that should not be connected randomly
+- The physical parts will not be available during Sessions 38 through 41
+- Assembly needed to wait until the build order and wiring plan are clearer
+
+### Debugging
+- Sorted the hardware into main drone kit, control parts, battery and charging parts, and tools or support items
+- Identified the four frame-mounted electronics with three motor connection points as ESCs
+- Separated propellers from the rest of the hardware to avoid installing them too early
+- Checked the Pixhawk box contents without connecting any cables
+- Confirmed that the RP1 receiver was present in the Amazon order
+- Compared the physical parts to the expected initial hardware order
+- Decided to leave sealed bags unopened to preserve organization
+- Confirmed that no power, charging, motor testing, or assembly should happen during the inventory session
+
+### Solution
+- Completed the first hardware inventory without powering or assembling the drone
+- Confirmed that the main drone kit and Amazon support parts are present
+- Identified the only missing-from-session item as the Lumenier transmitter batteries
+- Kept LiPo batteries stored safely
+- Kept propellers separate and uninstalled
+- Kept Pixhawk, GPS, receiver, telemetry radios, and wiring protected
+- Decided to use upcoming hardware-access sessions for Pixhawk and wiring identification before assembly
+
+### Next Session
+- How can the Pixhawk 6C ports and adapters be identified safely?
+- Which cables belong to the power module, GPS, telemetry radios, and PWM adapters?
+- How should the receiver connection be planned before wiring anything?
+- What parts should remain disconnected until bench testing?
+- How can the hardware sessions be planned around the period without part access?

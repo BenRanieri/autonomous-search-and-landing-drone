@@ -127,15 +127,22 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * APPROACH position correction behavior
 * APPROACH marker-size distance behavior
 * approachComplete output
+* Hardware inventory
+* S500 frame and mechanical parts confirmed
+* ESCs, motors, Pixhawk, GPS, power module, and telemetry radios confirmed
+* Amazon support parts confirmed
 
 ### In Progress
 
-* APPROACH to LAND transition
+* Pixhawk and wiring identification
+* Hardware access planning
 * MAVLink command-interface planning
-* Hardware arrival preparation
 
 ### Planned
 
+* Battery and charger safety setup
+* Pre-assembly planning
+* APPROACH to LAND transition
 * LAND state behavior
 * Full autonomous mission simulation
 * Autonomous search behavior
