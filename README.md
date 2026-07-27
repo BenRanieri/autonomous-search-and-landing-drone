@@ -131,31 +131,31 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * S500 frame and mechanical parts confirmed
 * ESCs, motors, Pixhawk, GPS, power module, and telemetry radios confirmed
 * Amazon support parts confirmed
+* Preliminary hardware wiring map
 
 ### In Progress
 
-* Pixhawk and wiring identification
+* Battery and charger safety setup
 * Hardware access planning
 * MAVLink command-interface planning
 
 ### Planned
 
-* Battery and charger safety setup
 * Pre-assembly planning
+* Frame assembly start
 * APPROACH to LAND transition
 * LAND state behavior
 * Full autonomous mission simulation
-* Autonomous search behavior
-* Controlled descent over marker
-* Precision landing
-* Hardware inventory after delivery
-* Pixhawk port identification
-* Receiver wiring setup
-* Flight-controller bench testing
+* MAVLink command-interface preparation
+* Pixhawk mounting
+* Dry wiring layout
+* Receiver and transmitter setup
+* ESC and motor signal wiring
 * Props-off motor testing
-* Manual override and safety testing
-* Physical drone assembly
-* Limited autonomous physical flight testing
+* Manual control and failsafe testing
+* First manual hover test
+* Limited autonomous mission testing
+* Full autonomous launch-to-landing mission
 * Future LiDAR-based obstacle avoidance
 
 

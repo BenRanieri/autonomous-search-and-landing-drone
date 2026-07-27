@@ -1525,3 +1525,62 @@
 - How should the receiver connection be planned before wiring anything?
 - What parts should remain disconnected until bench testing?
 - How can the hardware sessions be planned around the period without part access?
+
+
+
+
+
+## Session 35 - July 27, 2026
+
+### Accomplished
+- Identified the main Pixhawk 6C ports
+- Located POWER1, POWER2, GPS1, GPS2, CAN1, CAN2, TELEM1, TELEM2, TELEM3, USB, DSM, PPM/SBUS RC, SBUS OUT, I2C, FMU PWM OUT, and I/O PWM OUT
+- Identified POWER1 as the likely power module connection
+- Identified GPS1 as the likely GPS module connection
+- Identified TELEM ports as the likely telemetry radio connection points
+- Identified I/O PWM OUT as the likely main ESC signal output area
+- Identified the power module large battery-side and frame-side connectors
+- Identified the power module small cable port that matches Pixhawk POWER1
+- Identified the GPS cable that fits Pixhawk GPS1
+- Identified the telemetry radios, antennas, USB cable, and serial telemetry cable
+- Confirmed the telemetry cable fits the Pixhawk TELEM ports
+- Identified the RP1 receiver pads labeled negative, 5V, TX, and RX
+- Confirmed the RP1 receiver uses a serial-style connection
+- Identified the PWM In and PWM Out adapter pieces
+- Created a preliminary wiring plan for power, GPS, telemetry, receiver, and ESC signal connections
+- Kept all hardware unpowered and disconnected during the session
+
+### Problems
+- Several Pixhawk ports could be confused because many connectors are similar sizes
+- The RP1 receiver should not be connected randomly to DSM, SBUS OUT, or PPM/SBUS RC
+- The telemetry radios had multiple ports and needed to be separated into laptop-side and drone-side roles
+- The PWM adapters needed to be identified before connecting ESC signal wires
+- No power or assembly could happen until the wiring plan is clearer
+
+### Debugging
+- Read the Pixhawk case labels directly instead of guessing port functions
+- Matched the power module small cable to the POWER1 port shape
+- Matched the GPS cable to the GPS1 port shape
+- Matched the telemetry serial cable to the TELEM port shape
+- Checked the RP1 receiver labels before planning receiver wiring
+- Separated telemetry radio wiring from receiver wiring
+- Identified the likely purpose of the PWM Out adapter for ESC signal outputs
+- Avoided plugging in cables just because they fit
+- Confirmed that the flight battery, motors, and propellers should remain disconnected
+
+### Solution
+- Created a safe preliminary wiring map for the flight controller system
+- Planned power module connection to POWER1
+- Planned GPS connection to GPS1
+- Planned telemetry radio connection to a TELEM port
+- Planned RP1 receiver connection through a serial/UART-style port later
+- Planned PWM Out adapter use for future ESC signal wiring
+- Kept the drone unpowered and unassembled during wiring identification
+- Updated the compressed schedule so the project targets full completion by August 15
+
+### Next Session
+- How should the LiPo batteries be checked safely before charging?
+- How should the ISDT charger be used with the 4S flight batteries?
+- What charging current should be used for the drone batteries?
+- How should the LiPo safe bag and voltage checker be used?
+- What battery rules need to be followed before connecting power to the drone?
