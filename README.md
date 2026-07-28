@@ -132,16 +132,18 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * ESCs, motors, Pixhawk, GPS, power module, and telemetry radios confirmed
 * Amazon support parts confirmed
 * Preliminary hardware wiring map
+* LiPo battery voltage checking
+* LiPo voltage checker use
+* Battery safety workflow
 
 ### In Progress
 
-* Battery and charger safety setup
+* Pre-assembly planning
 * Hardware access planning
 * MAVLink command-interface planning
 
 ### Planned
 
-* Pre-assembly planning
 * Frame assembly start
 * APPROACH to LAND transition
 * LAND state behavior

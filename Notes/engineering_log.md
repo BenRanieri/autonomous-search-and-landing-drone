@@ -1584,3 +1584,56 @@
 - What charging current should be used for the drone batteries?
 - How should the LiPo safe bag and voltage checker be used?
 - What battery rules need to be followed before connecting power to the drone?
+
+
+
+
+
+## Session 36 - July 28, 2026
+
+### Accomplished
+- Identified the main connectors on both 4S LiPo batteries
+- Confirmed each battery has a yellow XT60 main connector
+- Confirmed each battery has a white 5-wire balance connector
+- Used the LiPo voltage checker to check both batteries
+- Measured Battery 1 at 15.3V total with cells around 3.81V
+- Measured Battery 2 at 15.2V total with cells around 3.81V
+- Confirmed both batteries are at safe storage voltage
+- Identified the ISDT charger power input, output port, balance port, USB port, and rotary encoder
+- Identified the charger battery screen with current, capacity, cell voltages, and total voltage
+- Identified the charger status screen with charger voltage, power, cell/status information, and temperature
+- Confirmed the correct future charging mode should be Balance Charge
+- Confirmed the correct future battery type is LiPo
+- Confirmed the correct future cell count is 4S
+- Confirmed the correct future charge current should be 3.0A or lower
+- Left both batteries uncharged because they were already at storage voltage
+- Stored the batteries safely in the LiPo safe bag
+
+### Problems
+- The voltage checker had 9 pins even though the 4S battery only has a 5-wire balance connector
+- The charger showed several values that needed to be interpreted before charging
+- The batteries should not be charged too early because LiPos should not sit fully charged for days
+- Charging settings need to be checked carefully before any future charging session
+
+### Debugging
+- Matched the black balance wire to the negative side of the voltage checker
+- Used only the first 5 pins on the voltage checker for the 4S balance connector
+- Compared individual cell voltages to normal LiPo storage voltage
+- Interpreted the charger screen values before connecting any battery to the charger
+- Separated charger input/status information from battery charging settings
+- Avoided charging because the batteries were already in a healthy storage range
+
+### Solution
+- Confirmed both flight batteries are healthy and balanced
+- Confirmed both batteries should remain stored instead of charged today
+- Identified the charger ports and basic display information
+- Established the future charging setup as LiPo, 4S, Balance Charge, 3.0A or lower, and 4.20V per cell
+- Kept the drone unpowered and kept all propellers off
+- Stored the batteries in the LiPo safe bag after checking them
+
+### Next Session
+- How should the frame assembly be planned before putting parts together?
+- What order should the frame, arms, landing gear, motors, and electronics be installed in?
+- Where should the Pixhawk, GPS, telemetry radio, receiver, and battery be placed?
+- How should wires be routed before anything is powered?
+- What should be assembled before the parts become unavailable?
