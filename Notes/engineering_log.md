@@ -1637,3 +1637,58 @@
 - Where should the Pixhawk, GPS, telemetry radio, receiver, and battery be placed?
 - How should wires be routed before anything is powered?
 - What should be assembled before the parts become unavailable?
+
+
+
+
+
+## Session 37 - July 29, 2026
+
+### Accomplished
+- Began S500 V2 frame assembly using the online assembly guide
+- Identified the difference between motor arms and landing gear pieces
+- Confirmed the frame has two large center plates
+- Confirmed the ESCs are attached to one of the frame plates
+- Identified how the arms mount between the bottom plate and top plate
+- Confirmed the triangular arm mounting patterns line up when both plates are used
+- Routed ESC wires through the arm areas instead of pinching them under the mounts
+- Worked through the PWM breakout step from the assembly guide
+- Identified the FrSky receiver step as the equivalent physical placement step for the RP1 receiver
+- Assembled as much of the frame as possible without completing powered wiring
+- Left the power module, RC radio connection, battery, and most wiring for a later session
+- Kept the propellers off
+- Kept the drone unpowered
+
+### Problems
+- The kit did not include a printed manual
+- The assembly guide was written for a Pixhawk 4 style setup instead of the Pixhawk 6C
+- The arm screw holes appeared not to line up until the top and bottom plate sandwich layout was understood
+- ESC wires were close to the arm mounting area and could have been pinched
+- Step 4 was confusing because it involved the PWM breakout and did not clearly match the newer electronics
+- The FrSky receiver step did not directly match the RP1 receiver included in the current setup
+
+### Debugging
+- Compared the physical pieces to the S500 V2 frame guide
+- Checked arm orientation by matching the triangular mounting side to both frame plates
+- Verified that the circular arm ends point outward for motor mounting
+- Paused before forcing screws when the holes did not line up at first
+- Reinterpreted Step 4 as a PWM breakout placement step instead of final Pixhawk wiring
+- Separated frame assembly instructions from Pixhawk 6C wiring instructions
+- Confirmed that the RP1 receiver replaces the FrSky receiver for physical placement
+- Avoided powered wiring during mechanical assembly
+
+### Solution
+- Used the S500 V2 guide for mechanical frame assembly only
+- Treated Pixhawk-specific wiring steps as placeholders to be adapted later for the Pixhawk 6C
+- Routed ESC wires safely through the arm areas
+- Completed major mechanical assembly progress without installing propellers
+- Left detailed wiring for the next hardware session
+- Kept the battery disconnected and the drone unpowered
+
+### Next Session
+- How should the power module be placed and routed?
+- How should the POWER1 cable connect to the Pixhawk?
+- How should the GPS cable be routed to GPS1?
+- How should the telemetry radio cable be routed to a TELEM port?
+- How should the RP1 receiver wiring be planned before soldering or connecting?
+- How should the PWM and ESC signal wiring be organized before power testing?
