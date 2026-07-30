@@ -136,25 +136,28 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * LiPo voltage checker use
 * Battery safety workflow
 * Drone hardware assembly
+* Power module placement and connection planning
+* Main Pixhawk wiring progress
 
 ### In Progress
 
-* Dry wiring layout
-* Pixhawk connection planning
-* Hardware access planning
+* APPROACH to LAND transition
+* LAND state behavior
+* Full mission simulation
 * MAVLink command-interface planning
+* RP1 receiver wiring
 
 ### Planned
 
-* Power module wiring
-* GPS wiring
-* Telemetry radio wiring
-* Receiver and transmitter setup
-* ESC and motor signal wiring
-* APPROACH to LAND transition
-* LAND state behavior
+* LAND to DISARM transition
 * Full autonomous mission simulation
 * MAVLink command-interface preparation
+* RP1 receiver connection to TELEM2
+* Receiver and transmitter setup
+* ESC and motor signal order verification
+* Battery mounting
+* Pixhawk USB setup
+* Sensor and radio calibration
 * Props-off motor testing
 * Manual control and failsafe testing
 * First manual hover test

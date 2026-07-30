@@ -1692,3 +1692,72 @@
 - How should the telemetry radio cable be routed to a TELEM port?
 - How should the RP1 receiver wiring be planned before soldering or connecting?
 - How should the PWM and ESC signal wiring be organized before power testing?
+
+
+
+
+
+## Session 38 - July 30, 2026
+
+### Accomplished
+- Continued final hardware-access setup before losing access to the physical drone
+- Connected the power module into the main battery-to-frame power path
+- Confirmed the power module acts between the LiPo battery and the frame power system
+- Connected the power module small cable to Pixhawk POWER1
+- Connected the GPS module to Pixhawk GPS1
+- Connected the Holybro telemetry radio to Pixhawk TELEM1
+- Connected the main PWM output cable to Pixhawk I/O PWM OUT MAIN
+- Identified the ESC black and yellow wires as ESC signal/control wires
+- Confirmed ESC signal order matters and should not be assigned only by clockwise position
+- Identified that the RP1 receiver uses pads labeled negative, 5V, TX, and RX
+- Confirmed the RP1 included wire colors are black, red, green, and white
+- Mapped RP1-side wire colors as black to negative, red to 5V, green to TX, and white to RX
+- Confirmed the RP1 antenna is already attached to the receiver board
+- Determined that the RP1 receiver cannot be connected directly to Pixhawk using bare wire tips
+- Identified that TELEM2 has 6 pins while the RP1 only needs 4 wires
+- Determined that CTS and RTS pins are not needed for the RP1 receiver
+- Identified the need for a JST-GH 1.25mm 6-pin pigtail cable for RP1 to TELEM2 wiring
+- Ordered a JST-GH 1.25mm 6-pin pigtail cable for future receiver wiring
+- Left the RP1 receiver disconnected until the correct cable arrives
+- Kept the battery disconnected and the propellers off
+
+### Problems
+- The power module routing was confusing because the frame already had a battery-style power cable attached
+- The ESC signal wires were initially confused with CAN or motor-side wires
+- The correct ESC signal channel order could not be safely confirmed yet
+- The RP1 receiver included bare-ended wires instead of a Pixhawk-compatible plug
+- TELEM2 has 6 pins while the RP1 receiver only uses 4 wires
+- The available 6-pin cables were either plug-to-plug or empty connector housings
+- The empty connector housing could not be used without crimp pins and a crimping tool
+- The RP1 receiver wiring could not be completed safely during this session
+
+### Debugging
+- Separated the power path from the Pixhawk signal path
+- Identified the power module as the middle component between the battery and the frame
+- Confirmed that the power module small cable belongs on POWER1
+- Identified TELEM1 as the correct port for the Holybro telemetry radio
+- Identified I/O PWM OUT MAIN as the correct Pixhawk motor-output connection area
+- Separated ESC power wires from ESC signal wires
+- Paused before assigning ESC signal wires to channels 1 through 4
+- Compared the RP1 receiver pads to the included 4-wire lead
+- Compared TELEM2 cable options and ruled out the CAN and I2C splitter
+- Ruled out the empty 6-pin housing because bare wires cannot attach securely without crimp terminals
+- Compared JST-GH cable options and ordered a likely correct 6-pin pigtail cable
+
+### Solution
+- Completed the safe obvious Pixhawk connections
+- Left the drone unpowered and kept propellers off
+- Connected POWER1, GPS1, TELEM1, and I/O PWM OUT MAIN
+- Left RP1 receiver wiring incomplete until the correct pigtail cable arrives
+- Planned future RP1 wiring through Pixhawk TELEM2
+- Planned to use only 4 of the 6 TELEM2 wires for ground, 5V, TX, and RX
+- Planned to leave CTS and RTS unused
+- Preserved ESC signal order for later motor-order verification
+- Shifted the next four sessions to software completion while hardware access is unavailable
+
+### Next Session
+- How should APPROACH transition into LAND?
+- What conditions should decide that approach is complete?
+- How should LAND continue correcting marker alignment while descending?
+- What should LAND do if the marker is lost or alignment becomes unsafe?
+- How should the LAND behavior be tested in simulation?
