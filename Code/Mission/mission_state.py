@@ -6,35 +6,43 @@ from Code.Control.command_interface import send_velocity_command
 from Code.Guidance.guidance_logic import (get_guidance_command, get_proportional_command, get_size_command, get_combined_guidance, get_elevation_command, get_final_movement)
 
 
-def update_mission_state(currentState, currentAltitude, targetAltitude, markerDetected, readyToTrack=False, markerLost=False, readyForApproach=False):
-    if currentState == "TAKEOFF":
-        if currentAltitude >= targetAltitude:
-            return "SEARCH"
-        else:
-            return "TAKEOFF"
-
-    elif currentState == "SEARCH":
-        if markerDetected:
-            return "ACQUIRE"
-        else:
-            return "SEARCH"
-
-    elif currentState == "ACQUIRE":
-        if readyToTrack:
-            return "TRACK"
-        else:
-            return "ACQUIRE"
-
-    elif currentState == "TRACK":
-       if markerLost:
-          return "SEARCH"
-       elif readyForApproach:
-          return "APPROACH"
-       else:
-          return "TRACK"
-
+def update_mission_state(currentState, currentAltitude, targetAltitude, markerDetected, readyToTrack=False, markerLost=False, readyForApproach=False, approachComplete=False):
+  if currentState == "TAKEOFF":
+    if currentAltitude >= targetAltitude:
+      return "SEARCH"
     else:
-        return currentState
+      return "TAKEOFF"
+
+  elif currentState == "SEARCH":
+    if markerDetected:
+      return "ACQUIRE"
+    else:
+      return "SEARCH"
+
+  elif currentState == "ACQUIRE":
+    if readyToTrack:
+      return "TRACK"
+    else:
+      return "ACQUIRE"
+
+  elif currentState == "TRACK":
+    if markerLost:
+      return "SEARCH"
+    elif readyForApproach:
+      return "APPROACH"
+    else:
+      return "TRACK"
+
+  elif currentState == "APPROACH":
+    if markerLost:
+      return "SEARCH"
+    elif approachComplete:
+      return "LAND"
+    else:
+      return "APPROACH"
+
+  else:
+    return currentState
 
 
 def update_altitude(currentAlt, zCommand, altScale):
@@ -122,10 +130,13 @@ def update_track_marker_loss(markerDetected, lostMarkerCount, maxLostMarkerCount
 
 
 def is_track_ready_for_approach(errorX, errorY, tolerance):
-  if errorX < tolerance or -errorX > tolerance:
-    if errorY < tolerance or -errorY > tolerance:
-      return True
-  return False
+  xCentered = abs(errorX) <= tolerance
+  yCentered = abs(errorY) <= tolerance
+
+  if xCentered and yCentered:
+    return True
+  else:
+    return False
 
 
 def update_track_stability(trackReady, trackStableCount, requiredStableCount):
@@ -145,6 +156,29 @@ def get_approach_command(errorX, errorY, markerSize, tolerance, kp, maxCommand, 
   approachComplete = is_marker_acquired(errorX, errorY, markerSize, tolerance, desiredSize, sizeTolerance)
 
   return xFinal, yFinal, zFinal, approachComplete
+
+
+def get_land_command(errorX, errorY, tolerance, kp, maxCommand, landCommand):
+  xCommand, yCommand = get_proportional_command(errorX, errorY, tolerance, kp, maxCommand)
+
+  xCentered = abs(errorX) <= tolerance
+  yCentered = abs(errorY) <= tolerance
+
+  if xCentered and yCentered:
+    zCommand = landCommand
+  else:
+    zCommand = 0
+
+  return xCommand, yCommand, zCommand
+
+
+def is_landing_complete(currentAltitude, landingAltitude):
+  altitudeTolerance = 0.01
+
+  if currentAltitude <= landingAltitude + altitudeTolerance:
+    return True
+  else:
+    return False
 
          
 def run_takeoff_simulation(startingAltitude, targetAltitude, altitudeScale, maxsteps):
@@ -253,31 +287,75 @@ def run_track_simulation(startingErrorX, startingErrorY, tolerance, kp, maxComma
 
 if __name__ == "__main__":
 
-  print("Get Approach Command Tests")
-  print()
-
   tolerance = 10
   kp = 0.02
   maxCommand = 1
-  desiredSize = 300
-  sizeTolerance = 20
-  approachCommand = 0.3
-  approachTestCases = [
-    ("off center", 50, -20, 300),
-    ("centered but too far", 0, 0, 200),
-    ("centered but too close", 0, 0, 400),
-    ("centered and correct size", 0, 0, 300),
-    ("small error inside tolerance and correct size", 5, -5, 305),
-    ("x inside tolerance but y outside", 5, 30, 300),
-    ("centered at lower size boundary", 0, 0, 280),
-    ("centered at upper size boundary", 0, 0, 320),
+  landCommand = -0.2
+
+  print("Approach State Transition Tests")
+  print()
+
+  print(update_mission_state("APPROACH", 5, 5, True, approachComplete=False))
+  print(update_mission_state("APPROACH", 5, 5, True, approachComplete=True))
+  print(update_mission_state("APPROACH", 5, 5, False, markerLost=True, approachComplete=False))
+  print()
+
+  print("Land Command Tests")
+  print()
+
+  landTestCases = [
+    ("centered", 0, 0),
+    ("small error inside tolerance", 5, -5),
+    ("x outside tolerance", 30, 0),
+    ("y outside tolerance", 0, -30),
+    ("both outside tolerance", 40, -40),
   ]
 
-  for testCase, errorX, errorY, markerSize in approachTestCases:
-    xFinal, yFinal, zFinal, approachComplete = get_approach_command(errorX, errorY, markerSize, tolerance, kp, maxCommand, desiredSize, sizeTolerance, approachCommand)
+  for testCase, errorX, errorY in landTestCases:
+    xCommand, yCommand, zCommand = get_land_command(errorX, errorY, tolerance, kp, maxCommand, landCommand)
+
     print("Test Case:", testCase)
-    print("xCommand:", xFinal)
-    print("yCommand:", yFinal)
-    print("ZCommand:", zFinal)
-    print("Approach Complete:", approachComplete)
+    print("xCommand:", xCommand)
+    print("yCommand:", yCommand)
+    print("zCommand:", zCommand)
     print()
+
+  print("Landing Complete Tests")
+  print()
+
+  landingAltitude = 0.2
+
+  landingCompleteTestCases = [
+    ("above landing altitude", 1.0),
+    ("at landing altitude", 0.2),
+    ("below landing altitude", 0.1),
+  ]
+
+  for testCase, currentAltitude in landingCompleteTestCases:
+    landingComplete = is_landing_complete(currentAltitude, landingAltitude)
+
+    print("Test Case:", testCase)
+    print("Current Altitude:", currentAltitude)
+    print("Landing Complete:", landingComplete)
+    print()
+
+  print("Land Altitude Update Test")
+  print()
+
+  currentAltitude = 1.0
+  landingAltitude = 0.2
+  altitudeScale = 1
+  landCommand = -0.2
+  step = 0
+
+  while not is_landing_complete(currentAltitude, landingAltitude) and step < 10:
+    xCommand, yCommand, zCommand = get_land_command(0, 0, tolerance, kp, maxCommand, landCommand)
+    currentAltitude = update_altitude(currentAltitude, zCommand, altitudeScale)
+
+    print("Step:", step)
+    print("Altitude:", round(currentAltitude, 2))
+    print("zCommand:", zCommand)
+    print("Landing Complete:", is_landing_complete(currentAltitude, landingAltitude))
+    print()
+
+    step = step + 1

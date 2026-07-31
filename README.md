@@ -138,18 +138,21 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Drone hardware assembly
 * Power module placement and connection planning
 * Main Pixhawk wiring progress
+* APPROACH to LAND transition
+* LAND command behavior
 
 ### In Progress
 
-* APPROACH to LAND transition
-* LAND state behavior
+* LAND to DISARM transition
+* DISARM state behavior
+* Landing safety logic
 * Full mission simulation
 * MAVLink command-interface planning
-* RP1 receiver wiring
 
 ### Planned
 
-* LAND to DISARM transition
+* LAND marker-loss handling
+* LAND timeout safety
 * Full autonomous mission simulation
 * MAVLink command-interface preparation
 * RP1 receiver connection to TELEM2

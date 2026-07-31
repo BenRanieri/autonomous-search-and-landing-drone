@@ -1761,3 +1761,64 @@
 - How should LAND continue correcting marker alignment while descending?
 - What should LAND do if the marker is lost or alignment becomes unsafe?
 - How should the LAND behavior be tested in simulation?
+
+
+
+
+
+## Session 39 - July 31, 2026
+
+### Accomplished
+- Started the first software-only session after the final hardware-access setup session
+- Rebalanced the next four software sessions so all remaining code work is spread evenly
+- Reviewed the current mission state code before adding LAND behavior
+- Fixed the TRACK readiness logic using absolute error checks
+- Added approachComplete as an input to the mission state update function
+- Added APPROACH state transition logic
+- Tested that APPROACH stays in APPROACH when approachComplete is false
+- Tested that APPROACH transitions to LAND when approachComplete is true
+- Tested that APPROACH returns to SEARCH when markerLost is true
+- Added LAND command behavior
+- Made LAND continue using proportional x and y marker correction
+- Made LAND descend slowly only when the marker is centered within tolerance
+- Made LAND stop descending when the marker is outside tolerance
+- Added landing completion logic based on landing altitude
+- Added a landing altitude tolerance to avoid floating-point precision errors
+- Tested landing completion above, at, and below the landing altitude
+- Tested LAND altitude update behavior over multiple simulated steps
+- Confirmed LAND stops at the landing altitude instead of overshooting because of floating-point precision
+
+### Problems
+- The mission state indentation became inconsistent when switching to two-space indentation
+- The TAKEOFF else block was accidentally aligned with the main state-machine if statement
+- The original TRACK readiness function could incorrectly allow some large negative errors
+- The first LAND test block used values before they were initialized
+- Older test cases from the previous session made the bottom of the file harder to manage
+- The first landing altitude simulation printed 0.2 but did not mark landing complete because of floating-point precision
+
+### Debugging
+- Rewrote the mission state function using consistent two-space indentation
+- Checked that each elif state lined up with the main TAKEOFF if statement
+- Replaced the TRACK readiness logic with absolute-value x and y tolerance checks
+- Reduced the main test block to only the tests needed for the current session
+- Initialized tolerance, kp, maxCommand, and landCommand before the LAND tests
+- Verified LAND command outputs for centered, small-error, x-error, y-error, and both-error cases
+- Added an altitude tolerance inside the landing completion check
+- Reran the LAND altitude update test to confirm landingComplete became true at the printed landing altitude
+
+### Solution
+- Completed APPROACH to LAND state transition logic
+- Completed basic LAND movement behavior
+- Confirmed LAND descends only when centered over the marker
+- Confirmed LAND corrects x and y without descending when alignment is unsafe
+- Added a simple altitude-based landing completion condition
+- Added tolerance protection against floating-point altitude errors
+- Confirmed the LAND altitude simulation reaches landingComplete correctly
+- Left LAND to DISARM, DISARM behavior, and landing safety cases for the next session
+
+### Next Session
+- How should LAND transition into DISARM?
+- What should the DISARM state command do?
+- How should LAND respond if the marker is lost?
+- What timeout should stop LAND if landing takes too long?
+- How should normal landing, marker loss, and timeout cases be tested?
