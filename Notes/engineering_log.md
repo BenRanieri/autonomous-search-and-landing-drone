@@ -1822,3 +1822,72 @@
 - How should LAND respond if the marker is lost?
 - What timeout should stop LAND if landing takes too long?
 - How should normal landing, marker loss, and timeout cases be tested?
+
+
+
+
+
+## Session 40 - August 1, 2026
+
+### Accomplished
+- Started the second software-only session focused on completing the end of the mission
+- Added landingComplete as an input to the mission state update function
+- Added LAND state transition logic
+- Tested that LAND stays in LAND while landing is not complete
+- Tested that LAND transitions to DISARM when landingComplete is true
+- Tested that LAND returns to SEARCH when markerLost is true
+- Added DISARM state logic
+- Tested that DISARM remains in DISARM once reached
+- Added landing timeout logic
+- Added landingTimeout as an input to the mission state update function
+- Tested that LAND returns to SEARCH when landingTimeout is true
+- Added a helper function to detect landing timeout
+- Tested timeout behavior below, at, and above the maximum landing step count
+- Added DISARM command behavior through get_state_command
+- Tested that DISARM sends zero x, y, and z commands
+- Built a LAND to DISARM integration test
+- Simulated LAND descending from altitude 1.0 to the landing altitude
+- Confirmed LAND transitions to DISARM after landingComplete becomes true
+- Confirmed DISARM sends zero movement commands after landing
+
+### Problems
+- LAND needed a clear final state after landing was complete
+- DISARM needed to hold its state instead of falling through to the default state behavior
+- LAND needed a safety condition for marker loss
+- LAND needed a timeout condition so the drone would not remain in landing forever
+- Some test variables needed to be declared before the integration test
+- The timeout test variable could interfere with the integration test landing step counter if reused
+- The LAND to DISARM integration test showed landingComplete one step after the altitude first reached the landing altitude because completion was checked before altitude was updated
+
+### Debugging
+- Added landingComplete to the mission state function header
+- Added a LAND block after the APPROACH block
+- Added a DISARM block after the LAND block
+- Added landingTimeout to the mission state function header
+- Updated the LAND block to check markerLost, landingComplete, and landingTimeout
+- Added is_landing_timeout to compare landingStepCount against maxLandingSteps
+- Added a DISARM case inside get_state_command
+- Moved test setup variables to the top of the main test block
+- Used a separate testLandingStepCount variable for timeout test cases
+- Verified that LAND, DISARM, SEARCH, SEARCH, and DISARM appeared in the correct transition test order
+- Verified that timeout returned false below the limit and true at or above the limit
+- Verified that DISARM returned zero movement commands
+- Ran a combined LAND to DISARM integration test to confirm the ending sequence
+
+### Solution
+- Completed the LAND to DISARM mission transition
+- Completed DISARM state behavior
+- Confirmed DISARM sends zero movement commands
+- Added LAND marker-loss recovery back to SEARCH
+- Added LAND timeout recovery back to SEARCH
+- Confirmed the landing timeout helper works correctly
+- Confirmed LAND descends while centered until the landing altitude is reached
+- Confirmed the mission ending sequence reaches DISARM safely
+- Left full mission simulation for the next session
+
+### Next Session
+- How should TAKEOFF, SEARCH, ACQUIRE, TRACK, APPROACH, LAND, and DISARM be connected in one simulation?
+- What simulated variables are needed for a full mission run?
+- How should marker detection be simulated during SEARCH?
+- How should ACQUIRE and TRACK stability be simulated?
+- How should the full mission simulation show state, altitude, commands, and completion flags?

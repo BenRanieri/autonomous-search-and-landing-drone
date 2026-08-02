@@ -140,21 +140,26 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Main Pixhawk wiring progress
 * APPROACH to LAND transition
 * LAND command behavior
+* LAND to DISARM transition
+* DISARM state behavior
 
 ### In Progress
 
-* LAND to DISARM transition
-* DISARM state behavior
-* Landing safety logic
 * Full mission simulation
+* TAKEOFF to SEARCH simulation integration
+* SEARCH to ACQUIRE simulation integration
+* ACQUIRE to TRACK simulation integration
+* TRACK to APPROACH simulation integration
+* APPROACH to LAND simulation integration
 * MAVLink command-interface planning
 
 ### Planned
 
-* LAND marker-loss handling
-* LAND timeout safety
 * Full autonomous mission simulation
+* Marker-loss recovery simulation
 * MAVLink command-interface preparation
+* Emergency stop command structure
+* Real-command placeholder structure
 * RP1 receiver connection to TELEM2
 * Receiver and transmitter setup
 * ESC and motor signal order verification
