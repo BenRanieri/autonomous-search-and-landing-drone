@@ -1891,3 +1891,82 @@
 - How should marker detection be simulated during SEARCH?
 - How should ACQUIRE and TRACK stability be simulated?
 - How should the full mission simulation show state, altitude, commands, and completion flags?
+
+
+
+
+
+## Session 41 - August 3, 2026
+
+### Accomplished
+- Started the third software-only session focused on full mission simulation
+- Reviewed the completed mission state machine before building the full simulation
+- Confirmed the mission state machine includes TAKEOFF, SEARCH, ACQUIRE, TRACK, APPROACH, LAND, and DISARM
+- Added a new full mission simulation function
+- Built the first full mission loop structure
+- Confirmed the simulation started in TAKEOFF
+- Added TAKEOFF altitude update behavior to the full mission simulation
+- Confirmed TAKEOFF transitions to SEARCH after reaching the target altitude
+- Added simulated marker detection during SEARCH
+- Fixed the SEARCH marker detection block indentation
+- Removed the duplicate step counter increment from the full mission loop
+- Confirmed SEARCH transitions to ACQUIRE after simulated marker detection
+- Added ACQUIRE stability simulation
+- Confirmed ACQUIRE transitions to TRACK after the required stable count
+- Added TRACK stability simulation
+- Confirmed TRACK transitions to APPROACH after the required stable count
+- Added APPROACH completion logic to the full mission simulation
+- Confirmed APPROACH transitions to LAND when approachComplete is true
+- Added LAND descent behavior to the full mission simulation
+- Added LAND landingComplete and landingTimeout checks to the full mission simulation
+- Confirmed LAND transitions to DISARM after reaching the landing altitude
+- Added altitude clamping so the simulated landing does not go below the landing altitude
+- Confirmed the full mission simulation ends at DISARM
+- Confirmed the final simulated altitude ends at 0.2
+- Confirmed missionComplete returns true
+
+### Problems
+- The first full mission loop repeated TAKEOFF because no state update behavior had been added yet
+- The simulation repeated SEARCH because the SEARCH marker detection block was indented inside the TAKEOFF block
+- The full mission loop had the step counter incremented twice
+- The simulation repeated ACQUIRE before ACQUIRE stability was connected
+- The simulation repeated TRACK before TRACK stability was connected
+- The simulation repeated APPROACH before approachComplete was connected
+- The simulation repeated LAND before LAND descent and landing completion were connected
+- The first complete landing simulation reached altitude 0.0 instead of stopping at the landing altitude
+
+### Debugging
+- Added command generation and altitude updates inside the full mission loop
+- Added markerDetected simulation after several SEARCH steps
+- Moved the SEARCH detection block outside the TAKEOFF block
+- Deleted the duplicate step increment
+- Added acquireStableCount and requiredAcquireStableCount
+- Used is_marker_acquired and update_acquire_stability during ACQUIRE
+- Added trackStableCount and requiredTrackStableCount
+- Used is_track_ready_for_approach and update_track_stability during TRACK
+- Used get_approach_command during APPROACH to generate approachComplete
+- Used get_land_command during LAND to generate descent commands
+- Used update_altitude during LAND to simulate descending
+- Used is_landing_complete and is_landing_timeout during LAND
+- Added altitude clamping after LAND altitude updates
+- Reran the simulation after each state connection to confirm the next transition worked
+
+### Solution
+- Completed the full autonomous mission simulation
+- Connected TAKEOFF to SEARCH
+- Connected SEARCH to ACQUIRE
+- Connected ACQUIRE to TRACK
+- Connected TRACK to APPROACH
+- Connected APPROACH to LAND
+- Connected LAND to DISARM
+- Confirmed the full mission sequence reaches DISARM
+- Confirmed the final altitude stays at the landing altitude
+- Confirmed missionComplete returns true
+- Left MAVLink command-interface preparation for the next session
+
+### Next Session
+- How should command_interface.py be prepared for MAVLink?
+- What should the emergency stop command do?
+- How should dry-run mode stay safe by default?
+- What command logging should be added before hardware testing?
+- How should real Pixhawk command placeholders be structured?

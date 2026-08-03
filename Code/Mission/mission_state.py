@@ -309,98 +309,135 @@ def run_track_simulation(startingErrorX, startingErrorY, tolerance, kp, maxComma
   return errorX, errorY, False
 
 
-if __name__ == "__main__":
+def run_full_mission_simulation(maxSteps):
+
+  currentState = "TAKEOFF"
+  currentAltitude = 0
+  targetAltitude = 2.0
+  landingAltitude = 0.2
+  searchStepCount = 0
+  markerDetectionSearchSteps = 3
+  acquireStableCount = 0
+  requiredAcquireStableCount = 3
+  trackStableCount = 0
+  requiredTrackStableCount = 3
+  landingStepCount = 0
+  maxLandingSteps = 10
+
+  errorX = 0
+  errorY = 0
+  markerSize = 300
   tolerance = 10
-  kp = 0.02
-  maxCommand = 1
-  landCommand = -0.2
+  desiredSize = 300
+  sizeTolerance = 20
 
-  currentState = "LAND"
-  currentAltitude = 1.0
-  targetAltitude = 2.0
-  landingAltitude = 0.2
-  altitudeScale = 1
-  maxLandingSteps = 10
-  landingStepCount = 0
+  markerDetected = False
+  markerLost = False
+  readyToTrack = False
+  readyForApproach = False
+  approachComplete = False
+  landingComplete = False
+  landingTimeout = False
 
-  print("Land State Transition Tests")
-  print()
+  step = 0
 
-  print(update_mission_state("LAND", 0.5, 2.0, True, landingComplete=False))
-  print(update_mission_state("LAND", 0.2, 2.0, True, landingComplete=True))
-  print(update_mission_state("LAND", 0.5, 2.0, False, markerLost=True, landingComplete=False))
-  print(update_mission_state("LAND", 0.5, 2.0, True, landingComplete=False, landingTimeout=True))
-  print(update_mission_state("DISARM", 0.0, 2.0, False))
-  print()
+  while currentState != "DISARM" and step < maxSteps:
 
-  print("Landing Timeout Tests")
-  print()
+    xCommand, yCommand, zCommand = get_state_command(currentState)
 
-  maxLandingSteps = 5
+    if currentState == "TAKEOFF":
+      currentAltitude = update_altitude(currentAltitude, zCommand, 1)
+      
+    if currentState == "SEARCH":
+      searchStepCount = searchStepCount + 1
 
-  timeoutTestCases = [
-    ("below timeout", 3),
-    ("at timeout", 5),
-    ("above timeout", 6),
-  ]
+    if currentState == "ACQUIRE":
+      acquired = is_marker_acquired(errorX, errorY, markerSize, tolerance, desiredSize, sizeTolerance)
+      acquireStableCount, readyToTrack = update_acquire_stability(acquired, acquireStableCount, requiredAcquireStableCount)
 
-  for testCase, landingStepCount in timeoutTestCases:
-    landingTimeout = is_landing_timeout(landingStepCount, maxLandingSteps)
+    if currentState == "TRACK":
+      trackReady = is_track_ready_for_approach(errorX, errorY, tolerance)
+      trackStableCount, readyForApproach = update_track_stability(trackReady, trackStableCount, requiredTrackStableCount)
 
-    print("Test Case:", testCase)
-    print("Landing Step Count:", landingStepCount)
-    print("Landing Timeout:", landingTimeout)
-    print()
+    if currentState == "APPROACH":
+      xCommand, yCommand, zCommand, approachComplete = get_approach_command(
+        errorX,
+        errorY,
+        markerSize,
+        tolerance,
+        0.02,
+        1,
+        desiredSize,
+        sizeTolerance,
+        0.3
+      )
 
-  print("DISARM Command Test")
-  print()
+    if currentState == "LAND":
+      landingComplete = is_landing_complete(currentAltitude, landingAltitude)
+      landingTimeout = is_landing_timeout(landingStepCount, maxLandingSteps)
 
-  xCommand, yCommand, zCommand = get_state_command("DISARM")
+      xCommand, yCommand, zCommand = get_land_command(
+        errorX,
+        errorY,
+        tolerance,
+        0.02,
+        1,
+        -0.2
+      )
 
-  print("xCommand:", xCommand)
-  print("yCommand:", yCommand)
-  print("zCommand:", zCommand)
-  print()
+      currentAltitude = update_altitude(currentAltitude, zCommand, 1)
 
-  print("LAND to DISARM Integration Test")
-  print()
+      if currentAltitude < landingAltitude:
+        currentAltitude = landingAltitude
 
-  currentState = "LAND"
-  currentAltitude = 1.0
-  targetAltitude = 2.0
-  landingAltitude = 0.2
-  altitudeScale = 1
-  landCommand = -0.2
-  maxLandingSteps = 10
-  landingStepCount = 0
+      landingStepCount = landingStepCount + 1
 
-  while currentState != "DISARM" and landingStepCount < maxLandingSteps:
-    landingComplete = is_landing_complete(currentAltitude, landingAltitude)
-    landingTimeout = is_landing_timeout(landingStepCount, maxLandingSteps)
+    if searchStepCount >= markerDetectionSearchSteps:
+      markerDetected = True
 
     currentState = update_mission_state(
       currentState,
       currentAltitude,
       targetAltitude,
-      True,
+      markerDetected,
+      readyToTrack=readyToTrack,
+      markerLost=markerLost,
+      readyForApproach=readyForApproach,
+      approachComplete=approachComplete,
       landingComplete=landingComplete,
       landingTimeout=landingTimeout
     )
 
-    if currentState == "LAND":
-      xCommand, yCommand, zCommand = get_land_command(0, 0, tolerance, kp, maxCommand, landCommand)
-      currentAltitude = update_altitude(currentAltitude, zCommand, altitudeScale)
-    else:
-      xCommand, yCommand, zCommand = get_state_command(currentState)
-
-    print("Step:", landingStepCount)
+    print("Step:", step)
     print("State:", currentState)
     print("Altitude:", round(currentAltitude, 2))
     print("xCommand:", xCommand)
     print("yCommand:", yCommand)
     print("zCommand:", zCommand)
+    print("Marker Detected:", markerDetected)
+    print("Acquire Stable Count:", acquireStableCount)
+    print("Ready To Track:", readyToTrack)
+    print("Track Stable Count:", trackStableCount)
+    print("Ready For Approach:", readyForApproach)
+    print("Approach Complete:", approachComplete)
     print("Landing Complete:", landingComplete)
     print("Landing Timeout:", landingTimeout)
+    print("Landing Step Count:", landingStepCount)
     print()
 
-    landingStepCount = landingStepCount + 1
+    step = step + 1
+
+  missionComplete = currentState == "DISARM"
+  return currentState, currentAltitude, missionComplete
+
+
+if __name__ == "__main__":
+
+  print("Full Mission Simulation Test")
+  print()
+
+  finalState, finalAltitude, missionComplete = run_full_mission_simulation(50)
+
+  print("Final State:", finalState)
+  print("Final Altitude:", round(finalAltitude, 2))
+  print("Mission Complete:", missionComplete)

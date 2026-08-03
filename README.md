@@ -142,21 +142,18 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * LAND command behavior
 * LAND to DISARM transition
 * DISARM state behavior
+* Full mission simulation
 
 ### In Progress
 
-* Full mission simulation
-* TAKEOFF to SEARCH simulation integration
-* SEARCH to ACQUIRE simulation integration
-* ACQUIRE to TRACK simulation integration
-* TRACK to APPROACH simulation integration
-* APPROACH to LAND simulation integration
-* MAVLink command-interface planning
+* MAVLink command-interface preparation
+* Emergency stop command structure
+* Real-command placeholder structure
+* Command logging
+* Hardware integration preparation
 
 ### Planned
 
-* Full autonomous mission simulation
-* Marker-loss recovery simulation
 * MAVLink command-interface preparation
 * Emergency stop command structure
 * Real-command placeholder structure
