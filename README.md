@@ -143,28 +143,34 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * LAND to DISARM transition
 * DISARM state behavior
 * Full mission simulation
+* MAVLink-ready command-interface structure
+* Emergency stop command
+* Mission command wrapper
+* Mission code command-interface integration
 
 ### In Progress
 
-* MAVLink command-interface preparation
-* Emergency stop command structure
-* Real-command placeholder structure
-* Command logging
 * Hardware integration preparation
+* Pixhawk setup
+* Receiver wiring
+* Transmitter setup
+* Camera and companion-computer acquisition
+* Vision-to-mission integration planning
 
 ### Planned
 
-* MAVLink command-interface preparation
-* Emergency stop command structure
-* Real-command placeholder structure
 * RP1 receiver connection to TELEM2
 * Receiver and transmitter setup
-* ESC and motor signal order verification
-* Battery mounting
 * Pixhawk USB setup
 * Sensor and radio calibration
+* ESC and motor signal order verification
+* Battery mounting
 * Props-off motor testing
 * Manual control and failsafe testing
+* Raspberry Pi and camera setup
+* OpenCV ArUco detection from live camera
+* Vision output connection to mission logic
+* Pi to Pixhawk MAVLink communication
 * First manual hover test
 * Limited autonomous mission testing
 * Full autonomous launch-to-landing mission

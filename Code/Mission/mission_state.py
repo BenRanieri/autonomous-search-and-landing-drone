@@ -2,7 +2,7 @@ import sys
 from pathlib import Path
 projectRoot = Path(__file__).resolve().parents[2]
 sys.path.append(str(projectRoot))
-from Code.Control.command_interface import send_velocity_command
+from Code.Control.command_interface import send_mission_command
 from Code.Guidance.guidance_logic import (get_guidance_command, get_proportional_command, get_size_command, get_combined_guidance, get_elevation_command, get_final_movement)
 
 
@@ -214,7 +214,7 @@ def run_takeoff_simulation(startingAltitude, targetAltitude, altitudeScale, maxs
   while currentState == "TAKEOFF" and step < maxsteps:
 
     xCommand, yCommand, zCommand = get_state_command(currentState)
-    send_velocity_command(xCommand, yCommand, zCommand)
+    send_mission_command(xCommand, yCommand, zCommand)
 
     currentAltitude = update_altitude(currentAltitude, zCommand, altitudeScale)
     currentState = update_mission_state(currentState, currentAltitude, targetAltitude, False)
@@ -234,7 +234,7 @@ def run_takeoff_simulation(startingAltitude, targetAltitude, altitudeScale, maxs
   else:
     xCommand, yCommand, zCommand = get_state_command(currentState)
 
-  send_velocity_command(xCommand, yCommand, zCommand)
+  send_mission_command(xCommand, yCommand, zCommand)
   takeoffComplete = currentState != "TAKEOFF"
   return currentState, currentAltitude, takeoffComplete
   
@@ -252,7 +252,7 @@ def run_basic_mission_simulation(startingAltitude, targetAltitude, altitudeScale
       markerDetected = True
 
     xCommand, yCommand, zCommand = get_state_command(currentState)
-    send_velocity_command(xCommand, yCommand, zCommand)
+    send_mission_command(xCommand, yCommand, zCommand)
 
     if currentState == "TAKEOFF":
       currentAltitude = update_altitude(currentAltitude, zCommand, altitudeScale)
@@ -268,7 +268,7 @@ def run_basic_mission_simulation(startingAltitude, targetAltitude, altitudeScale
     step = step + 1
 
   xCommand, yCommand, zCommand = get_state_command(currentState)
-  send_velocity_command(xCommand, yCommand, zCommand)
+  send_mission_command(xCommand, yCommand, zCommand)
 
   missionReachedAcquire = currentState == "ACQUIRE"
   if currentState != "ACQUIRE":
@@ -286,7 +286,7 @@ def run_track_simulation(startingErrorX, startingErrorY, tolerance, kp, maxComma
   while step < maxSteps:
 
     xCommand, yCommand, zCommand = get_track_command(errorX, errorY, tolerance, kp, maxCommand)
-    send_velocity_command(xCommand, yCommand, zCommand)
+    send_mission_command(xCommand, yCommand, zCommand)
 
     print("Step:", step)
     print("errorX:", round(errorX, 2))
@@ -360,31 +360,13 @@ def run_full_mission_simulation(maxSteps):
       trackStableCount, readyForApproach = update_track_stability(trackReady, trackStableCount, requiredTrackStableCount)
 
     if currentState == "APPROACH":
-      xCommand, yCommand, zCommand, approachComplete = get_approach_command(
-        errorX,
-        errorY,
-        markerSize,
-        tolerance,
-        0.02,
-        1,
-        desiredSize,
-        sizeTolerance,
-        0.3
-      )
+      xCommand, yCommand, zCommand, approachComplete = get_approach_command(errorX, errorY, markerSize, tolerance, 0.02, 1, desiredSize, sizeTolerance, 0.3)
 
     if currentState == "LAND":
       landingComplete = is_landing_complete(currentAltitude, landingAltitude)
       landingTimeout = is_landing_timeout(landingStepCount, maxLandingSteps)
 
-      xCommand, yCommand, zCommand = get_land_command(
-        errorX,
-        errorY,
-        tolerance,
-        0.02,
-        1,
-        -0.2
-      )
-
+      xCommand, yCommand, zCommand = get_land_command(errorX, errorY, tolerance, 0.02, 1, -0.2)
       currentAltitude = update_altitude(currentAltitude, zCommand, 1)
 
       if currentAltitude < landingAltitude:
@@ -395,18 +377,10 @@ def run_full_mission_simulation(maxSteps):
     if searchStepCount >= markerDetectionSearchSteps:
       markerDetected = True
 
-    currentState = update_mission_state(
-      currentState,
-      currentAltitude,
-      targetAltitude,
-      markerDetected,
-      readyToTrack=readyToTrack,
-      markerLost=markerLost,
-      readyForApproach=readyForApproach,
-      approachComplete=approachComplete,
-      landingComplete=landingComplete,
-      landingTimeout=landingTimeout
-    )
+    currentState = update_mission_state(currentState, currentAltitude, targetAltitude, markerDetected, readyToTrack=readyToTrack, markerLost=markerLost, readyForApproach=readyForApproach, approachComplete=approachComplete, landingComplete=landingComplete, landingTimeout=landingTimeout)
+
+    if currentState == "DISARM":
+        xCommand, yCommand, zCommand = get_state_command(currentState)
 
     print("Step:", step)
     print("State:", currentState)
