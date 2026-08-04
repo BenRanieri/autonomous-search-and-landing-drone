@@ -2044,3 +2044,57 @@
 - How should the transmitter and receiver be configured safely?
 - What camera and Raspberry Pi hardware should be acquired for full autonomy?
 - How should hardware setup continue while waiting for camera parts to arrive?
+
+
+
+
+
+## Session 43 - August 4, 2026
+
+### Accomplished
+- Connected the Pixhawk to Mission Planner over USB
+- Identified the Pixhawk as initially running PX4 firmware
+- Installed ArduCopter firmware for the quadcopter setup
+- Reconnected to the Pixhawk after firmware installation
+- Set the frame class to Quad
+- Set the frame type to X
+- Completed accelerometer calibration successfully
+- Checked the compass page and confirmed external compass detection
+- Postponed compass calibration because the USB cable was too short for safe rotation
+- Checked the radio calibration page and confirmed no receiver input yet
+- Set SERIAL2_PROTOCOL to 23 for future ELRS receiver input on TELEM2
+- Verified SERIAL1 stayed configured for MAVLink2 telemetry
+- Verified GPS serial settings were not changed
+- Set SERIAL5_PROTOCOL to 2 and SERIAL5_BAUD to 921 for future Raspberry Pi MAVLink on TELEM3
+- Disconnected the Pixhawk safely with LiPo disconnected and props off
+
+### Problems
+- Mission Planner initially could not find the correct COM port using Auto
+- The Pixhawk was running PX4 instead of ArduCopter
+- Firmware flashing initially failed because the wrong version was selected
+- Compass calibration could not be completed safely because the USB cable was too short
+- Radio calibration could not be completed because the RP1 receiver pigtail has not arrived yet
+
+### Debugging
+- Identified the Pixhawk USB port by unplugging and replugging the board
+- Confirmed the correct port changed from COM5 after firmware flashing
+- Used Mission Planner parameter search to diagnose the firmware mismatch
+- Recognized PX4-specific parameters before changing frame settings
+- Reflashed the board with the correct ArduCopter firmware
+- Checked serial port parameters to avoid changing the GPS or telemetry radio ports
+- Separated TELEM1, TELEM2, GPS1, and TELEM3 roles before future wiring
+
+### Solution
+- Successfully moved the Pixhawk setup from PX4 to ArduCopter
+- Configured the vehicle as a Quad X frame
+- Completed safe USB-only calibration and parameter setup
+- Prepared TELEM2 for the ELRS receiver
+- Prepared TELEM3 for the Raspberry Pi companion computer
+- Stopped before unsafe compass calibration or powered motor testing
+
+### Next Session
+- How should the RP1 receiver pigtail be wired to TELEM2
+- What parameters are needed for ELRS receiver input
+- How should the transmitter and receiver be bound
+- How should radio calibration be performed safely
+- What needs to be checked before connecting the LiPo

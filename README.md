@@ -147,34 +147,39 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Emergency stop command
 * Mission command wrapper
 * Mission code command-interface integration
+* ArduCopter firmware installation
+* Quad X frame configuration
+* Accelerometer calibration
+* TELEM2 serial setup for ELRS receiver input
+* TELEM3 serial setup for Raspberry Pi MAVLink
 
 ### In Progress
 
-* Hardware integration preparation
-* Pixhawk setup
-* Receiver wiring
-* Transmitter setup
-* Camera and companion-computer acquisition
-* Vision-to-mission integration planning
+* Compass calibration preparation
+* RP1 receiver wiring
+* Radio calibration preparation
+* Raspberry Pi and camera acquisition
+* Companion-computer integration planning
 
 ### Planned
 
+* Longer USB cable or telemetry-based compass calibration
 * RP1 receiver connection to TELEM2
-* Receiver and transmitter setup
-* Pixhawk USB setup
-* Sensor and radio calibration
-* ESC and motor signal order verification
-* Battery mounting
-* Props-off motor testing
-* Manual control and failsafe testing
+* Receiver binding and radio calibration
+* Flight mode setup
+* Failsafe setup
+* Battery monitor verification
+* GPS lock verification
+* Props-off motor order testing
+* ESC and motor signal verification
 * Raspberry Pi and camera setup
 * OpenCV ArUco detection from live camera
-* Vision output connection to mission logic
 * Pi to Pixhawk MAVLink communication
-* First manual hover test
-* Limited autonomous mission testing
-* Full autonomous launch-to-landing mission
+* Manual hover testing
+* Limited autonomous takeoff and landing testing
+* Full autonomous search-to-landing mission
 * Future LiDAR-based obstacle avoidance
+
 
 
 ## System Architecture
