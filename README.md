@@ -152,33 +152,38 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Accelerometer calibration
 * TELEM2 serial setup for ELRS receiver input
 * TELEM3 serial setup for Raspberry Pi MAVLink
+- Built and mounted major drone hardware components
+- Flashed Pixhawk 6C from PX4 firmware to ArduCopter
+- Configured frame as Quad X
+- Completed accelerometer calibration
+- Configured TELEM1 for telemetry radio
+- Configured TELEM2 for ELRS receiver input
+- Configured TELEM3 for future Raspberry Pi MAVLink connection
+- Wired RP1 receiver to Pixhawk TELEM2
+- Corrected RP1 receiver wiring after identifying the correct TELEM2 pin order
+- Powered RP1 receiver successfully
+- Bound RadioMaster Pocket ELRS transmitter to RP1 receiver using ExpressLRS Wi-Fi binding phrase
+- Confirmed ExpressLRS connection with solid green RP1 LED and C indicator on transmitter
+- Confirmed Mission Planner receives radio input from transmitter sticks
+- Completed radio calibration in Mission Planner
 
 ### In Progress
 
-* Compass calibration preparation
-* RP1 receiver wiring
-* Radio calibration preparation
-* Raspberry Pi and camera acquisition
-* Companion-computer integration planning
+- Pixhawk flight controller setup and safety configuration
+- RC transmitter switch setup
+- Flight mode configuration
+- Failsafe configuration
+- Compass calibration
 
 ### Planned
 
-* Longer USB cable or telemetry-based compass calibration
-* RP1 receiver connection to TELEM2
-* Receiver binding and radio calibration
-* Flight mode setup
-* Failsafe setup
-* Battery monitor verification
-* GPS lock verification
-* Props-off motor order testing
-* ESC and motor signal verification
-* Raspberry Pi and camera setup
-* OpenCV ArUco detection from live camera
-* Pi to Pixhawk MAVLink communication
-* Manual hover testing
-* Limited autonomous takeoff and landing testing
-* Full autonomous search-to-landing mission
-* Future LiDAR-based obstacle avoidance
+- Finish compass calibration with longer USB cable or telemetry link
+- Configure flight modes
+- Configure RC and battery failsafes
+- Verify motor order and motor direction with props removed
+- Complete Raspberry Pi and camera setup for autonomous landing
+- Connect companion computer to Pixhawk through MAVLink
+- Perform controlled ground tests before any flight testing
 
 
 

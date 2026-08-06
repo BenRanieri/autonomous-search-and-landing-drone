@@ -2098,3 +2098,53 @@
 - How should the transmitter and receiver be bound
 - How should radio calibration be performed safely
 - What needs to be checked before connecting the LiPo
+
+
+
+
+
+## Session 44 - August 5, 2026
+
+### Accomplished
+- Continued Pixhawk hardware setup through Mission Planner
+- Confirmed RadioMaster Pocket transmitter model was configured with Internal RF set to CRSF and External RF set to OFF
+- Corrected RP1 receiver wiring after identifying the correct TELEM2 pin direction
+- Verified RP1 receiver powered on after wiring correction
+- Confirmed RP1 receiver showed a slow green blink when powered
+- Used ExpressLRS Wi-Fi configuration to set a receiver binding phrase
+- Set the same binding phrase on the transmitter
+- Confirmed successful ExpressLRS link with solid green receiver LED and C indicator on transmitter
+- Confirmed Mission Planner radio bars moved with transmitter stick input
+- Completed radio calibration in Mission Planner
+
+### Problems
+- Initial RP1 wiring order contradicted the corrected TELEM2 pinout interpretation
+- RP1 receiver originally had no LED and was not recognized
+- Standard ExpressLRS bind mode would not trigger through repeated receiver power cycling
+- BOOT pad method did not produce the expected double-blink bind mode
+- Mission Planner radio bars did not move before receiver binding was completed
+
+### Debugging
+- Rechecked TELEM2 wire order using Pixhawk connector orientation
+- Identified that the original wiring treated the wrong side of the connector as pin 1
+- Corrected RP1 power, ground, TX, and RX wiring
+- Tested receiver power using Pixhawk USB only
+- Checked RP1 LED behavior after rewiring
+- Attempted ExpressLRS binding through receiver power cycling
+- Attempted ExpressLRS binding through the BOOT pad
+- Entered ExpressLRS receiver Wi-Fi mode after standard bind attempts failed
+- Configured receiver and transmitter with matching binding phrase
+- Verified transmitter-to-receiver connection before calibrating radio input
+
+### Solution
+- Rewired RP1 receiver using the corrected TELEM2 pin order
+- Used ExpressLRS Wi-Fi binding phrase instead of manual bind mode
+- Confirmed the receiver and transmitter were linked through solid green LED and C indicator
+- Completed Mission Planner radio calibration after RC input became visible
+
+### Next Session
+- How should flight modes be assigned to the transmitter?
+- How should RC failsafe be configured?
+- How should battery failsafe be configured?
+- How can compass calibration be completed safely?
+- What checks are needed before any motor testing?
