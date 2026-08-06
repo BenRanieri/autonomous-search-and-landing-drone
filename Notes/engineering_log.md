@@ -2148,3 +2148,52 @@
 - How should battery failsafe be configured?
 - How can compass calibration be completed safely?
 - What checks are needed before any motor testing?
+
+
+
+
+
+## Session 45 - August 6, 2026
+
+### Accomplished
+- Reviewed remaining hardware needed for the full autonomous drone version
+- Confirmed spare JST-GH pigtail cables can be used for future TELEM3 wiring
+- Confirmed existing supplies including multimeter, Ethernet cable, long Pixhawk USB cable, zip ties, soldering tools, heat shrink, landing board, and black tape
+- Selected Raspberry Pi 5 as the companion computer for onboard vision and MAVLink communication
+- Planned to buy the Raspberry Pi, microSD card, reader, power supply, camera, camera ribbon cables, and micro-HDMI cable from Micro Center first
+- Planned to order remaining drone-specific parts online
+- Selected active cooling, onboard 5V USB-C buck converter, XT60 splitter, XT60 pigtail, jumper wires, standoffs, and mounting tape for the final order
+- Decided to skip the downward rangefinder for the first autonomous version due to time constraints
+- Decided to skip the smoke stopper as an optional safety tool
+- Confirmed the remaining hardware should be enough for the full autonomous drone v1
+- Created a day-by-day plan from August 6 through August 18 for finishing setup, code integration, testing, and final autonomous demonstration
+
+### Problems
+- Needed to make sure the final order did not miss any hardware required for the full autonomous run
+- Some Amazon Raspberry Pi kits were expensive and did not include all needed accessories
+- Camera cables and Pixhawk telemetry pigtail cables could be confused even though they are different cable types
+- The rangefinder would be useful but would add extra setup time
+- Needed to separate required items from optional safety or backup items
+
+### Debugging
+- Compared the existing spare 6-pin pigtails against the future TELEM3 wiring need
+- Separated Raspberry Pi camera ribbon cables from Pixhawk telemetry pigtail cables
+- Checked onboard Raspberry Pi power requirements against the selected 5V 5A USB-C buck converter
+- Verified that the XT60 splitter and XT60 male pigtail would support the planned battery-to-buck-converter power path
+- Crossed off tools and supplies already available at home
+- Prioritized parts by whether they should be bought at Micro Center or ordered online
+- Built a timeline that keeps safety setup before motor testing and manual flight before autonomy
+
+### Solution
+- Finalized the required hardware plan for the autonomous drone v1
+- Planned to buy Raspberry Pi-specific items at Micro Center first
+- Planned to order remaining drone wiring, power, and mounting parts online
+- Confirmed the project can proceed without a rangefinder for the first autonomous ArUco landing version
+- Set the next technical work sequence as flight modes, failsafes, compass calibration, motor checks, Pi setup, camera testing, MAVLink integration, bench autonomy, manual flight, and final autonomous demo
+
+### Next Session
+- How should flight modes be assigned to the transmitter?
+- How should RC failsafe be configured?
+- How should battery failsafe be configured?
+- How can compass calibration be completed safely?
+- What checks are needed before any motor testing?

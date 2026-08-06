@@ -152,38 +152,38 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Accelerometer calibration
 * TELEM2 serial setup for ELRS receiver input
 * TELEM3 serial setup for Raspberry Pi MAVLink
-- Built and mounted major drone hardware components
-- Flashed Pixhawk 6C from PX4 firmware to ArduCopter
-- Configured frame as Quad X
-- Completed accelerometer calibration
-- Configured TELEM1 for telemetry radio
-- Configured TELEM2 for ELRS receiver input
-- Configured TELEM3 for future Raspberry Pi MAVLink connection
-- Wired RP1 receiver to Pixhawk TELEM2
-- Corrected RP1 receiver wiring after identifying the correct TELEM2 pin order
-- Powered RP1 receiver successfully
-- Bound RadioMaster Pocket ELRS transmitter to RP1 receiver using ExpressLRS Wi-Fi binding phrase
-- Confirmed ExpressLRS connection with solid green RP1 LED and C indicator on transmitter
-- Confirmed Mission Planner receives radio input from transmitter sticks
-- Completed radio calibration in Mission Planner
+* Built and mounted major drone hardware components
+* Flashed Pixhawk 6C from PX4 firmware to ArduCopter
+* Configured frame as Quad X
+* Accelerometer calibration
+* Powered RP1 receiver successfully
+* Bound reciever to transmitter
+* Finalized remaining hardware list
+
 
 ### In Progress
 
-- Pixhawk flight controller setup and safety configuration
-- RC transmitter switch setup
-- Flight mode configuration
-- Failsafe configuration
-- Compass calibration
+* Final hardware purchasing
+* Pixhawk flight controller setup and safety configuration
+* RC transmitter switch setup
+* Flight mode configuration
+* Failsafe configuration
+* Compass calibration
+* Companion computer preparation
 
 ### Planned
 
-- Finish compass calibration with longer USB cable or telemetry link
-- Configure flight modes
-- Configure RC and battery failsafes
-- Verify motor order and motor direction with props removed
-- Complete Raspberry Pi and camera setup for autonomous landing
-- Connect companion computer to Pixhawk through MAVLink
-- Perform controlled ground tests before any flight testing
+* Purchase Raspberry Pi 5, microSD card, reader, power supply, camera, camera cables, and micro-HDMI cable
+* Order remaining drone-specific Raspberry Pi power and mounting parts online
+* Finish compass calibration with longer USB cable or telemetry link
+* Configure flight modes
+* Configure RC and battery failsafes
+* Verify motor order and motor direction with props removed
+* Complete Raspberry Pi and camera setup for autonomous landing
+* Connect companion computer to Pixhawk through MAVLink
+* Run full bench autonomy test before any autonomous flight
+* Perform controlled ground tests before any flight testing
+* Complete final autonomous ArUco landing demo by August 18
 
 
 
