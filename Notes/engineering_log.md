@@ -2274,3 +2274,79 @@
 - How can telemetry radio connection be checked?
 - What pre-motor safety checks are needed before connecting LiPo power?
 - How can motor order and motor direction be verified with props removed?
+
+
+
+
+
+## Session 47 - August 8, 2026
+
+### Accomplished
+- Checked the 4S LiPo voltage before connecting it to the drone
+- Confirmed the battery was at 15.3V before testing
+- Connected the LiPo with props removed, transmitter on, and Mission Planner connected
+- Verified Mission Planner read the battery voltage as 15.04V
+- Confirmed powered electronics current draw was about 1.02A with motors off
+- Confirmed the battery low warning disappeared when the LiPo was connected
+- Verified GPS outdoors
+- Confirmed GPS reached 3D fix
+- Confirmed GPS had 12 satellites
+- Confirmed GPS HDOP was 1.1
+- Confirmed the Mission Planner map position was correct outdoors
+- Verified telemetry radio connection at 57600 baud
+- Confirmed Mission Planner could connect through telemetry instead of Pixhawk USB
+- Found and used the Pixhawk safety switch for motor testing
+- Connected ESC signal and ground wires to the PWM output adapter
+- Corrected the PWM adapter wiring after identifying that pin 1 was on the right side
+- Confirmed all motors respond to Mission Planner Motor Test
+- Tested motor order with props removed
+- Corrected motor output order for Quad X
+- Verified Motor Test A spins the front right motor
+- Verified Motor Test B spins the back right motor
+- Verified Motor Test C spins the back left motor
+- Verified Motor Test D spins the front left motor
+- Tested motor spin direction with props removed
+- Reversed the incorrect motors by swapping two of the three motor wires
+- Verified the final motor direction pattern as counterclockwise, clockwise, counterclockwise, clockwise
+- Confirmed no motors or ESCs were warm after testing
+
+### Problems
+- Motor Test was initially denied by hardware because the safety switch had not been enabled
+- The safety switch location was not immediately clear
+- The motors initially beeped but did not spin because the ESC signal wires were not connected correctly
+- The ESC yellow and black signal wires were confused with the unused receiver pigtail wires
+- The PWM adapter pin orientation was initially reversed
+- The first motor order test did not match the expected Quad X order
+- All motors initially spun counterclockwise, so two motors needed to be reversed
+
+### Debugging
+- Identified that the unused yellow and black receiver pigtail wires should remain disconnected
+- Identified that the yellow and black wires coming from the ESCs are required signal and ground wires
+- Connected the ESC signal wires to the PWM output adapter
+- Tested Motor Test A at low throttle values before increasing to 10 percent
+- Stopped testing when the motors only beeped and did not spin
+- Rechecked the PWM adapter orientation and corrected the pin direction
+- Retested all four motor outputs after correcting the wiring
+- Compared the tested motor order against the expected Quad X motor order
+- Moved ESC signal plugs until A, B, C, and D matched the correct physical motors
+- Checked motor direction from above the drone
+- Reversed the back right and front left motors by swapping two thick motor wires on each motor
+- Retested motor direction after the wire swaps
+- Checked motor and ESC temperature after testing
+
+### Solution
+- Verified the Pixhawk battery monitor works with the real LiPo connected
+- Verified GPS lock outdoors with a strong satellite count and low HDOP
+- Verified telemetry radio communication through Mission Planner
+- Corrected ESC signal wiring and PWM adapter orientation
+- Confirmed all motors respond correctly to Mission Planner Motor Test
+- Corrected the motor order for Quad X
+- Corrected the motor spin direction pattern for Quad X
+- Stopped before installing props or attempting any flight testing
+
+### Next Session
+- What final wiring and frame checks are needed before props are installed?
+- How should prop orientation be confirmed before first flight?
+- What should the full preflight checklist include?
+- How should the first manual hover test be performed safely?
+- What conditions must be met before testing AltHold or Loiter?

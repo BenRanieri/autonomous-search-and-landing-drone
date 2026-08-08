@@ -163,30 +163,32 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Configured radio failsafe
 * Configured low battery failsafe
 * Completed compass calibration
-
+* Successful GPS lock
+* Established telemetry radio connection
+* Configured motor spin directions
 
 ### In Progress
 
-* Pixhawk safety configuration
-* Pre-motor setup checks
-* GPS and telemetry verification
-* Companion computer preparation
+* First manual flight preparation
+* Final preflight safety checklist
+* Raspberry Pi companion computer preparation
 * Raspberry Pi camera integration
+* MAVLink companion computer integration
 
 ### Planned
 
-* Verify battery voltage reading with LiPo connected safely
-* Verify GPS lock outdoors
-* Verify telemetry radio connection
-* Verify motor order and motor direction with props removed
-* Complete Raspberry Pi OS setup
+* Complete final preflight checklist
+* Inspect all wiring and mounting before props are installed
+* Confirm prop orientation before first flight
+* Install props only at the outdoor test site
+* Perform first manual hover test
+* Test Stabilize, AltHold, and Loiter carefully
+* Set up Raspberry Pi OS
 * Test Raspberry Pi camera capture
 * Run ArUco detection on Raspberry Pi
 * Connect companion computer to Pixhawk through MAVLink
 * Run full bench autonomy test before any autonomous flight
-* Perform controlled manual hover testing before autonomous flight
 * Complete final autonomous ArUco landing demo by August 18
-
 
 
 ## System Architecture
