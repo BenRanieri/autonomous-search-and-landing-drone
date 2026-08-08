@@ -2197,3 +2197,80 @@
 - How should battery failsafe be configured?
 - How can compass calibration be completed safely?
 - What checks are needed before any motor testing?
+
+
+
+
+
+## Session 46 - August 7, 2026
+
+### Accomplished
+- Purchased the Raspberry Pi 5 companion computer from Micro Center
+- Purchased the Raspberry Pi Camera Module 3 Wide NoIR after the standard wide camera was unavailable
+- Purchased the Raspberry Pi 5 camera ribbon cable
+- Purchased the microSD card and microSD reader
+- Purchased the Raspberry Pi USB-C power supply
+- Purchased the micro-HDMI to HDMI cable
+- Purchased the official Raspberry Pi case with fan and port access
+- Ordered the remaining online hardware cart for onboard power, wiring, and mounting
+- Confirmed the transmitter and receiver reconnected automatically through the existing ELRS binding phrase
+- Added transmitter switches to extra RC channels
+- Verified SA, SB, SC, SD, and SE switch outputs in Mission Planner
+- Set SB as the main flight mode switch using Radio 6
+- Changed `FLTMODE_CH` to 6 so ArduCopter uses SB for flight modes
+- Configured Stabilize, AltHold, and Loiter flight modes
+- Verified SB low selects Stabilize
+- Verified SB middle selects AltHold
+- Verified SB high selects Loiter
+- Configured radio failsafe behavior
+- Tested transmitter-loss behavior from the Flight Data screen
+- Confirmed Pixhawk detected radio failsafe and disarmed safely
+- Configured low battery failsafe at 14.0V
+- Set low battery failsafe action to RTL
+- Checked the battery monitor page
+- Updated battery capacity to 3000 mAh
+- Completed compass calibration
+- Rebooted the Pixhawk after compass calibration
+- Confirmed the EKF vibration warning cleared after the drone sat still
+
+### Problems
+- The standard Raspberry Pi Camera Module 3 Wide was unavailable at Micro Center
+- The available camera was the Wide NoIR version, which is acceptable but not the preferred standard color version
+- The transmitter switches were not originally mapped to useful extra channels
+- Moving SB to Radio 5 did not produce three usable switch positions
+- The first radio failsafe test on the Radio Calibration page did not clearly prove failsafe behavior
+- USB-only setup caused an expected battery low voltage failsafe warning because no LiPo was connected
+- GPS no fix warning remained because the setup was indoors
+
+### Debugging
+- Checked the Micro Center camera label and confirmed it was the Wide NoIR version
+- Decided to use the Wide NoIR camera because it should still work for high-contrast ArUco marker detection
+- Checked the Mission Planner radio bars while flipping transmitter switches
+- Identified SB and SC as three-position switches
+- Tried to use SB on Radio 5 but found it only produced two useful values there
+- Changed ArduCopter `FLTMODE_CH` to 6 instead of forcing SB onto Radio 5
+- Verified SB correctly selected flight mode slots 1, 4, and 6
+- Set unused flight mode slots to safe nearby modes
+- Tested transmitter loss from the Flight Data screen instead of only using the Radio Calibration page
+- Confirmed radio failsafe appeared as an active Pixhawk response
+- Checked battery monitor values and confirmed near-zero voltage was expected with no LiPo connected
+- Completed compass calibration and waited for the vibration warning to clear
+
+### Solution
+- Used the available Raspberry Pi Camera Module 3 Wide NoIR for the first autonomous vision setup
+- Completed the remaining hardware purchase and online order
+- Set SB on Radio 6 as the flight mode switch
+- Configured `FLTMODE_CH = 6`
+- Set SB low to Stabilize, SB middle to AltHold, and SB high to Loiter
+- Confirmed RC failsafe works by turning off the transmitter and observing radio failsafe disarming
+- Set the low battery failsafe to 14.0V with RTL as the action
+- Confirmed the battery monitor is configured for analog voltage and current on the Pixhawk 6C
+- Completed compass calibration successfully
+- Stopped before motor testing to keep the setup sequence safe
+
+### Next Session
+- How can the real LiPo voltage reading be checked safely?
+- How can GPS lock be verified outdoors?
+- How can telemetry radio connection be checked?
+- What pre-motor safety checks are needed before connecting LiPo power?
+- How can motor order and motor direction be verified with props removed?

@@ -159,30 +159,32 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Powered RP1 receiver successfully
 * Bound reciever to transmitter
 * Finalized remaining hardware list
+* Configured Stabilize, AltHold, and Loiter flight modes
+* Configured radio failsafe
+* Configured low battery failsafe
+* Completed compass calibration
 
 
 ### In Progress
 
-* Final hardware purchasing
-* Pixhawk flight controller setup and safety configuration
-* RC transmitter switch setup
-* Flight mode configuration
-* Failsafe configuration
-* Compass calibration
+* Pixhawk safety configuration
+* Pre-motor setup checks
+* GPS and telemetry verification
 * Companion computer preparation
+* Raspberry Pi camera integration
 
 ### Planned
 
-* Purchase Raspberry Pi 5, microSD card, reader, power supply, camera, camera cables, and micro-HDMI cable
-* Order remaining drone-specific Raspberry Pi power and mounting parts online
-* Finish compass calibration with longer USB cable or telemetry link
-* Configure flight modes
-* Configure RC and battery failsafes
+* Verify battery voltage reading with LiPo connected safely
+* Verify GPS lock outdoors
+* Verify telemetry radio connection
 * Verify motor order and motor direction with props removed
-* Complete Raspberry Pi and camera setup for autonomous landing
+* Complete Raspberry Pi OS setup
+* Test Raspberry Pi camera capture
+* Run ArUco detection on Raspberry Pi
 * Connect companion computer to Pixhawk through MAVLink
 * Run full bench autonomy test before any autonomous flight
-* Perform controlled ground tests before any flight testing
+* Perform controlled manual hover testing before autonomous flight
 * Complete final autonomous ArUco landing demo by August 18
 
 
