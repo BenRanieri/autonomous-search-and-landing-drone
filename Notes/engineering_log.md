@@ -2350,3 +2350,66 @@
 - What should the full preflight checklist include?
 - How should the first manual hover test be performed safely?
 - What conditions must be met before testing AltHold or Loiter?
+
+
+
+
+
+## Session 48 - August 9, 2026
+
+### Accomplished
+- Performed final preflight inspection before first hover testing
+- Confirmed propeller areas were clear
+- Confirmed wires were strapped down and away from motors and propellers
+- Powered the drone with the LiPo for preflight checks
+- Confirmed the only indoor preflight issue was the expected GPS no-fix warning
+- Took the drone outside for GPS and pre-arm checking
+- Confirmed outdoor preflight status was acceptable
+- Cleared the hardware safety switch warning with the Pixhawk safety button
+- Reviewed the correct motor direction and propeller direction layout
+- Identified that the propeller thread directions did not initially match the expected diagonal motor direction pattern
+- Corrected the motor and propeller arrangement so all propellers matched the correct motor directions
+- Confirmed the final propeller layout matched the motor spin directions
+- Armed the drone successfully
+- Completed the first manual hover test in Stabilize mode
+- Completed four successful Stabilize hover tests
+- Verified throttle up and throttle down response
+- Verified yaw left and yaw right response
+- Verified pitch forward and pitch backward response
+- Verified the drone armed and disarmed as expected
+- Observed slight back-left drift during hover
+- Confirmed first manual flight testing was successful
+
+### Problems
+- The propeller thread layout did not initially match the required motor direction layout
+- The gray and black threaded propellers only fit certain motors before the motor and propeller arrangement was corrected
+- The drone showed a slight back-left drift during Stabilize hover
+- There was not enough time to continue into AltHold or Loiter testing
+- First flight testing needed to stay conservative and avoid rushing into more advanced modes
+
+### Debugging
+- Checked that the propeller areas were clear before any powered test
+- Verified that wires were secured and could not reach the propeller paths
+- Checked Mission Planner pre-arm messages before flight
+- Confirmed the GPS/pre-arm state outdoors before installing or using props
+- Compared the motor spin directions against the propeller thread directions
+- Corrected the propeller and motor arrangement before attempting flight
+- Used Stabilize mode for the first hover instead of AltHold or Loiter
+- Tested basic control response during hover
+- Confirmed the drone responded correctly to throttle, yaw, and pitch inputs
+- Treated the slight back-left drift as minor because Stabilize mode does not hold position automatically
+- Stopped after successful Stabilize testing instead of moving into additional flight modes
+
+### Solution
+- Completed the first safe manual flight test sequence
+- Confirmed the drone can arm, hover, respond to pilot inputs, land, and disarm
+- Verified four successful Stabilize hover tests
+- Kept the testing conservative and stopped before AltHold or Loiter
+- Set the next step as post-flight inspection followed by controlled AltHold and Loiter testing
+
+### Next Session
+- What should be checked during the post-flight inspection?
+- How should a short Stabilize confirmation hover be repeated?
+- How should AltHold be tested safely for the first time?
+- What GPS and wind conditions are needed before testing Loiter?
+- When should the project shift back to Raspberry Pi setup and camera testing?

@@ -166,28 +166,30 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Successful GPS lock
 * Established telemetry radio connection
 * Configured motor spin directions
+* Installed propellers with correct motor direction matching
+* First manual hover test in stabilize
 
 ### In Progress
 
-* First manual flight preparation
-* Final preflight safety checklist
-* Raspberry Pi companion computer preparation
+* Manual flight testing
+* AltHold and Loiter readiness
+* Raspberry Pi companion computer setup
 * Raspberry Pi camera integration
 * MAVLink companion computer integration
 
 ### Planned
 
-* Complete final preflight checklist
-* Inspect all wiring and mounting before props are installed
-* Confirm prop orientation before first flight
-* Install props only at the outdoor test site
-* Perform first manual hover test
-* Test Stabilize, AltHold, and Loiter carefully
+* Complete post-flight inspection before the next test
+* Repeat a short Stabilize confirmation hover
+* Test AltHold hover carefully
+* Test Loiter only after GPS lock is strong
 * Set up Raspberry Pi OS
 * Test Raspberry Pi camera capture
 * Run ArUco detection on Raspberry Pi
 * Connect companion computer to Pixhawk through MAVLink
 * Run full bench autonomy test before any autonomous flight
+* Mount Raspberry Pi and camera securely on the drone
+* Test onboard Raspberry Pi power from the buck converter
 * Complete final autonomous ArUco landing demo by August 18
 
 
