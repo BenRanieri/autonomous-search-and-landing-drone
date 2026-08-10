@@ -167,26 +167,29 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Established telemetry radio connection
 * Configured motor spin directions
 * Installed propellers with correct motor direction matching
-* First manual hover test in stabilize
+* Manual hover test in Stabilize
+* Manual hover test in AltHold
+* Manual hover test in Loiter
+* Raspberry Pi setup
 
 ### In Progress
 
-* Manual flight testing
-* AltHold and Loiter readiness
 * Raspberry Pi companion computer setup
 * Raspberry Pi camera integration
 * MAVLink companion computer integration
+* Transition from manual flight testing to autonomous system testing
 
 ### Planned
 
-* Complete post-flight inspection before the next test
-* Repeat a short Stabilize confirmation hover
-* Test AltHold hover carefully
-* Test Loiter only after GPS lock is strong
-* Set up Raspberry Pi OS
+* Boot Raspberry Pi from the prepared microSD card
+* Confirm Raspberry Pi login works
+* Confirm Raspberry Pi case fan works
+* Enable or verify SSH access
+* Install Raspberry Pi software dependencies
 * Test Raspberry Pi camera capture
 * Run ArUco detection on Raspberry Pi
 * Connect companion computer to Pixhawk through MAVLink
+* Test MAVLink heartbeat between Raspberry Pi and Pixhawk
 * Run full bench autonomy test before any autonomous flight
 * Mount Raspberry Pi and camera securely on the drone
 * Test onboard Raspberry Pi power from the buck converter

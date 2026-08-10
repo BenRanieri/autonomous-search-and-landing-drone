@@ -2413,3 +2413,65 @@
 - How should AltHold be tested safely for the first time?
 - What GPS and wind conditions are needed before testing Loiter?
 - When should the project shift back to Raspberry Pi setup and camera testing?
+
+
+
+
+
+## Session 49 - August 10, 2026
+
+### Accomplished
+- Performed post-flight inspection after the first manual hover session
+- Checked the propeller condition after a minor tip-over
+- Confirmed the frame, wiring, and mounts remained secure
+- Checked battery voltages before flight testing
+- Used the unused 15.3V battery for additional testing
+- Repeated Stabilize hover successfully
+- Tested AltHold hover successfully
+- Confirmed AltHold felt stable and similar to Stabilize
+- Tested Loiter successfully
+- Confirmed Loiter maintained position well
+- Continued hover testing with manual stick inputs
+- Verified pitch forward response
+- Verified pitch backward response
+- Verified roll left response
+- Verified roll right response
+- Confirmed manual control inputs behaved as expected during hover
+- Verified Stabilize, AltHold, and Loiter are all working flight modes
+- Prepared the Raspberry Pi hardware for software setup
+- Installed the Raspberry Pi 5 into the official case
+- Inserted the microSD card into the Raspberry Pi
+- Finished assembling the Raspberry Pi case with the Pi and SD card installed
+
+### Problems
+- One propeller was scratched after the drone tipped over once
+- The used battery from the previous flight session was lower than the unused battery
+- Additional flight testing needed to stay conservative to avoid unnecessary risk
+- Raspberry Pi setup could not be fully completed today
+- The Raspberry Pi case needed the microSD card inserted before final assembly
+
+### Debugging
+- Compared the scratched propeller condition against the previous successful flight behavior
+- Chose the higher-voltage 15.3V battery for safer test margin
+- Repeated Stabilize first before moving to other modes
+- Tested AltHold only after Stabilize remained stable
+- Tested Loiter only after AltHold worked correctly
+- Confirmed Loiter held position before trying small directional inputs
+- Verified forward, backward, left, and right stick inputs during hover
+- Stopped before testing RTL, transmitter-loss failsafe in air, or autonomous behavior
+- Prepared the Raspberry Pi mechanically before starting software setup
+
+### Solution
+- Confirmed the drone can fly in Stabilize, AltHold, and Loiter
+- Confirmed Loiter position hold works well enough for future autonomous testing support
+- Confirmed basic manual directional control works during hover
+- Finished the safe outdoor flight testing needed before returning to companion-computer setup
+- Completed Raspberry Pi case and SD card assembly
+- Set the next session as Raspberry Pi boot, camera setup, and software dependency installation
+
+### Next Session
+- How should the Raspberry Pi first boot be checked?
+- How can SSH access be verified?
+- How should the Raspberry Pi camera be connected and tested?
+- Which Python packages are needed for ArUco detection on the Raspberry Pi?
+- How can the existing vision code be moved onto the Raspberry Pi?
