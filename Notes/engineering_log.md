@@ -2475,3 +2475,70 @@
 - How should the Raspberry Pi camera be connected and tested?
 - Which Python packages are needed for ArUco detection on the Raspberry Pi?
 - How can the existing vision code be moved onto the Raspberry Pi?
+
+
+
+
+
+## Session 50 - August 11, 2026
+
+### Accomplished
+- Booted the Raspberry Pi successfully
+- Confirmed the Raspberry Pi desktop loaded correctly
+- Connected the Raspberry Pi to a monitor, mouse, and keyboard
+- Opened the Raspberry Pi terminal
+- Checked the Raspberry Pi hostname and user setup
+- Fixed the internet connection after an initial name resolution issue
+- Ran the Raspberry Pi package update
+- Completed the Raspberry Pi full system upgrade
+- Rebooted the Raspberry Pi after updates
+- Installed camera and OpenCV-related packages
+- Confirmed the rpicam camera tools worked
+- Connected the Raspberry Pi Camera Module 3 Wide NoIR
+- Left the Argon NEO 5 NVMe top plate off to avoid pinching the camera ribbon cable
+- Captured a still image with the Raspberry Pi camera
+- Confirmed Python could access the camera through Picamera2
+- Confirmed OpenCV worked on the Raspberry Pi
+- Confirmed the OpenCV ArUco module was available
+- Created and ran a Raspberry Pi ArUco detection test
+- Detected ArUco marker ID 0
+- Confirmed the saved detection image showed a marker outline
+- Created and ran a live ArUco error test
+- Verified marker left movement produced negative error_x
+- Verified marker right movement produced positive error_x
+- Verified marker upward movement produced negative error_y
+- Verified marker downward movement produced positive error_y
+- Confirmed the Raspberry Pi vision system is working
+
+### Problems
+- The Raspberry Pi initially had a temporary failure in name resolution
+- Copying code directly on the Raspberry Pi monitor would have taken too long
+- The Argon NEO 5 NVMe top plate did not fit cleanly with the camera ribbon cable installed
+- The live marker test sometimes lost detection when the marker moved too quickly or was not held flat
+- There was not enough time to create the cleaner tracker script
+
+### Debugging
+- Used the Raspberry Pi desktop network connection to restore internet access
+- Switched to SSH from the laptop to make copying code onto the Raspberry Pi faster
+- Left the case top plate off instead of forcing it over the camera ribbon cable
+- Checked still camera capture before testing Python camera capture
+- Checked Python imports before running ArUco detection
+- Used a still ArUco test before running a live error test
+- Compared marker position with printed error_x and error_y values
+- Repeated the live marker movement test more slowly to confirm consistent error signs
+
+### Solution
+- Confirmed the Raspberry Pi can boot, update, and run Python camera code
+- Confirmed the Raspberry Pi camera works through both rpicam tools and Picamera2
+- Confirmed OpenCV and ArUco detection work directly on the Raspberry Pi
+- Verified the marker error sign convention needed for autonomous landing
+- Kept the Raspberry Pi disconnected from the drone for safe setup
+- Left the camera connected with the top plate off to avoid cable damage
+- Set the next session to finish the clean tracker script and begin preparing for project-code and MAVLink integration
+
+### Next Session
+- How should the clean Raspberry Pi ArUco tracker script be created?
+- How should detected, marker ID, error_x, and error_y be printed for the autonomy code?
+- How should the project repository be cloned or copied onto the Raspberry Pi?
+- How should the Raspberry Pi test scripts be organized in the project folders?
+- How should the Raspberry Pi connect to the Pixhawk for the first MAVLink heartbeat test?

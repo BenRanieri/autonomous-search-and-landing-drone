@@ -171,25 +171,27 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Manual hover test in AltHold
 * Manual hover test in Loiter
 * Raspberry Pi setup
+* Raspberry Pi desktop setup
+* Connected camera to Raspberry Pi
+* Live AruCo marker detection and error output
 
 ### In Progress
 
 * Raspberry Pi companion computer setup
 * Raspberry Pi camera integration
+* Raspberry Pi ArUco marker tracking
 * MAVLink companion computer integration
-* Transition from manual flight testing to autonomous system testing
 
 ### Planned
 
-* Boot Raspberry Pi from the prepared microSD card
-* Confirm Raspberry Pi login works
-* Confirm Raspberry Pi case fan works
-* Enable or verify SSH access
-* Install Raspberry Pi software dependencies
-* Test Raspberry Pi camera capture
-* Run ArUco detection on Raspberry Pi
-* Connect companion computer to Pixhawk through MAVLink
+* Create a cleaner Raspberry Pi ArUco tracker script
+* Convert Raspberry Pi camera output into detected, marker ID, error X, and error Y values
+* Clone or copy the project code onto the Raspberry Pi
+* Organize Raspberry Pi test scripts into the project repository
+* Connect Raspberry Pi to Pixhawk through MAVLink
 * Test MAVLink heartbeat between Raspberry Pi and Pixhawk
+* Verify Raspberry Pi can read Pixhawk vehicle state
+* Keep MAVLink commands in dry-run mode before any real command testing
 * Run full bench autonomy test before any autonomous flight
 * Mount Raspberry Pi and camera securely on the drone
 * Test onboard Raspberry Pi power from the buck converter
