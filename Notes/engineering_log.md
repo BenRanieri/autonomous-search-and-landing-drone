@@ -2542,3 +2542,48 @@
 - How should the project repository be cloned or copied onto the Raspberry Pi?
 - How should the Raspberry Pi test scripts be organized in the project folders?
 - How should the Raspberry Pi connect to the Pixhawk for the first MAVLink heartbeat test?
+
+
+
+
+
+## Session 51 - August 12, 2026
+
+### Accomplished
+- Fixed Raspberry Pi UART setup for GPIO serial communication
+- Confirmed Raspberry Pi UART loopback test passed
+- Connected Raspberry Pi to Pixhawk TELEM3
+- Received MAVLink heartbeat from Pixhawk on the Raspberry Pi
+- Requested Pixhawk telemetry streams from the Raspberry Pi
+- Received attitude, system status, global position, heartbeat, and timing messages
+- Combined Raspberry Pi camera detection with Pixhawk read-only status monitoring
+- Created dry-run vision and guidance integration test
+- Verified ArUco marker errors generated proportional dry-run tracking commands
+- Confirmed dry-run test sent no commands to the Pixhawk
+
+### Problems
+- Initial MAVLink heartbeat test failed
+- Raspberry Pi `/dev/serial0` was not the correct working UART device for the GPIO pins
+- First UART loopback test failed because the wrong physical pins were connected
+- Pixhawk status test originally only received heartbeat and timing messages
+
+### Debugging
+- Checked Raspberry Pi serial communication using a UART loopback test
+- Corrected the loopback wiring to connect physical pin 8 to physical pin 10
+- Switched Pixhawk communication from `/dev/serial0` to `/dev/ttyAMA0`
+- Requested additional MAVLink message streams from the Pixhawk
+- Tested camera detection and Pixhawk status in the same script
+- Tested dry-run guidance output using live ArUco marker error values
+
+### Solution
+- Enabled and used the correct Raspberry Pi GPIO UART device
+- Verified Pi-to-Pixhawk MAVLink communication over TELEM3
+- Confirmed the Raspberry Pi could read Pixhawk mode, armed state, and telemetry
+- Confirmed the Raspberry Pi could detect the ArUco marker while reading Pixhawk state
+- Confirmed guidance logic produced expected dry-run x and y tracking commands without sending real flight commands
+
+### Next Session
+- How can mission state transitions be tested in a dry-run logger?
+- How should SEARCH, ACQUIRE, TRACK, APPROACH, and LAND states be simulated safely?
+- What safety checks should be required before any real Pixhawk command is enabled?
+- How can dry-run command signs be verified before outdoor autonomy testing?

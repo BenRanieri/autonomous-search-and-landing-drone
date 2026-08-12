@@ -174,24 +174,36 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Raspberry Pi desktop setup
 * Connected camera to Raspberry Pi
 * Live AruCo marker detection and error output
+* Clean Raspberry Pi ArUco tracker script
+* Raspberry Pi camera output converted into detected, marker ID, error X, and error Y values
+* Project code organized on Raspberry Pi
+* Raspberry Pi vision test scripts added to project repository
+* Raspberry Pi GPIO UART setup
+* Raspberry Pi UART loopback test
+* Raspberry Pi to Pixhawk TELEM3 MAVLink connection
+* MAVLink heartbeat test between Raspberry Pi and Pixhawk
+* Pixhawk telemetry stream request from Raspberry Pi
+* Raspberry Pi Pixhawk read-only status test
+* Combined Raspberry Pi camera and Pixhawk read-only integration test
+* Dry-run vision and guidance integration test
+* ArUco marker error conversion into proportional dry-run tracking commands
+* MAVLink commands kept disabled during dry-run testing
 
 ### In Progress
 
-* Raspberry Pi companion computer setup
-* Raspberry Pi camera integration
+* Raspberry Pi companion computer integration
+* Raspberry Pi camera integration with mission code
 * Raspberry Pi ArUco marker tracking
 * MAVLink companion computer integration
+* Dry-run autonomy bridge between vision, guidance, and Pixhawk state
+* Safety checks before real Pixhawk command testing
 
 ### Planned
 
-* Create a cleaner Raspberry Pi ArUco tracker script
-* Convert Raspberry Pi camera output into detected, marker ID, error X, and error Y values
-* Clone or copy the project code onto the Raspberry Pi
-* Organize Raspberry Pi test scripts into the project repository
-* Connect Raspberry Pi to Pixhawk through MAVLink
-* Test MAVLink heartbeat between Raspberry Pi and Pixhawk
-* Verify Raspberry Pi can read Pixhawk vehicle state
-* Keep MAVLink commands in dry-run mode before any real command testing
+* Create mission-state dry-run logger
+* Test SEARCH, ACQUIRE, TRACK, APPROACH, and LAND state transitions using live marker input
+* Verify dry-run command signs before any real command testing
+* Add safety gates before enabling real Pixhawk movement commands
 * Run full bench autonomy test before any autonomous flight
 * Mount Raspberry Pi and camera securely on the drone
 * Test onboard Raspberry Pi power from the buck converter
