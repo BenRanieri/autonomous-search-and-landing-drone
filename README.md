@@ -177,6 +177,15 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Clean Raspberry Pi ArUco tracker script
 * Raspberry Pi camera output converted into detected, marker ID, error X, and error Y values
 * Project code organized on Raspberry Pi
+* Built Raspberry Pi to Pixhawk TELEM3 UART adapter cable
+* Soldered TELEM3 pigtail wires to female jumper ends
+* Insulated unused TELEM3 pigtail wires
+* Connected Pixhawk TELEM3 ground, transmit, and receive lines to Raspberry Pi GPIO UART
+* Connected TELEM3 pigtail red wire to Raspberry Pi physical pin 6 for ground
+* Connected TELEM3 pigtail green wire to Raspberry Pi physical pin 8 for TXD / GPIO14
+* Connected TELEM3 pigtail blue wire to Raspberry Pi physical pin 10 for RXD / GPIO15
+* Verified Raspberry Pi GPIO UART using pin 8 to pin 10 loopback test
+* Switched MAVLink connection from `/dev/serial0` to `/dev/ttyAMA0`
 * Raspberry Pi vision test scripts added to project repository
 * Raspberry Pi GPIO UART setup
 * Raspberry Pi UART loopback test
@@ -188,26 +197,37 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Dry-run vision and guidance integration test
 * ArUco marker error conversion into proportional dry-run tracking commands
 * MAVLink commands kept disabled during dry-run testing
+* Mission-state dry-run logger
+* SEARCH to ACQUIRE dry-run transition using live ArUco detection
+* ACQUIRE to TRACK dry-run transition using marker centering stability
+* TRACK to APPROACH dry-run transition using marker tracking stability
+* Marker size estimation for approach logic
+* APPROACH to LAND dry-run transition using marker centering and marker size
+* LAND to DISARM dry-run transition using fake software altitude
+* Full dry-run mission sequence from SEARCH to DISARM
+* Command safety gate dry-run test
 
 ### In Progress
 
-* Raspberry Pi companion computer integration
-* Raspberry Pi camera integration with mission code
-* Raspberry Pi ArUco marker tracking
-* MAVLink companion computer integration
-* Dry-run autonomy bridge between vision, guidance, and Pixhawk state
-* Safety checks before real Pixhawk command testing
+* Safety-gated Pixhawk command system
+* Basic bounded search pattern
+* Real MAVLink movement command wrapper
+* Raspberry Pi and camera mounting for onboard flight testing
+* Autonomous target finding and landing demo
 
 ### Planned
 
-* Create mission-state dry-run logger
-* Test SEARCH, ACQUIRE, TRACK, APPROACH, and LAND state transitions using live marker input
-* Verify dry-run command signs before any real command testing
-* Add safety gates before enabling real Pixhawk movement commands
-* Run full bench autonomy test before any autonomous flight
-* Mount Raspberry Pi and camera securely on the drone
-* Test onboard Raspberry Pi power from the buck converter
-* Complete final autonomous ArUco landing demo by August 18
+* Turn the command safety gate into a reusable module
+* Require every future movement command to pass through the safety gate
+* Add a real MAVLink velocity command wrapper with real commands disabled by default
+* Add a basic bounded search pattern for local target finding
+* Stop the search pattern immediately when the ArUco marker is detected
+* Mount the Raspberry Pi and camera securely on the drone
+* Run onboard read-only flight logging with the Raspberry Pi mounted
+* Test low-speed autonomous target centering
+* Test autonomous approach and landing
+* Record the final autonomous search-and-land demo
+* Update final documentation, engineering log, and resume summary
 
 
 ## System Architecture
