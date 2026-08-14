@@ -2642,3 +2642,60 @@
 * How should the real MAVLink command wrapper be written while keeping commands disabled by default
 * How can a basic bounded search pattern be added without making the project too complex
 * How can the search pattern stop immediately when the marker is detected
+
+
+
+
+
+## Session 53 - August 14, 2026
+
+### Accomplished
+* Created a reusable command safety gate module
+* Created a MAVLink command wrapper for future velocity commands
+* Kept real movement commands disabled by default
+* Created a basic bounded search pattern
+* Tested SEARCH_FORWARD, SEARCH_RIGHT, SEARCH_BACKWARD, and SEARCH_LEFT dry-run search commands
+* Confirmed all generated search commands were blocked by the safety gate
+* Created a combined search, mission, and command-wrapper dry-run test
+* Confirmed SEARCH stopped when the ArUco marker was detected
+* Confirmed the dry-run mission sequence reached SEARCH, ACQUIRE, TRACK, APPROACH, LAND, and DISARM
+* Reset the test tolerance back to the normal value after the bench proof
+* Mounted the Raspberry Pi onto the drone frame
+* Mounted the camera near the bottom center of the drone
+* Connected the Raspberry Pi to the Pixhawk through TELEM3 while mounted
+* Wired the Raspberry Pi flight-power setup using the LiPo splitter, buck converter, and USB-C output
+* Confirmed the Pixhawk and Raspberry Pi both booted from the flight-power setup
+* Confirmed the Raspberry Pi stayed powered while running the command-wrapper search dry-run test
+* Shut down the Raspberry Pi safely before disconnecting the LiPo
+
+### Problems
+* The Raspberry Pi had very limited mounting space on the drone
+* The Raspberry Pi had to partly overlap the Pixhawk area
+* The mounted camera detected the ArUco marker, but the marker appeared very small in the image
+* The current desired marker-size threshold is too high for the mounted camera setup
+* The Raspberry Pi needed a safe way to receive power during flight without using the Pixhawk telemetry port
+
+### Debugging
+* Mounted the Raspberry Pi so most of its weight was supported by the frame instead of the Pixhawk
+* Checked that the Raspberry Pi, camera cable, UART wires, and USB-C cable had propeller clearance
+* Tested the mounted camera and Pixhawk connection with dry-run scripts
+* Compared mounted marker-size values against the existing approach threshold
+* Reviewed the LiPo splitter power path before connecting the buck converter
+* Connected the buck converter as a parallel power branch from the battery splitter
+* Verified that the Pixhawk and Raspberry Pi could boot at the same time from the flight-power wiring
+* Ran the command-wrapper search dry-run test while the Raspberry Pi was powered by the buck converter
+
+### Solution
+* The project now has a reusable safety gate and command wrapper for all future movement commands
+* The project now has a simple bounded search pattern for local target finding
+* The combined dry-run mission can search, stop on marker detection, acquire, track, approach, land, and disarm
+* The Raspberry Pi is now physically mounted on the drone for onboard testing
+* The Raspberry Pi can now be powered during flight from the LiPo through a splitter and 5V buck converter
+* The mounted camera setup works, but the marker-size threshold still needs calibration before real autonomous landing
+
+### Next Session
+* How can the mounted camera and marker setup be calibrated
+* What marker size should trigger the approach-to-landing transition
+* How can onboard read-only flight logging be tested with the Raspberry Pi fully mounted and flight-powered
+* How can the drone safely enter GUIDED mode for future real command tests
+* How can the first real low-speed autonomous centering test be limited and safety-gated

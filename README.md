@@ -206,28 +206,42 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * LAND to DISARM dry-run transition using fake software altitude
 * Full dry-run mission sequence from SEARCH to DISARM
 * Command safety gate dry-run test
+* Reusable command safety gate module
+* Safety-gated MAVLink command wrapper
+* Basic bounded search pattern
+* Command-wrapper search dry-run test
+* Combined search, mission, and command-wrapper dry-run test
+* SEARCH pattern stopping on ArUco marker detection
+* Full safety-gated dry-run mission sequence from SEARCH to DISARM
+* Raspberry Pi temporary onboard mounting
+* Bottom-center camera mounting for precision landing tests
+* Raspberry Pi flight-power wiring through LiPo splitter and 5V buck converter
+* Raspberry Pi boot test from flight-power buck converter
+* Safety-wrapper search dry-run test while Raspberry Pi was powered from flight wiring
 
 ### In Progress
 
-* Safety-gated Pixhawk command system
-* Basic bounded search pattern
-* Real MAVLink movement command wrapper
-* Raspberry Pi and camera mounting for onboard flight testing
-* Autonomous target finding and landing demo
+* Mounted camera and marker-size calibration
+* Raspberry Pi onboard wiring cleanup and strain relief
+* Onboard read-only flight logging with Raspberry Pi fully mounted and flight-powered
+* Safety-gated real command testing setup
+* GUIDED mode testing plan for future autonomous movement commands
+* Autonomous target-centering preparation
 
 ### Planned
 
-* Turn the command safety gate into a reusable module
-* Require every future movement command to pass through the safety gate
-* Add a real MAVLink velocity command wrapper with real commands disabled by default
-* Add a basic bounded search pattern for local target finding
-* Stop the search pattern immediately when the ArUco marker is detected
-* Mount the Raspberry Pi and camera securely on the drone
-* Run onboard read-only flight logging with the Raspberry Pi mounted
-* Test low-speed autonomous target centering
-* Test autonomous approach and landing
+* Calibrate marker size using the mounted downward-facing camera
+* Choose a realistic marker-size threshold for the approach-to-landing transition
+* Run onboard read-only flight logging with the Raspberry Pi mounted and powered from the LiPo
+* Verify camera direction, marker error signs, and command sign mapping while mounted
+* Test safe GUIDED mode entry without sending movement commands
+* Test the first low-speed safety-gated centering commands with props off or under controlled conditions
+* Test limited autonomous target finding using the basic bounded search pattern
+* Test autonomous target centering after marker detection
+* Test autonomous approach logic with calibrated marker-size thresholds
+* Test autonomous landing logic after the drone is centered over the marker
 * Record the final autonomous search-and-land demo
-* Update final documentation, engineering log, and resume summary
+* Update final documentation, engineering log, GitHub repository, and resume summary
 
 
 ## System Architecture
