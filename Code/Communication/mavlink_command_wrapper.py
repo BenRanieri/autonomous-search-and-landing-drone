@@ -1,15 +1,20 @@
 import time
+
 from pymavlink import mavutil
 
 from Code.Communication.command_safety import command_safety_check
 
 
 ENABLE_REAL_COMMANDS = False
-PROPS_REMOVED_CONFIRMED = False
+
+# This should only be changed for a controlled real flight test after:
+# correct props are installed, the pilot is ready, the area is clear,
+# and the test plan has been reviewed.
+FLIGHT_TEST_CONFIRMED = False
+
 PILOT_READY_CONFIRMED = False
 
-REQUIRED_MODE = "GUIDED"
-MAX_ALLOWED_COMMAND = 0.25
+COMMAND_START_TIME = time.time()
 
 
 def send_velocity_command_safely(
@@ -21,16 +26,14 @@ def send_velocity_command_safely(
     z_command,
 ):
     allowed, block_reasons = command_safety_check(
+        enable_real_commands=ENABLE_REAL_COMMANDS,
+        flight_test_confirmed=FLIGHT_TEST_CONFIRMED,
+        pilot_ready_confirmed=PILOT_READY_CONFIRMED,
         mode=mode,
         armed=armed,
         x_command=x_command,
         y_command=y_command,
         z_command=z_command,
-        enable_real_commands=ENABLE_REAL_COMMANDS,
-        props_removed_confirmed=PROPS_REMOVED_CONFIRMED,
-        pilot_ready_confirmed=PILOT_READY_CONFIRMED,
-        required_mode=REQUIRED_MODE,
-        max_allowed_command=MAX_ALLOWED_COMMAND,
     )
 
     if not allowed:
@@ -40,10 +43,10 @@ def send_velocity_command_safely(
             "reasons": block_reasons,
         }
 
-    # This is the only place real velocity commands should be sent.
-    # It should only execute if every safety gate above passes.
+    time_boot_ms = int((time.time() - COMMAND_START_TIME) * 1000)
+
     vehicle.mav.set_position_target_local_ned_send(
-        int(time.time() * 1000),
+        time_boot_ms,
         vehicle.target_system,
         vehicle.target_component,
         mavutil.mavlink.MAV_FRAME_BODY_NED,

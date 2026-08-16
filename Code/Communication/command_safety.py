@@ -3,24 +3,24 @@ REQUIRED_MODE = "GUIDED"
 
 
 def command_safety_check(
+    enable_real_commands,
+    flight_test_confirmed,
+    pilot_ready_confirmed,
     mode,
     armed,
     x_command,
     y_command,
     z_command,
-    enable_real_commands,
-    props_removed_confirmed,
-    pilot_ready_confirmed,
-    required_mode=REQUIRED_MODE,
     max_allowed_command=MAX_ALLOWED_COMMAND,
+    required_mode=REQUIRED_MODE,
 ):
     block_reasons = []
 
     if not enable_real_commands:
         block_reasons.append("ENABLE_REAL_COMMANDS is False")
 
-    if not props_removed_confirmed:
-        block_reasons.append("PROPS_REMOVED_CONFIRMED is False")
+    if not flight_test_confirmed:
+        block_reasons.append("FLIGHT_TEST_CONFIRMED is False")
 
     if not pilot_ready_confirmed:
         block_reasons.append("PILOT_READY_CONFIRMED is False")
