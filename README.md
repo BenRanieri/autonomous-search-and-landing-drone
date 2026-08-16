@@ -218,30 +218,49 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Raspberry Pi flight-power wiring through LiPo splitter and 5V buck converter
 * Raspberry Pi boot test from flight-power buck converter
 * Safety-wrapper search dry-run test while Raspberry Pi was powered from flight wiring
+* Raspberry Pi 5 onboard camera testing
+* ArUco marker generation and detection
+* Mounted camera ArUco detection
+* Pixhawk 6C MAVLink heartbeat over Raspberry Pi UART
+* Pixhawk mode and armed-state reading from Raspberry Pi
+* Read-only combined vision and Pixhawk test
+* Dry-run vision guidance test
+* Mission state machine for SEARCH, ACQUIRE, TRACK, APPROACH, LAND, and DISARM
+* Safety-gated MAVLink command wrapper
+* Basic bounded search pattern
+* Search-pattern command wrapper dry-run
+* Combined search, mission, and safety-wrapper dry-run
+* Raspberry Pi flight-power wiring through LiPo splitter and 5V buck converter
+* Raspberry Pi boot and Pixhawk communication from flight-power wiring
+* Front-mounted camera offset calibration
+* Mounted camera guidance module using calibrated drone-center target offset
+* Mounted offset mission dry-run from SEARCH to DISARM
+* Onboard read-only flight logger for marker, telemetry, and suggested guidance logging
+* GitHub update with mounted camera guidance and read-only logger code
 
 ### In Progress
 
-* Mounted camera and marker-size calibration
-* Raspberry Pi onboard wiring cleanup and strain relief
-* Onboard read-only flight logging with Raspberry Pi fully mounted and flight-powered
-* Safety-gated real command testing setup
-* GUIDED mode testing plan for future autonomous movement commands
+* Compatible replacement propeller sourcing
+* Read-only manual flight test with Raspberry Pi mounted and flight-powered
+* Real flight marker visibility validation
+* Camera error to drone movement sign mapping
+* Real-command safety gate update for future flight testing
 * Autonomous target-centering preparation
 
 ### Planned
 
-* Calibrate marker size using the mounted downward-facing camera
-* Choose a realistic marker-size threshold for the approach-to-landing transition
-* Run onboard read-only flight logging with the Raspberry Pi mounted and powered from the LiPo
-* Verify camera direction, marker error signs, and command sign mapping while mounted
-* Test safe GUIDED mode entry without sending movement commands
-* Test the first low-speed safety-gated centering commands with props off or under controlled conditions
-* Test limited autonomous target finding using the basic bounded search pattern
-* Test autonomous target centering after marker detection
-* Test autonomous approach logic with calibrated marker-size thresholds
-* Test autonomous landing logic after the drone is centered over the marker
-* Record the final autonomous search-and-land demo
-* Update final documentation, engineering log, GitHub repository, and resume summary
+* Order compatible 1045 self-locking propellers or correct prop mounting hardware
+* Install and verify correct propellers
+* Run manual read-only flight with onboard logger
+* Analyze flight logs for marker visibility, marker size, and image-error behavior
+* Map camera error signs to real drone movement directions
+* Test GUIDED mode entry without movement commands
+* Test first low-speed safety-gated autonomous centering commands
+* Test limited autonomous target finding using the bounded search pattern
+* Test autonomous approach logic using mounted camera calibration
+* Test autonomous landing or controlled landing handoff
+* Record final demo
+* Update README, engineering log, and resume description
 
 
 ## System Architecture

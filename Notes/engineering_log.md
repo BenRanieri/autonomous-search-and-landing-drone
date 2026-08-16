@@ -2699,3 +2699,73 @@
 * How can onboard read-only flight logging be tested with the Raspberry Pi fully mounted and flight-powered
 * How can the drone safely enter GUIDED mode for future real command tests
 * How can the first real low-speed autonomous centering test be limited and safety-gated
+
+
+
+
+
+## Session 54 - August 15, 2026
+
+### Accomplished
+
+* Calibrated the front-mounted camera offset using the ArUco landing marker
+* Used a string/plumb-line method to mark the camera position and desired drone-center landing position on the floor
+* Measured the calibrated drone-center target as approximately error_x = -93.5 and error_y = 26.2
+* Created the mounted camera guidance module using the calibrated target offset
+* Created a mounted offset mission dry-run test
+* Ran the mounted offset mission dry-run with the marker placed at the drone-center floor mark
+* Verified that the mission logic progressed through ACQUIRE, TRACK, APPROACH, LAND, and DISARM
+* Verified that the safety wrapper blocked all movement commands during the mounted offset dry-run
+* Created an onboard read-only flight logger
+* Bench-tested the read-only logger with the drone on chairs and the marker at the calibrated drone-center position
+* Verified that the logger recorded Pixhawk mode, armed state, marker detection, marker error, adjusted error, marker size, and suggested guidance actions
+* Added flight/test CSV logs to .gitignore
+* Committed and pushed the mounted camera guidance, mounted offset mission dry-run, offset calibration script, and read-only flight logger
+* Identified that the replacement propellers were not compatible with the current motor mounting setup
+* Paused real flight testing because the available propellers could not be safely mounted
+
+### Problems
+
+* The front-mounted camera was slightly angled because of the uneven mounting surface
+* The camera could not be made perfectly level without a more dedicated mount or case
+* The desired drone-center marker position was hard to align accurately by eye while the drone was raised on chairs
+* The read-only manual flight could not be completed because the replacement propellers did not match the motor mounting style
+* The new propellers slid over the threaded motor shafts instead of threading onto them
+* No matching prop nuts or safe retaining hardware were available
+* The original propellers were no longer available for comparison or reuse
+* The batteries were close to low-voltage level before charging, so flight testing already required caution
+
+### Debugging
+
+* Re-ran the mounted camera offset calibration with the drone held still instead of moving during the sample
+* Used a string to mark the camera-lens point and desired drone-center point on the floor more accurately
+* Compared the camera-centered and drone-centered ArUco error measurements
+* Confirmed that the mounted offset mission dry-run loaded TARGET_ERROR_X = -93.5 and TARGET_ERROR_Y = 26.2
+* Verified that the marker was detected at the calibrated drone-center location with adjusted error close to zero
+* Confirmed that centered and large_enough were both true during the mounted offset dry-run
+* Verified that the mission transitioned from ACQUIRE to TRACK, APPROACH, LAND, and DISARM
+* Confirmed that the safety wrapper continued blocking all commands because real commands were disabled and the vehicle was not armed or in GUIDED mode
+* Tested the read-only logger for 20 seconds with props off and confirmed that it saved a CSV log
+* Inspected the replacement propellers and determined that they were unthreaded props that required separate retaining hardware
+* Determined that the current replacement props could not be safely mounted to the threaded motor shafts
+
+### Solution
+
+* Used the string-based calibration values as the current mounted-camera target offset
+* Set the mounted guidance target to error_x = -93.5 and error_y = 26.2
+* Used a wide tolerance to account for small camera angle and physical alignment uncertainty
+* Used a marker-size threshold for the simulated landing trigger
+* Created a read-only logger instead of attempting real movement commands
+* Committed the current working software state before pausing flight testing
+* Decided not to fly with incompatible propellers or improvised mounting hardware
+* Delayed read-only flight testing until compatible propellers or correct mounting hardware can be found
+
+### Next Session
+
+* Can compatible 1045 self-locking propellers or correct prop mounting hardware be found before the final deadline?
+* Can the propellers be safely installed and checked against the known motor spin directions?
+* Can the read-only flight logger be tested during a short manual flight?
+* What marker sizes and error values appear during real flight over the landing marker?
+* How do error_x and error_y change when the drone moves forward, backward, left, and right?
+* What command sign mapping should be used for future autonomous centering?
+* Does the safety gate need to be renamed or updated before real flight command testing?
