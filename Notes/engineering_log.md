@@ -2769,3 +2769,74 @@
 * How do error_x and error_y change when the drone moves forward, backward, left, and right?
 * What command sign mapping should be used for future autonomous centering?
 * Does the safety gate need to be renamed or updated before real flight command testing?
+
+
+
+
+
+## Session 55 - August 16, 2026
+
+### Accomplished
+
+* Continued the project as a no-propeller preparation session
+* Verified that the repository was clean before starting new changes
+* Updated the command safety gate wording for future real-flight testing
+* Replaced the old props-removed safety flag with a flight-test-confirmed safety flag
+* Updated the MAVLink command wrapper to use ENABLE_REAL_COMMANDS, FLIGHT_TEST_CONFIRMED, and PILOT_READY_CONFIRMED
+* Updated the command safety gate test to match the new safety wording
+* Ran the command safety gate test and confirmed that unsafe cases were blocked
+* Confirmed that the fully allowed safety-gate case only passed when all required conditions were true
+* Re-ran the Pixhawk-connected command wrapper search dry-run
+* Verified that the MAVLink wrapper still blocked all generated search commands
+* Confirmed that the safety wrapper now reports FLIGHT_TEST_CONFIRMED is False instead of the old props-removed wording
+* Created a sign-mapping read-only logger for the first future manual flight
+* Bench-tested the sign-mapping logger and confirmed that the phase labels and CSV logging worked
+* Re-tested the onboard read-only logger by hand and confirmed that the mounted camera could still detect the ArUco marker
+* Created a next-session flight test checklist
+* Created a sign-mapping log analyzer for future read-only flight logs
+* Ran the sign-mapping log analyzer on the latest test log and confirmed that it executed correctly
+* Committed and pushed the safety gate update, sign-mapping logger, checklist, and log analyzer to GitHub
+
+### Problems
+
+* Correct propellers were still not available, so no flight testing could be done
+* The replacement propeller parts were still waiting to arrive from Amazon
+* The previous chair-based camera calibration setup had already been put away
+* Holding the drone by hand made the marker readings noisy
+* The sign-mapping logger test did not detect the marker because the marker was not in the camera view during that run
+* The onboard read-only logger detected the marker later, but the readings were noisy because the drone was handheld
+* The estimated altitude values from Pixhawk telemetry were not reliable during bench and handheld tests
+
+### Debugging
+
+* Checked for old PROPS_REMOVED references in the codebase and confirmed the old wording was gone
+* Verified that the command safety gate blocked the default unsafe case
+* Verified that the safety gate blocked the wrong flight mode case
+* Verified that the safety gate blocked the not-armed case
+* Verified that the safety gate blocked oversized command values
+* Verified that the safety gate only allowed commands when real commands, flight-test confirmation, pilot readiness, GUIDED mode, armed state, and command limits were all valid
+* Ran the Pixhawk-connected search dry-run and confirmed that generated SEARCH_FORWARD, SEARCH_RIGHT, SEARCH_BACKWARD, and SEARCH_LEFT commands were all blocked
+* Ran the sign-mapping logger and confirmed that GROUND_CHECK and CENTER_HOVER phases were labeled correctly
+* Used the onboard read-only logger to confirm that ArUco detection still worked after the previous setup was moved
+* Ran the sign-mapping analyzer on a no-detection test log and confirmed that it handled missing marker data without crashing
+
+### Solution
+
+* Updated the safety gate to use flight-test-confirmed wording instead of props-removed wording
+* Kept real movement commands disabled by default
+* Added a dedicated sign-mapping logger for future manual flight testing
+* Added a checklist file so the next session can focus on propeller installation and read-only flight setup
+* Added a log analyzer so future movement-direction data can be summarized quickly
+* Committed and pushed the completed no-propeller preparation work
+* Delayed all flight testing until compatible propellers and mounting hardware can be verified
+
+### Next Session
+
+* Do the Amazon propellers and prop nuts arrive before the final deadline?
+* Can the new propellers and nuts be test-fitted safely without cross-threading or wobble?
+* Do the new propellers match the known motor spin directions?
+* Can the first read-only manual flight be completed with the Raspberry Pi mounted and flight-powered?
+* Does the sign-mapping logger detect the marker during real flight?
+* What marker size appears at a safe hover height?
+* How do error_x and error_y change when the drone moves forward, backward, left, and right?
+* What command sign mapping should be used before real autonomous centering?

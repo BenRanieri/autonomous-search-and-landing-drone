@@ -237,21 +237,45 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Mounted offset mission dry-run from SEARCH to DISARM
 * Onboard read-only flight logger for marker, telemetry, and suggested guidance logging
 * GitHub update with mounted camera guidance and read-only logger code
+* Raspberry Pi 5 onboard camera testing
+* ArUco marker generation and detection
+* Mounted camera ArUco detection
+* Pixhawk 6C MAVLink heartbeat over Raspberry Pi UART
+* Pixhawk mode and armed-state reading from Raspberry Pi
+* Read-only combined vision and Pixhawk test
+* Dry-run vision guidance test
+* Mission state machine for SEARCH, ACQUIRE, TRACK, APPROACH, LAND, and DISARM
+* Safety-gated MAVLink command wrapper
+* Basic bounded search pattern
+* Search-pattern command wrapper dry-run
+* Combined search, mission, and safety-wrapper dry-run
+* Raspberry Pi flight-power wiring through LiPo splitter and 5V buck converter
+* Raspberry Pi boot and Pixhawk communication from flight-power wiring
+* Front-mounted camera offset calibration
+* Mounted camera guidance module using calibrated drone-center target offset
+* Mounted offset mission dry-run from SEARCH to DISARM
+* Onboard read-only flight logger for marker, telemetry, and suggested guidance logging
+* Flight safety gate wording updated for future real-flight testing
+* Sign-mapping read-only logger for manual flight testing
+* Next-session read-only flight checklist
+* Sign-mapping log analyzer
+* GitHub update with latest safety, logging, checklist, and analysis code
 
 ### In Progress
 
-* Compatible replacement propeller sourcing
+* Compatible replacement propeller and prop-nut sourcing
+* Propeller installation and fit verification
 * Read-only manual flight test with Raspberry Pi mounted and flight-powered
 * Real flight marker visibility validation
 * Camera error to drone movement sign mapping
-* Real-command safety gate update for future flight testing
 * Autonomous target-centering preparation
 
 ### Planned
 
-* Order compatible 1045 self-locking propellers or correct prop mounting hardware
-* Install and verify correct propellers
-* Run manual read-only flight with onboard logger
+* Receive and inspect compatible 1045 propellers and M6 CW/CCW prop nuts
+* Verify propeller mounting without improvised hardware
+* Confirm propeller direction against known motor spin directions
+* Run manual read-only flight with onboard sign-mapping logger
 * Analyze flight logs for marker visibility, marker size, and image-error behavior
 * Map camera error signs to real drone movement directions
 * Test GUIDED mode entry without movement commands
