@@ -17,116 +17,46 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Marker center estimation
 * Position error calculation
 * Detection visualization
-* Guidance logic
-* Tolerance logic
-* Vision to guidance connection
 * Reusable marker detection function
 * Marker ID extraction
 * Image load error handling
 * Marker detection error handling
-* Optional marker visualization output
 * Proportional guidance command function
-* Proportional gain using kp
-* Maximum command limiting using maxCommand
 * Controller test script
 * Deadband boundary testing
 * Command limit boundary testing
-* Controller behavior classification
 * Closed loop controller simulation
 * Simulated error correction over time
-* Simulation success detection with boolean flags
-* Reusable run_simulation function
-* Optional step-by-step simulation output
-* Import friendly simulation test structure
-* Controller error history recording
-* Controller command history recording
-* Controller error response plot
-* Controller command response plot
-* Saved controller response visualizations
+* Controller response plots
 * Marker apparent size calculation
 * Desired marker size logic
 * Marker size tolerance logic
-* Closer, maintain, and further distance command testing
-* Distance aware guidance connection to marker detection
-* Combined guidance command function
-* Position and size guidance integration
-* Center first guidance priority logic
-* Numeric elevation command function
-* Approach command tuning value
-* Final numeric movement command function
-* Final movement output connected to marker detection
+* Distance-aware guidance logic
+* Combined position and size guidance
+* Center-first guidance priority logic
+* Final movement command loop
 * Final movement simulation
-* Finalized movement command loop
-* Center, distance-adjust, and maintain behavior sequence
-* Reusable final movement simulation function
-* Final movement simulation summaries
-* Final movement testing for closer, further, maintain, and large error cases
-* Final movement simulation history tracking
-* Final movement position error plot
-* Final movement marker size plot
-* Final movement command plot
-* Reusable final movement plotting helper
-* Refactored final movement plotting code
-* Final movement simulation README documentation
-* Final movement plot explanations
-* Final movement command history summary
-* Command mode counting for final movement simulation
-* Readable command summary output
-* Harder final movement simulation test cases
-* Labeled final movement test cases
-* Step-count output for final movement tests
 * Final movement stress-test evaluation
-* Command summaries for final movement test cases
-* Normal and stress labels for final movement tests
-* Command-mode comparison across starting conditions
-* Cleaner final movement test output
 * Controller parameter tuning comparison
-* Multiple final movement parameter sets
-* Tuning step-count comparison
 * Conservative default controller baseline
 * Physical command interface folder
 * Dry-run velocity command function
 * Stop command helper
 * Command limiting for safe dry-run outputs
-* Connection from final movement simulation to command interface
 * Mission-state update function
 * TAKEOFF to SEARCH transition logic
-* State-based command generation
-* Mission command connection to dry-run command interface
-* Simulated altitude update logic
-* Autonomous takeoff simulation loop
-* TAKEOFF to SEARCH simulated transition
-* maxSteps takeoff safety limit
-* Safe stop behavior for failed takeoff
-* Basic full mission simulation
-* TAKEOFF to SEARCH to ACQUIRE mission sequence
-* Marker-detection-aware mission-state logic
-* SEARCH to ACQUIRE transition
-* Mission-guidance integration for ACQUIRE
-* get_acquire_command() guidance bridge
-* ACQUIRE command tests with simulated marker errors
-* Dry-run ACQUIRE movement commands through command interface
-* Early hardware path comparison
+* SEARCH to ACQUIRE transition logic
+* ACQUIRE to TRACK transition logic
+* TRACK to APPROACH transition logic
+* APPROACH to LAND transition logic
+* LAND to DISARM transition logic
+* Full mission simulation
+* MAVLink-ready command-interface structure
+* Emergency stop command
+* Mission command wrapper
 * Hardware plan document
 * Preliminary hardware parts list
 * Final initial hardware order selected
-* ACQUIRE completion check
-* Marker acquisition stability counter
-* ACQUIRE to TRACK transition logic
-* TRACK command function
-* TRACK position correction behavior
-* TRACK lost-marker counter
-* TRACK marker-loss detection logic
-* TRACK to SEARCH lost-marker transition
-* Temporary marker-loss recovery behavior
-* TRACK ready for approach check
-* TRACK stability counter
-* TRACK to APPROACH transition logic
-* readyToApproach mission-state input
-* APPROACH command function
-* APPROACH position correction behavior
-* APPROACH marker-size distance behavior
-* approachComplete output
 * Hardware inventory
 * S500 frame and mechanical parts confirmed
 * ESCs, motors, Pixhawk, GPS, power module, and telemetry radios confirmed
@@ -138,27 +68,14 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Drone hardware assembly
 * Power module placement and connection planning
 * Main Pixhawk wiring progress
-* APPROACH to LAND transition
-* LAND command behavior
-* LAND to DISARM transition
-* DISARM state behavior
-* Full mission simulation
-* MAVLink-ready command-interface structure
-* Emergency stop command
-* Mission command wrapper
-* Mission code command-interface integration
 * ArduCopter firmware installation
 * Quad X frame configuration
 * Accelerometer calibration
 * TELEM2 serial setup for ELRS receiver input
 * TELEM3 serial setup for Raspberry Pi MAVLink
 * Built and mounted major drone hardware components
-* Flashed Pixhawk 6C from PX4 firmware to ArduCopter
-* Configured frame as Quad X
-* Accelerometer calibration
 * Powered RP1 receiver successfully
-* Bound reciever to transmitter
-* Finalized remaining hardware list
+* Bound receiver to transmitter
 * Configured Stabilize, AltHold, and Loiter flight modes
 * Configured radio failsafe
 * Configured low battery failsafe
@@ -166,14 +83,14 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Successful GPS lock
 * Established telemetry radio connection
 * Configured motor spin directions
-* Installed propellers with correct motor direction matching
+* Installed original propellers with correct motor direction matching
 * Manual hover test in Stabilize
 * Manual hover test in AltHold
 * Manual hover test in Loiter
 * Raspberry Pi setup
 * Raspberry Pi desktop setup
 * Connected camera to Raspberry Pi
-* Live AruCo marker detection and error output
+* Live ArUco marker detection and error output
 * Clean Raspberry Pi ArUco tracker script
 * Raspberry Pi camera output converted into detected, marker ID, error X, and error Y values
 * Project code organized on Raspberry Pi
@@ -214,43 +131,10 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * SEARCH pattern stopping on ArUco marker detection
 * Full safety-gated dry-run mission sequence from SEARCH to DISARM
 * Raspberry Pi temporary onboard mounting
-* Bottom-center camera mounting for precision landing tests
+* Front-mounted camera setup for precision landing tests
 * Raspberry Pi flight-power wiring through LiPo splitter and 5V buck converter
-* Raspberry Pi boot test from flight-power buck converter
+* Raspberry Pi boot and Pixhawk communication from flight-power wiring
 * Safety-wrapper search dry-run test while Raspberry Pi was powered from flight wiring
-* Raspberry Pi 5 onboard camera testing
-* ArUco marker generation and detection
-* Mounted camera ArUco detection
-* Pixhawk 6C MAVLink heartbeat over Raspberry Pi UART
-* Pixhawk mode and armed-state reading from Raspberry Pi
-* Read-only combined vision and Pixhawk test
-* Dry-run vision guidance test
-* Mission state machine for SEARCH, ACQUIRE, TRACK, APPROACH, LAND, and DISARM
-* Safety-gated MAVLink command wrapper
-* Basic bounded search pattern
-* Search-pattern command wrapper dry-run
-* Combined search, mission, and safety-wrapper dry-run
-* Raspberry Pi flight-power wiring through LiPo splitter and 5V buck converter
-* Raspberry Pi boot and Pixhawk communication from flight-power wiring
-* Front-mounted camera offset calibration
-* Mounted camera guidance module using calibrated drone-center target offset
-* Mounted offset mission dry-run from SEARCH to DISARM
-* Onboard read-only flight logger for marker, telemetry, and suggested guidance logging
-* GitHub update with mounted camera guidance and read-only logger code
-* Raspberry Pi 5 onboard camera testing
-* ArUco marker generation and detection
-* Mounted camera ArUco detection
-* Pixhawk 6C MAVLink heartbeat over Raspberry Pi UART
-* Pixhawk mode and armed-state reading from Raspberry Pi
-* Read-only combined vision and Pixhawk test
-* Dry-run vision guidance test
-* Mission state machine for SEARCH, ACQUIRE, TRACK, APPROACH, LAND, and DISARM
-* Safety-gated MAVLink command wrapper
-* Basic bounded search pattern
-* Search-pattern command wrapper dry-run
-* Combined search, mission, and safety-wrapper dry-run
-* Raspberry Pi flight-power wiring through LiPo splitter and 5V buck converter
-* Raspberry Pi boot and Pixhawk communication from flight-power wiring
 * Front-mounted camera offset calibration
 * Mounted camera guidance module using calibrated drone-center target offset
 * Mounted offset mission dry-run from SEARCH to DISARM
@@ -260,10 +144,21 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Next-session read-only flight checklist
 * Sign-mapping log analyzer
 * GitHub update with latest safety, logging, checklist, and analysis code
+* Amazon 1045R and 1045L replacement propeller inspection
+* Propeller nut fit check on threaded motor shafts
+* CW and CCW propeller placement mapping for known motor spin directions
+* Front left and back right motors matched to 1045R propellers
+* Front right and back left motors matched to 1045L propellers
+* Generic 1045 propeller mounting compatibility check
+* Determined that generic through-hole 1045 propellers cannot safely clamp onto the current short threaded motor shafts
+* Rejected unsafe propeller mounting methods such as placing nuts under the propellers or forcing nuts into the propeller hubs
+* Identified threaded-hub or self-locking 1045 propellers as the required replacement style
+* Defined current project state as a bench-validated autonomous search-and-landing UAV prototype
+* Established flight testing pause point pending exact compatible propeller replacement
 
 ### In Progress
 
-* Compatible replacement propeller and prop-nut sourcing
+* Compatible threaded-hub/self-locking 1045 propeller sourcing
 * Propeller installation and fit verification
 * Read-only manual flight test with Raspberry Pi mounted and flight-powered
 * Real flight marker visibility validation
@@ -272,8 +167,8 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 
 ### Planned
 
-* Receive and inspect compatible 1045 propellers and M6 CW/CCW prop nuts
-* Verify propeller mounting without improvised hardware
+* Order exact replacement Holybro-style 1045 self-locking propellers
+* Install and verify correct propellers without improvised hardware
 * Confirm propeller direction against known motor spin directions
 * Run manual read-only flight with onboard sign-mapping logger
 * Analyze flight logs for marker visibility, marker size, and image-error behavior
@@ -283,8 +178,8 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 * Test limited autonomous target finding using the bounded search pattern
 * Test autonomous approach logic using mounted camera calibration
 * Test autonomous landing or controlled landing handoff
-* Record final demo
-* Update README, engineering log, and resume description
+* Record final flight demo
+* Update README, engineering log, and resume description after flight testing
 
 
 ## System Architecture

@@ -2840,3 +2840,66 @@
 * What marker size appears at a safe hover height?
 * How do error_x and error_y change when the drone moves forward, backward, left, and right?
 * What command sign mapping should be used before real autonomous centering?
+
+
+
+
+
+## Session 56 - August 17, 2026
+
+### Accomplished
+
+* Reviewed the remaining project status with two sessions left before the original deadline
+* Received the Amazon replacement propellers and prop nuts
+* Identified the new propellers as 1045R and 1045L generic propellers
+* Confirmed that the prop nuts could thread smoothly onto the respective motor shafts
+* Checked whether the generic propellers and nuts could be safely adapted to the existing motors
+* Determined that the generic propeller hubs were too tall for the current threaded motor shafts
+* Confirmed that the nuts could not safely clamp the generic propellers from above
+* Confirmed that the nuts should not be placed under the propellers or improvised inside the propeller hubs
+* Determined that the drone requires threaded-hub or self-locking 1045 replacement propellers
+* Decided to pause real flight testing until exact compatible replacement propellers can be ordered
+* Reframed the current project state as a bench-validated autonomous search-and-landing UAV prototype
+* Identified the remaining future work needed to complete real flight testing when availability returns
+
+### Problems
+
+* The Amazon generic 1045 propellers were the correct size category but the wrong mounting style
+* The propeller hubs covered too much of the threaded motor shaft
+* The prop nuts did not have enough exposed shaft thread above the propeller to safely clamp the propeller
+* The propellers could not be safely mounted without improvised hardware
+* Real flight testing could not continue without compatible propellers
+* The full autonomous flight demo could not be completed before the original deadline
+* The project had to be paused until more availability and exact replacement propellers are available
+
+### Debugging
+
+* Compared the new generic propeller mounting style against the current motor shafts
+* Checked whether 1045R and 1045L propellers matched the known CW and CCW motor directions
+* Verified that front left and back right motors require 1045R propellers
+* Verified that front right and back left motors require 1045L propellers
+* Tested whether the new prop nuts threaded onto the motor shafts smoothly
+* Checked whether the nuts could safely clamp the generic propellers from above
+* Determined that the generic propeller hub height prevented safe nut engagement
+* Rejected unsafe mounting ideas such as placing the nut under the propeller or forcing a nut into the propeller hub
+* Confirmed that the correct future solution is to use threaded-hub or self-locking 1045 propellers designed for the motor setup
+
+### Solution
+
+* Stopped attempting to mount the incompatible generic propellers
+* Decided not to fly with improvised propeller hardware
+* Preserved the current software and bench-validation state as the project pause point
+* Defined the next hardware requirement as exact threaded-hub or self-locking 1045 replacement propellers
+* Planned to resume flight testing after ordering compatible replacement propellers and having more availability
+* Kept the remaining flight plan focused on read-only flight logging, sign mapping, real centering, and final demo testing
+
+### Next Session
+
+* Can exact threaded-hub or self-locking 1045 replacement propellers be ordered before resuming the project?
+* Can the replacement propellers be safely threaded onto the motor shafts without adapters or improvised hardware?
+* Do the replacement propellers match the known CW and CCW motor directions?
+* Can the read-only manual flight be completed with the Raspberry Pi mounted and flight-powered?
+* Does the sign-mapping logger detect the marker during real flight?
+* What marker size appears at a safe hover height?
+* How do error_x and error_y change when the drone moves forward, backward, left, and right?
+* What command sign mapping should be used before real autonomous centering?
