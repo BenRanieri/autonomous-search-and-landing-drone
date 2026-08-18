@@ -4,6 +4,16 @@ A computer-vision-guided autonomous UAV capable of autonomous takeoff, search, t
 
 This project combines robotics, aerospace engineering, computer vision, guidance and control, simulation, and hardware integration to develop a complete autonomous aerial mission system.
 
+## Project Pause Status
+
+This project is currently paused as a bench-validated autonomous search-and-landing UAV prototype.
+
+The Raspberry Pi vision system, Pixhawk MAVLink connection, mounted camera calibration, mission-state logic, safety-gated command wrapper, read-only logger, sign-mapping logger, and log analyzer are implemented and bench-tested.
+
+Real flight testing is paused pending exact compatible threaded-hub or self-locking 1045 propeller replacement. Generic through-hole 1045 propellers were inspected and rejected because they could not be safely clamped onto the current short threaded motor shafts.
+
+Current status: bench-validated autonomy and perception stack; flight testing pending compatible propeller replacement.
+
 ## Current Status
 
 ### Completed
@@ -184,22 +194,38 @@ This project combines robotics, aerospace engineering, computer vision, guidance
 
 ## System Architecture
 
-Laptop / Python Autonomy Code  
-↓  
-Computer Vision  
-↓  
-Target Detection  
-↓  
-Position Estimation  
-↓  
-Mission and Guidance Logic  
-↓  
-MAVLink Command Interface  
-↓  
-Pixhawk-Style Flight Controller  
-↓  
-ESCs and Motors  
-↓  
+Raspberry Pi 5 / Python Autonomy Code
+
+↓
+
+Computer Vision
+
+↓
+
+ArUco Target Detection
+
+↓
+
+Marker Position and Size Estimation
+
+↓
+
+Mission and Guidance Logic
+
+↓
+
+Safety-Gated MAVLink Command Interface
+
+↓
+
+Pixhawk 6C Flight Controller
+
+↓
+
+ESCs and Motors
+
+↓
+
 UAV Motion
 
 
@@ -224,15 +250,15 @@ DISARM
 
 ## Hardware Direction
 
-The project will use a Pixhawk-style flight-controller architecture with the laptop acting as the first companion computer.
+The project uses a Pixhawk-style flight-controller architecture with a Raspberry Pi 5 acting as the onboard companion computer.
 
-The Python autonomy code will run on the laptop and send high-level movement commands through a MAVLink command interface. The flight controller will handle stabilization, low-level flight control, motor outputs, and safety-critical flight behavior.
+The Raspberry Pi runs Python autonomy, camera, logging, and MAVLink communication code. The Pixhawk handles stabilization, low-level flight control, motor outputs, and safety-critical flight behavior.
 
-The first hardware goal is to support the main autonomous mission chain:
+The current onboard autonomy stack supports the main mission chain:
 
-TAKEOFF → SEARCH → ACQUIRE → TRACK → APPROACH → LAND → DISARM
+SEARCH → ACQUIRE → TRACK → APPROACH → LAND → DISARM
 
-LiDAR-based obstacle avoidance has been moved to future work. It may be added after the core autonomous flight system is working.
+Autonomous takeoff, LiDAR-based obstacle avoidance, and fully unattended flight are future work. The current pause point focuses on bench-validated perception, mission logic, safety-gated command generation, and flight-test preparation.
 
 
 
