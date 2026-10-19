@@ -2971,3 +2971,95 @@
 * What marker size appears at a safe hover height?
 * How do error_x and error_y change when the drone moves forward, backward, left, and right?
 * What command sign mapping should be used before real autonomous centering?
+
+
+
+
+
+## Session 58 - October 19, 2026
+
+### Accomplished
+
+* Resumed physical drone testing after the project pause
+* Received the correct replacement propellers
+* Installed the new propellers and confirmed that they fit the motors correctly
+* Verified correct propeller direction and secure mounting
+* Completed a manual flight test with the replacement propellers
+* Confirmed that the drone flew similarly to the previous working configuration
+* Re-established access to the Raspberry Pi after resetting the local user password
+* Reconnected the laptop to the Raspberry Pi development environment
+* Re-ran the command safety gate test
+* Confirmed that the default unsafe case, wrong mode case, not armed case, and oversized command case were all blocked
+* Confirmed that the fully allowed safety-gate test only passed when every required condition was satisfied
+* Re-ran the live Raspberry Pi ArUco camera test
+* Confirmed that the camera detected ArUco marker ID 0
+* Confirmed that live error_x and error_y values changed correctly as the marker moved in the camera image
+* Re-ran the Raspberry Pi and Pixhawk read-only integration test
+* Confirmed that the Raspberry Pi received the Pixhawk heartbeat
+* Confirmed that Pixhawk state and live ArUco marker information could be read together
+* Configured a Raspberry Pi Wi-Fi hotspot for direct field connection from the laptop without external Wi-Fi
+* Tested manual Stabilize, AltHold, and Loiter flight behavior
+* Investigated unstable manual flight behavior before continuing autonomous testing
+* Diagnosed a disconnected solder joint in the Raspberry Pi flight-power connection after a crash
+* Repaired the Raspberry Pi power connection
+* Diagnosed loose frame and arm hardware that allowed the motor arms to move during flight
+* Tightened the frame and arm hardware
+* Re-tested manual flight after the hardware repair
+* Confirmed that Stabilize and AltHold behavior improved substantially after tightening the frame
+* Prepared the drone and software for the read-only sign-mapping flight
+* Stopped testing for the day when both flight batteries were depleted and outdoor lighting became too poor for reliable ArUco detection
+
+### Problems
+
+* The Raspberry Pi could not initially be accessed from the laptop because the Pi user password had been forgotten
+* The Raspberry Pi lost flight power after a solder joint became disconnected
+* A previous crash had placed mechanical stress on the Raspberry Pi power wiring
+* Stabilize and AltHold initially behaved poorly during flight testing
+* The drone moved unpredictably and was difficult to stabilize
+* Loose frame and arm screws allowed the motor arms to move under thrust
+* The moving arms caused inconsistent flight behavior
+* Loiter position hold was difficult to evaluate while the mechanical instability was still present
+* Both flight batteries became depleted before the sign-mapping flight could be completed
+* Outdoor lighting became too dark for reliable ArUco marker detection before testing could continue
+
+### Debugging
+
+* Reset the Raspberry Pi user password using the locally connected monitor and keyboard
+* Verified the Raspberry Pi repository and development environment after regaining access
+* Ran the software-only command safety gate test before returning to flight testing
+* Ran the live camera test and confirmed that Picamera2, OpenCV, and ArUco detection still worked
+* Ran the combined Raspberry Pi and Pixhawk read-only test and confirmed that MAVLink heartbeat communication still worked
+* Checked RC deadzone settings and confirmed that they were not the main cause of the flight instability
+* Compared Stabilize, AltHold, and Loiter behavior to isolate the flight-control problem
+* Inspected the drone hardware instead of immediately changing flight-controller tuning parameters
+* Found the disconnected Raspberry Pi power solder joint and repaired the connection
+* Found loose frame and arm hardware that allowed the motor arms to move
+* Tightened the frame and arm screws
+* Repeated manual flight testing after the mechanical repair
+* Confirmed that the improved flight behavior was consistent with the mechanical faults being the primary cause
+* Decided not to change flight-control tuning until the repaired airframe could be tested further
+* Delayed the read-only sign-mapping flight until fresh batteries and good daylight are available
+
+### Solution
+
+* Restored Raspberry Pi access and field communication
+* Restored the Raspberry Pi flight-power connection
+* Secured the frame and motor arms so the propulsion system remains rigid under thrust
+* Kept the existing flight-control tuning rather than attempting to compensate for a mechanical fault with software parameters
+* Verified that the repaired drone stabilizes substantially better during manual flight
+* Confirmed that the onboard vision and Pixhawk communication systems remain functional
+* Prepared the field networking setup and software tools needed for the final autonomous testing session
+* Ended testing before depleted batteries or poor lighting could produce unreliable flight or vision data
+
+### Next Session
+
+* Do Stabilize, AltHold, and Loiter continue to behave normally after a fresh-battery sanity flight?
+* Can the read-only sign-mapping logger successfully detect the marker throughout a real manual flight?
+* How do error_x and error_y change when the aircraft physically moves forward, backward, left, and right?
+* What body-frame command signs should be used for real autonomous centering?
+* Can GUIDED mode be entered safely while commanding zero movement?
+* Can the first small safety-gated autonomous centering command move the aircraft in the expected direction?
+* Can autonomous centering reliably converge toward the ArUco target?
+* Can the bounded search pattern acquire the landing marker during real flight?
+* Can the drone progress safely from target acquisition through tracking and approach?
+* Can a final autonomous run be completed during the remaining project day?

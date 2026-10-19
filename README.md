@@ -4,15 +4,15 @@ A computer-vision-guided autonomous UAV capable of autonomous takeoff, search, t
 
 This project combines robotics, aerospace engineering, computer vision, guidance and control, simulation, and hardware integration to develop a complete autonomous aerial mission system.
 
-## Project Pause Status
+## Current Flight-Test Status
 
-This project is currently paused as a bench-validated autonomous search-and-landing UAV prototype.
+The project has resumed for its final flight-test window.
 
-The Raspberry Pi vision system, Pixhawk MAVLink connection, mounted camera calibration, mission-state logic, safety-gated command wrapper, read-only logger, sign-mapping logger, and log analyzer are implemented and bench-tested.
+Compatible 1045 replacement propellers have been installed and successfully tested in manual flight. The Raspberry Pi vision system, Pixhawk MAVLink connection, safety gate, and ArUco marker detection have also been revalidated after the project pause.
 
-Real flight testing is paused pending exact compatible threaded-hub or self-locking 1045 propeller replacement. Generic through-hole 1045 propellers were inspected and rejected because they could not be safely clamped onto the current short threaded motor shafts.
+During flight testing, a disconnected Raspberry Pi power solder joint and loose frame/arm hardware were identified as hardware faults. The power connection was repaired and the frame was tightened, significantly improving Stabilize and AltHold flight behavior.
 
-Current status: bench-validated autonomy and perception stack; flight testing pending compatible propeller replacement.
+The remaining goal is to complete the read-only sign-mapping flight, validate the real camera-error movement directions, and attempt a safety-gated autonomous run.
 
 ## Current Status
 
@@ -165,31 +165,46 @@ Current status: bench-validated autonomy and perception stack; flight testing pe
 * Identified threaded-hub or self-locking 1045 propellers as the required replacement style
 * Defined current project state as a bench-validated autonomous search-and-landing UAV prototype
 * Established flight testing pause point pending exact compatible propeller replacement
+* Received and installed compatible 1045 replacement propellers
+* Verified new propeller fit, direction, and secure mounting
+* Successful manual flight test using the replacement propellers
+* Regained Raspberry Pi access and restored field-development workflow
+* Configured Raspberry Pi Wi-Fi hotspot for direct laptop-to-Pi SSH access during field testing
+* Re-ran command safety gate test and confirmed all unsafe command cases remain blocked
+* Re-ran Raspberry Pi live ArUco test and confirmed marker ID 0 detection and position-error output
+* Re-ran Raspberry Pi and Pixhawk read-only integration test
+* Confirmed Pixhawk heartbeat and live ArUco detection through the onboard Raspberry Pi
+* Diagnosed Raspberry Pi power failure as a disconnected solder joint after a crash
+* Repaired Raspberry Pi power connection
+* Diagnosed poor Stabilize and AltHold behavior as loose frame and arm hardware
+* Tightened frame and motor-arm hardware
+* Re-tested manual flight after frame repair and confirmed substantially improved stabilization
 
 ### In Progress
 
-* Compatible threaded-hub/self-locking 1045 propeller sourcing
-* Propeller installation and fit verification
-* Read-only manual flight test with Raspberry Pi mounted and flight-powered
-* Real flight marker visibility validation
-* Camera error to drone movement sign mapping
-* Autonomous target-centering preparation
+### In Progress
+
+* Read-only sign-mapping manual flight
+* Real camera error to drone movement sign validation
+* Sign-mapping flight log analysis
+* GUIDED mode zero-movement validation
+* First low-speed safety-gated autonomous centering test
+* Final autonomous flight demonstration 
 
 ### Planned
 
-* Order exact replacement Holybro-style 1045 self-locking propellers
-* Install and verify correct propellers without improvised hardware
-* Confirm propeller direction against known motor spin directions
-* Run manual read-only flight with onboard sign-mapping logger
-* Analyze flight logs for marker visibility, marker size, and image-error behavior
-* Map camera error signs to real drone movement directions
-* Test GUIDED mode entry without movement commands
-* Test first low-speed safety-gated autonomous centering commands
-* Test limited autonomous target finding using the bounded search pattern
-* Test autonomous approach logic using mounted camera calibration
-* Test autonomous landing or controlled landing handoff
-* Record final flight demo
-* Update README, engineering log, and resume description after flight testing
+* Fully charge both 4S flight batteries before final testing
+* Perform short manual Stabilize, AltHold, and Loiter sanity flight
+* Run onboard sign-mapping logger during manual flight
+* Analyze error_x and error_y changes during forward, backward, left, and right movement
+* Confirm correct body-frame command sign mapping
+* Test GUIDED mode with zero commanded movement
+* Test first bounded low-speed autonomous centering commands
+* Test autonomous target acquisition and tracking
+* Test bounded autonomous search behavior if centering is stable
+* Test autonomous approach and landing logic if all previous flight stages are reliable
+* Record final autonomous demonstration
+* Update final project documentation and resume description
 
 
 ## System Architecture
