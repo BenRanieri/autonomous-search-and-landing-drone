@@ -1,3 +1,5 @@
+import math
+
 MAX_ALLOWED_COMMAND = 0.25
 REQUIRED_MODE = "GUIDED"
 
@@ -15,6 +17,27 @@ def command_safety_check(
     required_mode=REQUIRED_MODE,
 ):
     block_reasons = []
+
+    # Reject invalid numbers before comparing command magnitudes.
+    values = (
+        ("x_command", x_command),
+        ("y_command", y_command),
+        ("z_command", z_command),
+        ("max_allowed_command", max_allowed_command),
+    )
+    for name, value in values:
+        try:
+            valid = not isinstance(value, bool) and math.isfinite(value)
+        except (TypeError, ValueError, OverflowError):
+            valid = False
+        if not valid:
+            block_reasons.append(f"{name} must be a finite number")
+
+    if block_reasons:
+        return False, block_reasons
+
+    if max_allowed_command <= 0:
+        return False, ["max_allowed_command must be positive"]
 
     if not enable_real_commands:
         block_reasons.append("ENABLE_REAL_COMMANDS is False")

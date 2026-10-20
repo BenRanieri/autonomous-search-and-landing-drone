@@ -50,7 +50,7 @@ def send_velocity_command_safely(
         vehicle.target_system,
         vehicle.target_component,
         mavutil.mavlink.MAV_FRAME_BODY_NED,
-        0b0000111111000111,
+        0b0000110111000111,
         0,
         0,
         0,
