@@ -179,30 +179,22 @@ The remaining goal is to complete the read-only sign-mapping flight, validate th
 * Diagnosed poor Stabilize and AltHold behavior as loose frame and arm hardware
 * Tightened frame and motor-arm hardware
 * Re-tested manual flight after frame repair and confirmed substantially improved stabilization
+* Completed the first outdoor full-mission flight test with live GUIDED commands
+* Verified the autonomous SEARCH behavior can consistently locate and reacquire the ArUco landing target
+* Verified successful transition from SEARCH to CENTER during real flight
 
 ### In Progress
 
-### In Progress
-
-* Read-only sign-mapping manual flight
-* Real camera error to drone movement sign validation
-* Sign-mapping flight log analysis
-* GUIDED mode zero-movement validation
-* First low-speed safety-gated autonomous centering test
+* Improving marker retention during CENTER so single-frame detection losses do not restart SEARCH
+* Improving outdoor ArUco detection reliability during centering
 * Final autonomous flight demonstration 
 
 ### Planned
 
-* Fully charge both 4S flight batteries before final testing
-* Perform short manual Stabilize, AltHold, and Loiter sanity flight
-* Run onboard sign-mapping logger during manual flight
-* Analyze error_x and error_y changes during forward, backward, left, and right movement
-* Confirm correct body-frame command sign mapping
-* Test GUIDED mode with zero commanded movement
-* Test first bounded low-speed autonomous centering commands
-* Test autonomous target acquisition and tracking
-* Test bounded autonomous search behavior if centering is stable
-* Test autonomous approach and landing logic if all previous flight stages are reliable
+* Replace the NoIR camera with an IR-cut filtered Raspberry Pi camera for daytime outdoor testing
+* Add a longer marker-loss grace period during CENTER while commanding a hover during brief vision dropouts
+* Resume autonomous flight testing on October 30, 2026
+* Complete the full autonomous SEARCH → CENTER → LAND sequence
 * Record final autonomous demonstration
 * Update final project documentation and resume description
 

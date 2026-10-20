@@ -3063,3 +3063,51 @@
 * Can the bounded search pattern acquire the landing marker during real flight?
 * Can the drone progress safely from target acquisition through tracking and approach?
 * Can a final autonomous run be completed during the remaining project day?
+
+
+
+
+
+## Session 59 - October 20, 2026
+
+### Accomplished
+
+- Ran the full autonomous search and centering system outdoors with live GUIDED velocity commands
+- Verified the drone could consistently find the ArUco landing target during SEARCH
+- Verified the mission transitioned from SEARCH to CENTER after detecting the target
+- Confirmed the full mission runner could safely enable live command flags only after READY was entered
+- Tested the autonomous mission logic on the physical drone in real flight
+
+
+### Problems
+
+- The ArUco marker could be lost for a single camera frame while the drone was centering
+- A single missed detection caused the mission to leave CENTER and return to SEARCH
+- The drone repeatedly found the target again but never completed a full centering hold
+- The automatic landing sequence was therefore not reached during the test
+
+
+### Debugging
+
+- Observed the drone consistently reacquire the landing target during SEARCH
+- Confirmed the search pattern and initial target detection were working reliably
+- Isolated the current issue to target retention during CENTER rather than the search behavior
+- Determined that brief vision dropouts should not immediately cause the mission to restart SEARCH
+
+
+### Solution
+
+- Keep the current SEARCH behavior and centering guidance
+- Modify CENTER so a brief marker loss commands zero velocity and keeps the drone in CENTER
+- Only return to SEARCH after the marker has been continuously missing for a longer grace period
+- Replace the current NoIR camera with an IR-cut filtered Raspberry Pi camera to improve daytime outdoor vision
+
+
+### Next Session
+
+- Does the IR-cut camera improve outdoor ArUco detection consistency?
+- Can CENTER ignore single-frame marker losses without restarting SEARCH?
+- How long should the marker-loss grace period be before returning to SEARCH?
+- Can the drone complete the full centered hold?
+- Can the mission successfully transition from CENTER to LAND?
+- Can the full autonomous search, center, and landing sequence complete during testing on October 30?
