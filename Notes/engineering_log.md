@@ -3111,3 +3111,59 @@
 - Can the drone complete the full centered hold?
 - Can the mission successfully transition from CENTER to LAND?
 - Can the full autonomous search, center, and landing sequence complete during testing on October 30?
+
+
+
+
+
+## Session 60 - October 31, 2026
+
+### Accomplished
+
+- Replaced the Raspberry Pi NoIR camera with the IR-cut version of the same camera
+- Increased the ArUco landing marker to approximately 8 in by 8 in
+- Mounted the ArUco marker on poster board instead of glossy printer paper to reduce glare
+- Increased the CENTER marker-loss grace period from 1 second to 2 seconds
+- Recalibrated the mounted camera target offsets after replacing the camera
+- Ran a stationary ArUco detection test with the new camera and marker
+- Achieved 191 detections out of 191 frames with a 100% detection rate while the marker was held steadily in view
+- Ran a mounted guidance test and confirmed the physically centered position was recognized as centered with zero commanded velocity
+- Ran a live GUIDED centering test
+
+
+### Problems
+
+- Marker detection was still unreliable during the live centering test even when the drone was directly above the marker
+- During the live test the drone was held steady above the marker while GUIDED was selected
+- When the drone was released it moved sharply to the left instead of remaining centered
+- The drone crashed and all four propellers were broken
+- The live centering command behavior does not currently match the expected physical movement
+
+
+### Debugging
+
+- Confirmed the new camera and larger matte marker can provide stable detection under stationary test conditions
+- Verified the CENTER logic now allows up to 2 seconds of continuous marker loss before returning to SEARCH
+- Confirmed the mounted guidance code reports the test position as centered when the drone is physically centered over the marker
+- Determined that successful dry-run guidance output does not guarantee the X and Y commands are mapped correctly to the drone's physical movement
+- Isolated the next major issue to validating the centering command direction and reference-frame mapping before another live autonomous test
+
+
+### Solution
+
+- Stop live autonomous testing until the centering command direction is verified
+- Replace all four damaged propellers
+- Inspect the frame, arms, motors, camera mount, wiring, and flight controller mounting for crash damage or movement
+- Reconfirm normal manual and Loiter flight before testing autonomous control again
+- Validate CENTER X and Y command directions with props removed before another live centering test
+- Continue investigating why marker detection becomes unreliable during the live flight configuration despite stable stationary detection
+
+
+### Next Session
+
+- Did the crash damage or loosen any part of the airframe, motors, electronics, or camera mounting?
+- Does the drone still fly normally in manual and Loiter modes after replacing the propellers?
+- What physical direction does each positive and negative CENTER X and Y command produce?
+- Is the current camera-to-drone axis mapping correct?
+- Why does marker detection become unreliable during the live centering test?
+- Can CENTER be validated safely with props removed before another autonomous flight?

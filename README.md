@@ -182,21 +182,24 @@ The remaining goal is to complete the read-only sign-mapping flight, validate th
 * Completed the first outdoor full-mission flight test with live GUIDED commands
 * Verified the autonomous SEARCH behavior can consistently locate and reacquire the ArUco landing target
 * Verified successful transition from SEARCH to CENTER during real flight
+* Replaced the NoIR camera with an IR-cut Raspberry Pi camera for improved daytime vision
+* Increased the ArUco landing marker to approximately 8 in by 8 in and mounted it on matte poster board
+* Increased the CENTER marker-loss grace period from 1 second to 2 seconds
+* Recalibrated the mounted camera after the camera replacement
+* Achieved 100% ArUco detection in a 191-frame stationary reliability test
 
 ### In Progress
 
-* Improving marker retention during CENTER so single-frame detection losses do not restart SEARCH
-* Improving outdoor ArUco detection reliability during centering
-* Final autonomous flight demonstration 
+* Diagnosing unreliable ArUco detection during live flight despite stable stationary detection
+* Verifying the physical X and Y command-direction mapping used by the CENTER guidance
+* Inspecting and repairing the drone after a failed live centering test
 
 ### Planned
 
-* Replace the NoIR camera with an IR-cut filtered Raspberry Pi camera for daytime outdoor testing
-* Add a longer marker-loss grace period during CENTER while commanding a hover during brief vision dropouts
-* Resume autonomous flight testing on October 30, 2026
-* Complete the full autonomous SEARCH → CENTER → LAND sequence
-* Record final autonomous demonstration
-* Update final project documentation and resume description
+* Replace all four damaged propellers and inspect the airframe and electronics for crash damage
+* Reconfirm normal manual and Loiter flight before additional autonomous testing
+* Validate CENTER command directions with props removed
+* Resolve the live marker-detection and guidance-direction issues before another autonomous centering test
 
 
 ## System Architecture
