@@ -3167,3 +3167,78 @@
 - Is the current camera-to-drone axis mapping correct?
 - Why does marker detection become unreliable during the live centering test?
 - Can CENTER be validated safely with props removed before another autonomous flight?
+
+
+
+
+
+## Session 61 - November 1, 2026
+
+### Accomplished
+
+- Replaced the damaged propellers and returned the drone to flight testing
+- Investigated intermittent Loiter instability during outdoor testing
+- Confirmed GPS satellite count, HDOP, vibration levels, and stationary heading were within expected ranges
+- Reviewed flight telemetry and identified repeated GPS Glitch or Compass error messages and EKF lane switching during unstable Loiter behavior
+- Disabled the internal compass and kept the external IST8310 compass as the primary compass
+- Recalibrated the external compass and achieved noticeably improved Loiter stability
+- Measured the Raspberry Pi camera at approximately 30 FPS
+- Increased the dedicated CENTER test control loop from 10 Hz to 20 Hz
+- Reduced the dedicated CENTER test startup hold from 2 seconds to 0.25 seconds
+- Ran a moving ArUco detection test and measured a 78.7% detection rate before exposure changes
+- Determined that the camera was using approximately 32.9 ms exposure indoors, causing motion blur during movement
+- Limited camera exposure to 10 ms and compensated with analogue gain
+- Improved moving ArUco detection to 449 detections out of 451 frames for a 99.6% detection rate
+- Added adaptive exposure locking so the camera uses automatic exposure before flight and locks the current exposure when GUIDED begins
+- Added the adaptive exposure logic to the full autonomous mission
+- Ran multiple outdoor full-mission tests using SEARCH and CENTER
+- Confirmed the exposure-lock system operated correctly under outdoor lighting
+- Confirmed SEARCH can locate and repeatedly reacquire the ArUco marker during flight
+- Confirmed the mission can transition from SEARCH to CENTER and generate live centering commands
+
+### Problems
+
+- Loiter remained intermittently unstable before the compass configuration changes
+- A low-battery failsafe triggered RTL during testing and caused the drone to climb before descending
+- Marker detection remained unreliable during CENTER despite the improved moving bench-test detection
+- CENTER repeatedly detected the marker for several frames and then lost it before completing the required 3 second centered hold
+- The mission repeatedly returned from CENTER to SEARCH after the 2 second marker-loss grace period
+- The full mission CENTER controller was substantially more aggressive than the dedicated CENTER test
+- Full mission CENTER commands reached approximately 0.25 m/s on individual axes instead of the intended 0.10 m/s total horizontal limit
+- The full mission control loop remained at 10 Hz instead of the intended 20 Hz
+- LAND was not reached during the outdoor mission tests
+
+### Debugging
+
+- Compared unstable Loiter behavior against GPS, vibration, heading, and telemetry data
+- Identified compass and EKF warnings as the strongest telemetry evidence associated with poor Loiter performance
+- Disabled the internal compass to prevent the system from using inconsistent internal and external compass measurements
+- Compared detected and missed frames during manual camera movement
+- Found that missed frames were less sharp while average image brightness remained nearly unchanged
+- Identified long exposure time as a major source of motion blur during the indoor moving test
+- Tested a 10 ms maximum exposure with gain compensation and confirmed a large improvement in moving marker detection
+- Verified the new exposure logic reads current lighting when GUIDED begins instead of locking exposure while the drone is still on the ground
+- Reviewed the outdoor mission log after CENTER continued losing the target
+- Confirmed the camera exposure during the successful outdoor acquisition was already below 10 ms
+- Confirmed the marker was sometimes tracked through several changing error values before detection was lost
+- Identified full mission CENTER velocity commands significantly larger than the 0.10 m/s limit used during the dedicated CENTER test
+- Identified that the full mission loop was still operating at 10 Hz
+
+### Solution
+
+- Keep the external IST8310 compass as the primary compass with the internal compass disabled
+- Keep the IR-cut camera, larger matte marker, and current adaptive exposure-lock system
+- Keep the 2 second CENTER marker-loss grace period
+- Limit full mission CENTER movement to 0.10 m/s total horizontal velocity
+- Increase the full mission control loop from 10 Hz to 20 Hz
+- Test the slower CENTER controller before making additional camera hardware changes
+- Continue using manual override whenever Loiter or autonomous behavior becomes unstable
+
+### Next Session
+
+- Can the full mission CENTER controller be limited to 0.10 m/s total horizontal velocity?
+- Can the full mission control loop be increased from 10 Hz to 20 Hz?
+- Does the slower CENTER movement keep the ArUco marker inside the camera view?
+- Can CENTER maintain continuous detection long enough to complete the 3 second centered hold?
+- Does Loiter remain stable with only the external compass enabled?
+- Can the mission successfully transition from SEARCH to CENTER to LAND?

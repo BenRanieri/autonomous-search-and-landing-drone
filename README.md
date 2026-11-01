@@ -4,15 +4,22 @@ A computer-vision-guided autonomous UAV capable of autonomous takeoff, search, t
 
 This project combines robotics, aerospace engineering, computer vision, guidance and control, simulation, and hardware integration to develop a complete autonomous aerial mission system.
 
-## Current Flight-Test Status
+## Current Project Status
 
-The project has resumed for its final flight-test window.
+The drone has completed multiple outdoor autonomous search and centering tests. The autonomous mission can enter GUIDED mode, execute the search pattern, detect the ArUco landing target, transition into CENTER, and generate position corrections toward the marker.
 
-Compatible 1045 replacement propellers have been installed and successfully tested in manual flight. The Raspberry Pi vision system, Pixhawk MAVLink connection, safety gate, and ArUco marker detection have also been revalidated after the project pause.
+During testing on November 1, 2026, the camera pipeline was improved to reduce motion blur. The Raspberry Pi camera operates at approximately 30 FPS, and exposure is now allowed to adapt to the current lighting before being locked when GUIDED mode begins. Exposure is limited to a maximum of 10 ms with analogue gain used to compensate when possible. A moving bench test improved from a 78.7% ArUco detection rate to 99.6% after this change.
 
-During flight testing, a disconnected Raspberry Pi power solder joint and loose frame/arm hardware were identified as hardware faults. The power connection was repaired and the frame was tightened, significantly improving Stabilize and AltHold flight behavior.
+The updated exposure system also operated correctly during outdoor flight testing. SEARCH repeatedly detected and reacquired the ArUco marker, confirming that the complete camera, Raspberry Pi, Pixhawk, and mission-state pipeline is functioning during flight.
 
-The remaining goal is to complete the read-only sign-mapping flight, validate the real camera-error movement directions, and attempt a safety-gated autonomous run.
+The remaining major issue is maintaining continuous marker detection during CENTER. During the latest flight test, the drone repeatedly transitioned from SEARCH to CENTER, followed the marker for several frames, lost detection, hovered during the marker-loss grace period, and eventually returned to SEARCH.
+
+Post-flight log analysis identified an important difference between the dedicated CENTER test and the full mission. The dedicated test was limited to approximately 0.10 m/s horizontal movement, while the full mission generated CENTER commands as high as approximately 0.25 m/s on individual axes. The full mission also remained at a 10 Hz control loop instead of the intended 20 Hz loop.
+
+The next development step is therefore to limit CENTER to 0.10 m/s total horizontal velocity and increase the full mission control loop to 20 Hz before performing another autonomous flight test.
+
+Loiter stability was also investigated during the November 1 testing session. Telemetry showed intermittent GPS Glitch or Compass error messages and EKF lane switching. The internal compass was disabled and the external IST8310 compass was retained as the primary compass, which noticeably improved Loiter stability.
+
 
 ## Current Status
 
@@ -187,19 +194,42 @@ The remaining goal is to complete the read-only sign-mapping flight, validate th
 * Increased the CENTER marker-loss grace period from 1 second to 2 seconds
 * Recalibrated the mounted camera after the camera replacement
 * Achieved 100% ArUco detection in a 191-frame stationary reliability test
+* Replaced damaged propellers after the live centering crash
+* Diagnosed intermittent Loiter instability using flight telemetry
+* Identified GPS Glitch or Compass error messages and EKF lane switching during unstable Loiter behavior
+* Disabled the internal compass and retained the external IST8310 compass as the primary compass
+* Recalibrated the external compass and improved Loiter stability
+* Confirmed Raspberry Pi camera operation at approximately 30 FPS
+* Completed moving ArUco marker detection testing
+* Identified long camera exposure as a source of motion blur
+* Added a 10 ms maximum camera exposure with gain compensation
+* Improved moving ArUco detection from 78.7% to 99.6%
+* Added adaptive camera exposure locking when GUIDED begins
+* Added adaptive camera exposure locking to the full autonomous mission
+* Completed additional outdoor full-mission SEARCH and CENTER testing
+* Verified adaptive camera exposure during outdoor flight
+* Verified repeated ArUco marker acquisition during autonomous SEARCH
+* Verified repeated SEARCH to CENTER transitions during real flight
+* Verified live CENTER guidance command generation
+* Identified excessive CENTER command velocity in the full mission
+* Identified full mission control loop rate mismatch
 
 ### In Progress
 
-* Diagnosing unreliable ArUco detection during live flight despite stable stationary detection
-* Verifying the physical X and Y command-direction mapping used by the CENTER guidance
-* Inspecting and repairing the drone after a failed live centering test
+* Reducing full-mission CENTER velocity for more stable marker tracking
+* Increasing the full-mission control loop from 10 Hz to 20 Hz
+* Diagnosing remaining ArUco marker losses during live CENTER operation
+* Verifying consistent Loiter stability using only the external compass
 
 ### Planned
 
-* Replace all four damaged propellers and inspect the airframe and electronics for crash damage
-* Reconfirm normal manual and Loiter flight before additional autonomous testing
-* Validate CENTER command directions with props removed
-* Resolve the live marker-detection and guidance-direction issues before another autonomous centering test
+* Limit full-mission CENTER velocity to 0.10 m/s total horizontal speed
+* Increase the full-mission control loop to 20 Hz
+* Re-test autonomous CENTER with the current camera exposure system
+* Maintain continuous marker detection during centering corrections
+* Complete the 3 second centered hold
+* Trigger ArduPilot LAND after successful centering
+* Complete the first full autonomous SEARCH to CENTER to LAND mission
 
 
 ## System Architecture
